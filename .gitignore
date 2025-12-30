@@ -6,6 +6,8 @@
 *.swp
 .buildlog/
 .history
+.DS_Store
+migrate_working_dir/
 
 
 
