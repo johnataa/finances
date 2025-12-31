@@ -1,6 +1,6 @@
 import './error.dart';
 
-class Result<T> {
+final class Result<T> {
   final T? _subject;
   final Error? _error;
 
