@@ -8,8 +8,8 @@ abstract class ValueObject<T> {
   bool get hasError => _error != null;
   Error get error => _error!;
 
-  ValueObject(this.value, [List<Validation<T>> validations = const []])
-    : _error = validations.where((v) => v.when(value)).firstOrNull?.pushError;
+  ValueObject(this.value, [Iterable<Validation> validations = const []])
+    : _error = validations.where((v) => v.when).firstOrNull?.pushError;
 
   @override
   bool operator ==(Object other) {
