@@ -6,13 +6,12 @@ final class Name extends ValueObject<String> {
   static const int maxLength = 64;
   static const int minLength = 3;
 
-  static final List<Validation<String>> _validations = [
-    Validation(
-      pushError: NameErrors.invalidNameLengthError,
-      when: (name) =>
-          name.length < Name.minLength || name.length > Name.maxLength,
-    ),
-  ];
+  Name(String value) : super(value, _validate(value));
 
-  Name(String value) : super(value, _validations);
+  static Iterable<Validation> _validate(String name) sync* {
+    yield Validation(
+      pushError: InvalidNameLengthError(),
+      when: name.length < Name.minLength || name.length > Name.maxLength,
+    );
+  }
 }

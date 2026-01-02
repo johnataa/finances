@@ -1,6 +1,6 @@
-final class Error {
+abstract class Error {
   final String code;
   final String message;
 
-  const Error({required this.code, required this.message});
+  const Error(this.code, this.message);
 }
