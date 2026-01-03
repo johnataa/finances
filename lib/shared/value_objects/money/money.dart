@@ -14,7 +14,7 @@ final class Money extends ValueObject<Decimal> {
       Money(Currency.parse(currency), Decimal.tryParse(amount));
 
   static Iterable<Validation> _validate(Decimal? value) sync* {
-    yield Validation(pushError: InvalidMoneyFormatError(), when: value == null);
+    yield Validation(when: value == null, pushError: InvalidMoneyFormatError());
   }
 
   Money operator +(Money amount) {

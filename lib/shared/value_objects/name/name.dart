@@ -10,8 +10,8 @@ final class Name extends ValueObject<String> {
 
   static Iterable<Validation> _validate(String name) sync* {
     yield Validation(
-      pushError: InvalidNameLengthError(),
       when: name.length < Name.minLength || name.length > Name.maxLength,
+      pushError: InvalidNameLengthError(),
     );
   }
 }
