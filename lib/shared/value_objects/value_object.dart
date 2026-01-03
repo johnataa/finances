@@ -2,13 +2,14 @@ import '../error.dart';
 import '../validation.dart';
 
 abstract class ValueObject<T> {
-  final T value;
+  final T? _value;
   final Error? _error;
 
   bool get hasError => _error != null;
   Error get error => _error!;
+  T get value => _value!;
 
-  ValueObject(this.value, [Iterable<Validation> validations = const []])
+  ValueObject(this._value, [Iterable<Validation> validations = const []])
     : _error = validations.where((v) => v.when).firstOrNull?.pushError;
 
   @override
@@ -21,8 +22,8 @@ abstract class ValueObject<T> {
   }
 
   @override
-  int get hashCode => value.hashCode;
+  int get hashCode => _value.hashCode;
 
   @override
-  String toString() => value.toString();
+  String toString() => _value?.toString() ?? "";
 }
