@@ -7,12 +7,12 @@ final class Name extends ValueObject<String> {
   static const int minLength = 3;
 
   /// Instantiates and **validates** a [Name] value object.
-  Name(String value) : super(value, _validate(value));
+  Name(String name) : super(name, _validate(name));
 
   static Iterable<Validation> _validate(String name) sync* {
     yield Validation(
       when: name.length < Name.minLength || name.length > Name.maxLength,
-      pushError: InvalidNameLengthError(),
+      pushError: const InvalidNameLengthError(),
     );
   }
 }
