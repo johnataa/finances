@@ -4,3 +4,8 @@ linter:
   rules:
     avoid_print: true
     unnecessary_breaks: true
+    always_declare_return_types: true
+    prefer_relative_imports: true
+    prefer_expression_function_bodies: true
+    prefer_const_declarations: true
+    prefer_if_null_operators: true

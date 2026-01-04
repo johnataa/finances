@@ -56,9 +56,8 @@ final class Money extends ValueObject<Decimal> {
   int get hashCode => currency.hashCode ^ value.hashCode;
 
   @override
-  String toString({int withPrecision = 2}) {
-    return "${currency.name.toUpperCase()} ${value.toStringAsFixed(withPrecision)}";
-  }
+  String toString({int withPrecision = 2}) =>
+      "${currency.name.toUpperCase()} ${value.toStringAsFixed(withPrecision)}";
 
   void _ensureValidOperation(Money amount) {
     _ensureValidAmount();

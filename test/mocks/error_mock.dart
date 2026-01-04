@@ -3,7 +3,7 @@ import 'package:finances/shared/custom_error.dart';
 /// Represents a mock class implementation of the abstract [CustomError] class.
 class ErrorMock extends CustomError {
   /// Default unique instance.
-  static final ErrorMock defaultInstance = const ErrorMock(
+  static const ErrorMock defaultInstance = ErrorMock(
     "ErrorMock#Code",
     "Error mock message",
   );

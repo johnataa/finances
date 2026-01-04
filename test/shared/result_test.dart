@@ -20,7 +20,7 @@ void main() {
 
     test("Should be a failure when subject is null and error is not null", () {
       // Arrange
-      final ErrorMock error = const ErrorMock("error#code", "error message");
+      const ErrorMock error = ErrorMock("error#code", "error message");
 
       // Act
       Result<DateTime> result = Result.failure(error);
