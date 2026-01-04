@@ -1,11 +1,7 @@
-import 'package:finances/shared/error.dart';
 import 'package:finances/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-class TestError extends Error {
-  TestError({required String code, required String message})
-    : super(code, message);
-}
+import '../mocks/error_mock.dart';
 
 void main() {
   group("Result", () {
@@ -24,7 +20,7 @@ void main() {
 
     test("Should be a failure when subject is null and error is not null", () {
       // Arrange
-      TestError error = TestError(code: 'TestCode', message: 'TestMessage');
+      ErrorMock error = ErrorMock();
 
       // Act
       Result<DateTime> result = Result.failure(error);
