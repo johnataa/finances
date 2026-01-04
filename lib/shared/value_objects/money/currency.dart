@@ -7,6 +7,7 @@ enum Currency {
 
   final String symbol;
 
+  /// Parses the [Currency.name] to its enum value.
   static Currency parse(String currencyStr) =>
       Currency.values.firstWhere((v) => v.name == currencyStr);
 }

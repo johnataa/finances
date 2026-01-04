@@ -8,8 +8,10 @@ import 'errors.dart';
 final class Money extends ValueObject<Decimal> {
   final Currency currency;
 
+  /// Instantiates and **validates** a [Money] value object.
   Money(this.currency, Decimal? amount) : super(amount, _validate(amount));
 
+  /// Instantiates and **validates** a [Money] value object by parsing the given parameters.
   factory Money.parse(String currency, String amount) =>
       Money(Currency.parse(currency), Decimal.tryParse(amount));
 
@@ -40,6 +42,7 @@ final class Money extends ValueObject<Decimal> {
     );
   }
 
+  /// Converts the [value] into another [Money] object with the new given [currency].
   Money convertTo({required Currency currency, required Decimal withFxRate}) {
     _ensureValidAmount();
     return Money(currency, value * withFxRate);

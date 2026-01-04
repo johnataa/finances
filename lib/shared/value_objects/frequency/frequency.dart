@@ -11,10 +11,14 @@ final class Frequency extends ValueObject<int> {
 
   final FrequencyUnit unit;
 
+  /// Instantiates and **validates** a [Frequency] value object.
   Frequency.every(int value, this.unit) : super(value, _validate(value));
 
   static Iterable<Validation> _validate(int value) sync* {
-    yield Validation(when: value < 1, pushError: InvalidFrequencyValueError());
+    yield Validation(
+      when: value < 1,
+      pushError: const InvalidFrequencyValueError(),
+    );
   }
 
   @override

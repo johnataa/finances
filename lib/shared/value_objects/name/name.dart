@@ -6,6 +6,7 @@ final class Name extends ValueObject<String> {
   static const int maxLength = 64;
   static const int minLength = 3;
 
+  /// Instantiates and **validates** a [Name] value object.
   Name(String value) : super(value, _validate(value));
 
   static Iterable<Validation> _validate(String name) sync* {

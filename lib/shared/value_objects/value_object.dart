@@ -5,8 +5,15 @@ abstract class ValueObject<T> {
   final T? _value;
   final CustomError? _error;
 
+  /// A flag indicating whether the value object has an [error].
   bool get hasError => _error != null;
+
+  /// The custom error.
+  /// *To avoid a potential [TypeError], check the [hasError] property before using it.*
   CustomError get error => _error!;
+
+  /// The value itself.
+  /// *To avoid a potential [TypeError], check the [hasError] property before using it.*
   T get value => _value!;
 
   ValueObject(this._value, [Iterable<Validation> validations = const []])
