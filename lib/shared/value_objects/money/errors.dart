@@ -1,17 +1,17 @@
-import '../../error.dart';
+import '../../custom_error.dart';
 import 'currency.dart';
 
-const String errorPrefix = "MoneyError";
+const String _codePrefix = "MoneyError";
 
-class InvalidMoneyFormatError extends Error {
-  InvalidMoneyFormatError()
-    : super("$errorPrefix#001", 'Invalid money format.');
+final class InvalidMoneyFormatError extends CustomError {
+  const InvalidMoneyFormatError()
+    : super("$_codePrefix#001", 'Invalid money format.');
 }
 
-class InvalidOperationError extends Error {
+final class InvalidOperationError extends CustomError {
   const InvalidOperationError(Currency moneyCurrency, Currency givenCurrency)
     : super(
-        "$errorPrefix#002",
+        "$_codePrefix#002",
         "The given currency '$moneyCurrency' does not match '$givenCurrency'. Please consider a conversion.",
       );
 }

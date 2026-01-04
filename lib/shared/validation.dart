@@ -1,7 +1,7 @@
-import 'error.dart';
+import 'custom_error.dart';
 
 final class Validation {
-  final Error pushError;
+  final CustomError pushError;
   final bool when;
 
   const Validation({required this.pushError, required this.when});

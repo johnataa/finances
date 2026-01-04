@@ -1,8 +1,8 @@
-import '../../error.dart';
+import '../../custom_error.dart';
 
-const String errorPrefix = "FrequencyError";
+const String _codePrefix = "FrequencyError";
 
-class InvalidFrequencyValueError extends Error {
-  InvalidFrequencyValueError()
-    : super("$errorPrefix#001", "Frequency must greater than zero.");
+final class InvalidFrequencyValueError extends CustomError {
+  const InvalidFrequencyValueError()
+    : super("$_codePrefix#001", "Frequency must greater than zero.");
 }

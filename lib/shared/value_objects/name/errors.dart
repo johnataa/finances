@@ -1,12 +1,12 @@
-import '../../error.dart';
+import '../../custom_error.dart';
 import 'name.dart';
 
-const String errorPefix = "NameError";
+const String _codePrefix = "NameError";
 
-final class InvalidNameLengthError extends Error {
-  InvalidNameLengthError()
+final class InvalidNameLengthError extends CustomError {
+  const InvalidNameLengthError()
     : super(
-        "$errorPefix#001",
+        "$_codePrefix#001",
         'Name cannot have less than ${Name.minLength} or more than ${Name.maxLength} chars.',
       );
 }

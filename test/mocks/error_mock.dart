@@ -1,6 +1,6 @@
-import 'package:finances/shared/error.dart';
+import 'package:finances/shared/custom_error.dart';
 
-class ErrorMock extends Error {
+class ErrorMock extends CustomError {
   static final ErrorMock instance = const ErrorMock();
 
   const ErrorMock() : super("ErrorMock#Code", "Error mock message");

@@ -1,12 +1,12 @@
-import '../error.dart';
+import '../custom_error.dart';
 import '../validation.dart';
 
 abstract class ValueObject<T> {
   final T? _value;
-  final Error? _error;
+  final CustomError? _error;
 
   bool get hasError => _error != null;
-  Error get error => _error!;
+  CustomError get error => _error!;
   T get value => _value!;
 
   ValueObject(this._value, [Iterable<Validation> validations = const []])
