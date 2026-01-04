@@ -20,7 +20,7 @@ void main() {
 
     test("Should be a failure when subject is null and error is not null", () {
       // Arrange
-      ErrorMock error = ErrorMock();
+      final ErrorMock error = const ErrorMock("error#code", "error message");
 
       // Act
       Result<DateTime> result = Result.failure(error);
@@ -28,6 +28,8 @@ void main() {
       // Asserts
       expect(result.isSuccess, false);
       expect(result.error, error);
+      expect(result.error.code, "error#code");
+      expect(result.error.message, "error message");
       expect(() => result.subject, throwsA(TypeMatcher<TypeError>()));
     });
   });

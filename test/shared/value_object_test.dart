@@ -18,7 +18,7 @@ void main() {
       // Asserts
       expect(result.hasError, true);
       expect(result.value, valueUnderTest);
-      expect(result.error, ErrorMock.instance);
+      expect(result.error, ErrorMock.defaultInstance);
     });
 
     test("Should has an error when any validation is triggered", () {
@@ -37,7 +37,7 @@ void main() {
       // Asserts
       expect(result.hasError, true);
       expect(result.value, valueUnderTest);
-      expect(result.error, ErrorMock.instance);
+      expect(result.error, ErrorMock.defaultInstance);
     });
 
     test("Should be equal another ValueObject when their values are equal", () {
