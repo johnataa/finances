@@ -3,7 +3,7 @@ import 'package:finances/shared/value_objects/name/name.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_many.dart';
-import 'error_code_test.dart';
+import 'test_error_codes.dart';
 
 void main() {
   const minLength = Name.minLength;
