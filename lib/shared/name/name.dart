@@ -1,5 +1,5 @@
-import '../../validation.dart';
-import '../value_object.dart';
+import '../_contracts/value_object.dart';
+import '../validation.dart';
 import 'errors.dart';
 
 final class Name extends ValueObject<String> {

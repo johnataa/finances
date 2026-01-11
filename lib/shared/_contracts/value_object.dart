@@ -1,5 +1,5 @@
-import '../custom_error.dart';
 import '../validation.dart';
+import 'custom_error.dart';
 
 abstract class ValueObject<T> {
   final T? _value;

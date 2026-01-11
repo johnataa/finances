@@ -1,7 +1,7 @@
 import 'package:decimal/decimal.dart';
 
-import '../../validation.dart';
-import '../value_object.dart';
+import '../_contracts/value_object.dart';
+import '../validation.dart';
 import 'currency.dart';
 import 'errors.dart';
 

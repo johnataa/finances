@@ -1,5 +1,5 @@
+import 'package:finances/shared/_contracts/value_object.dart';
 import 'package:finances/shared/validation.dart';
-import 'package:finances/shared/value_objects/value_object.dart';
 
 import 'error_mock.dart';
 

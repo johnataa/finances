@@ -1,5 +1,5 @@
-import 'package:finances/shared/value_objects/name/errors.dart';
-import 'package:finances/shared/value_objects/name/name.dart';
+import 'package:finances/shared/name/errors.dart';
+import 'package:finances/shared/name/name.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_many.dart';

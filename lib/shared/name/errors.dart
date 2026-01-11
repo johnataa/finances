@@ -1,4 +1,4 @@
-import '../../custom_error.dart';
+import '../_contracts/custom_error.dart';
 import 'name.dart';
 
 const String _codePrefix = "NameError";

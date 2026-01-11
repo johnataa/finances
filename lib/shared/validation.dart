@@ -1,4 +1,4 @@
-import 'custom_error.dart';
+import '_contracts/custom_error.dart';
 
 final class Validation {
   final CustomError pushError;
