@@ -36,10 +36,7 @@ final class Money extends ValueObject<Decimal> {
 
   Money operator /(Money amount) {
     _ensureValidOperation(amount);
-    return Money(
-      currency,
-      (value / amount.value).toDecimal(scaleOnInfinitePrecision: 15),
-    );
+    return Money(currency, (value / amount.value).toDecimal(scaleOnInfinitePrecision: 15));
   }
 
   /// Converts the [value] into another [Money] object with the new given [currency].
@@ -49,8 +46,7 @@ final class Money extends ValueObject<Decimal> {
   }
 
   @override
-  bool operator ==(Object other) =>
-      other is Money ? hashCode == other.hashCode : false;
+  bool operator ==(Object other) => other is Money ? hashCode == other.hashCode : false;
 
   @override
   int get hashCode => currency.hashCode ^ value.hashCode;

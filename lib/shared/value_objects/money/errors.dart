@@ -4,8 +4,7 @@ import 'currency.dart';
 const String _codePrefix = "MoneyError";
 
 final class InvalidMoneyFormatError extends CustomError {
-  const InvalidMoneyFormatError()
-    : super("$_codePrefix#001", 'Invalid money format.');
+  const InvalidMoneyFormatError() : super("$_codePrefix#001", 'Invalid money format.');
 }
 
 final class InvalidOperationError extends CustomError {

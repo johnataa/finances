@@ -15,10 +15,7 @@ final class Frequency extends ValueObject<int> {
   Frequency.every(int value, this.unit) : super(value, _validate(value));
 
   static Iterable<Validation> _validate(int value) sync* {
-    yield Validation(
-      when: value < 1,
-      pushError: const InvalidFrequencyValueError(),
-    );
+    yield Validation(when: value < 1, pushError: const InvalidFrequencyValueError());
   }
 
   @override
@@ -36,9 +33,9 @@ final class Frequency extends ValueObject<int> {
   @override
   String toString() {
     if (value == 1) {
-      return "Every $unit";
+      return "Every ${unit.name}";
     }
 
-    return "Every $value ${unit}s";
+    return "Every $value ${unit.name}s";
   }
 }
