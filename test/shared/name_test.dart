@@ -1,7 +1,8 @@
-import 'package:finances/shared/custom_error.dart';
 import 'package:finances/shared/value_objects/name/errors.dart';
 import 'package:finances/shared/value_objects/name/name.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'error_code_test.dart';
 
 void main() {
   group("Invalid name length", () {
@@ -38,38 +39,5 @@ void main() {
     );
   });
 
-  group("Valid name length", () {
-    const testCases = [Name.minLength, Name.maxLength];
-
-    for (final int length in testCases) {
-      test("Should be a valid name when name length is $length", () {
-        // Arrange
-        String value = "A" * length;
-
-        // Act
-        Name result = Name(value);
-
-        // Asserts
-        expect(result.hasError, false);
-        expect(result.value, value);
-        expect(() => result.error, throwsA(TypeMatcher<TypeError>()));
-      });
-    }
-  });
-
-  group("Name errors", () {
-    const testCases = {"NameError#001": InvalidNameLengthError()};
-
-    for (final testCase in testCases.entries) {
-      String errorName = testCase.value.runtimeType.toString();
-
-      test("$errorName code should be '${testCase.key}'", () {
-        // Arrange & Act
-        CustomError error = testCase.value;
-
-        // Asserts
-        expect(error.code, testCase.key);
-      });
-    }
-  });
+  testErrorCodes({InvalidNameLengthError(): "NameError#001"});
 }
