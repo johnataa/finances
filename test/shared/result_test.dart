@@ -12,7 +12,7 @@ void main() {
       // Act
       Result<DateTime> result = Result.success(subject);
 
-      // Asserts
+      // Assert
       expect(result.isSuccess, true);
       expect(result.subject, subject);
       expect(() => result.error, throwsA(TypeMatcher<TypeError>()));
@@ -25,7 +25,7 @@ void main() {
       // Act
       Result<DateTime> result = Result.failure(error);
 
-      // Asserts
+      // Assert
       expect(result.isSuccess, false);
       expect(result.error, error);
       expect(result.error.code, "error#code");
