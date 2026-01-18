@@ -1,0 +1,18 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../entity_meta.dart';
+import '../money/money.dart';
+import '../name/name.dart';
+import 'transaction/transaction.dart';
+
+part 'base_account.freezed.dart';
+
+@freezed
+abstract class BaseAccount with _$BaseAccount {
+  const factory BaseAccount({
+    @Default(EntityMeta.empty) EntityMeta meta,
+    required Name name,
+    required Money balance,
+    @Default([]) List<Transaction> transactions,
+  }) = _BaseAccount;
+}
