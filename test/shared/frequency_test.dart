@@ -1,6 +1,7 @@
-import 'package:finances/shared/frequency/errors.dart';
-import 'package:finances/shared/frequency/frequency.dart';
-import 'package:finances/shared/frequency/frequency_unit.dart';
+import 'package:finances/features/shared/frequency/errors.dart';
+import 'package:finances/features/shared/frequency/frequency.dart';
+import 'package:finances/features/shared/frequency/frequency_unit.dart';
+import 'package:finances/features/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_many.dart';
@@ -16,12 +17,16 @@ void main() {
         final (invalidValue, unit) = params;
 
         // Act
-        final Frequency frequency = .every(invalidValue, unit);
+        final result = Frequency.create(invalidValue, unit);
 
         // Expectations
-        expect(frequency.hasError, true);
-        expect(frequency.value, invalidValue);
-        expect(frequency.error, TypeMatcher<InvalidFrequencyValueError>());
+        expect(result, isA<Failure<Frequency>>());
+        result.map(
+          success: (_) => fail('Should be a failure'),
+          failure: (f) {
+            expect(f.error, isA<InvalidFrequencyValueError>());
+          },
+        );
       },
     );
   });
@@ -35,12 +40,14 @@ void main() {
         final (validValue, unit) = params;
 
         // Act
-        Frequency frequency = .every(validValue, unit);
+        final result = Frequency.create(validValue, unit);
 
         // Expectations
-        expect(frequency.hasError, false);
-        expect(frequency.value, validValue);
-        expect(() => frequency.error, throwsA(TypeMatcher<TypeError>()));
+        expect(result, isA<Success<Frequency>>());
+        result.map(
+          success: (s) => expect(s.value.value, validValue),
+          failure: (_) => fail('Should be a success'),
+        );
       },
     );
   });
@@ -48,26 +55,41 @@ void main() {
   group("Operator ==", () {
     test("Should be equal when value and unit are equal.", () {
       // Arrange
-      Frequency firstFrequency = Frequency.every(2, FrequencyUnit.month);
-      Frequency secondFrequency = Frequency.every(2, FrequencyUnit.month);
+      final firstResult = Frequency.create(2, FrequencyUnit.month);
+      final secondResult = Frequency.create(2, FrequencyUnit.month);
 
-      // Act
-      bool result = firstFrequency == secondFrequency;
-
-      // Assert
-      expect(result, true);
+      // Act & Assert
+      // We need to extract the values to compare equality of the Frequency objects
+      firstResult.map(
+        failure: (_) => fail("First result failed"),
+        success: (s1) {
+          secondResult.map(
+            failure: (_) => fail("Second result failed"),
+            success: (s2) {
+              expect(s1.value == s2.value, true);
+            },
+          );
+        },
+      );
     });
 
     test("Should not be equal when frequency units are different.", () {
       // Arrange
-      Frequency firstFrequency = Frequency.every(1, FrequencyUnit.day);
-      Frequency secondFrequency = Frequency.every(1, FrequencyUnit.week);
+      final firstResult = Frequency.create(1, FrequencyUnit.day);
+      final secondResult = Frequency.create(1, FrequencyUnit.week);
 
-      // Act
-      bool result = firstFrequency == secondFrequency;
-
-      // Assert
-      expect(result, false);
+      // Act & Assert
+      firstResult.map(
+        failure: (_) => fail("First result failed"),
+        success: (s1) {
+          secondResult.map(
+            failure: (_) => fail("Second result failed"),
+            success: (s2) {
+              expect(s1.value == s2.value, false);
+            },
+          );
+        },
+      );
     });
   });
 
@@ -77,11 +99,16 @@ void main() {
       params: FrequencyUnit.values,
       test: (unit) {
         // Act
-        Frequency frequency = .every(1, unit);
+        final result = Frequency.create(1, unit);
 
         // Assert
-        expect(frequency.value, equals(1));
-        expect(frequency.toString(), equals("Every ${frequency.unit.name}"));
+        result.map(
+          failure: (_) => fail("Should be success"),
+          success: (s) {
+            expect(s.value.value, equals(1));
+            expect(s.value.toString(), equals("Every ${s.value.unit.name}"));
+          },
+        );
       },
     );
 
@@ -93,11 +120,16 @@ void main() {
         final (value, unit) = params;
 
         // Act
-        final Frequency frequency = .every(value, unit);
+        final result = Frequency.create(value, unit);
 
         // Assert
-        expect(frequency.value, greaterThan(1));
-        expect("$frequency", equals("Every ${frequency.value} ${frequency.unit.name}s"));
+        result.map(
+          failure: (_) => fail("Should be success"),
+          success: (s) {
+            expect(s.value.value, greaterThan(1));
+            expect("${s.value}", equals("Every ${s.value.value} ${s.value.unit.name}s"));
+          },
+        );
       },
     );
   });

@@ -1,5 +1,6 @@
-import 'package:finances/shared/name/errors.dart';
-import 'package:finances/shared/name/name.dart';
+import 'package:finances/features/shared/name/errors.dart';
+import 'package:finances/features/shared/name/name.dart';
+import 'package:finances/features/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_many.dart';
@@ -15,12 +16,14 @@ void main() {
       int length = minLength - 1;
 
       // Act
-      Name name = Name('A' * length);
+      final result = Name.create('A' * length);
 
       // Assert
-      expect(name.hasError, true);
-      expect(name.value.length, lessThanOrEqualTo(minLength));
-      expect(name.error, TypeMatcher<InvalidNameLengthError>());
+      expect(result, isA<Failure<Name>>());
+      result.map(
+        success: (_) => fail('Should be a failure'),
+        failure: (f) => expect(f.error, isA<InvalidNameLengthError>()),
+      );
     });
 
     test("Should be an invalid name when name length is more than $maxLength.", () {
@@ -28,12 +31,14 @@ void main() {
       int length = maxLength + 1;
 
       // Act
-      Name name = Name('A' * length);
+      final result = Name.create('A' * length);
 
       // Assert
-      expect(name.hasError, true);
-      expect(name.value.length, greaterThanOrEqualTo(maxLength));
-      expect(name.error, TypeMatcher<InvalidNameLengthError>());
+      expect(result, isA<Failure<Name>>());
+      result.map(
+        success: (_) => fail('Should be a failure'),
+        failure: (f) => expect(f.error, isA<InvalidNameLengthError>()),
+      );
     });
   });
 
@@ -43,12 +48,14 @@ void main() {
       params: [minLength, minLength + 1],
       test: (length) {
         // Act
-        Name name = Name("A" * length);
+        final result = Name.create("A" * length);
 
         // Assert
-        expect(name.hasError, false);
-        expect(name.value.length, greaterThanOrEqualTo(minLength));
-        expect(() => name.error, throwsA(TypeMatcher<TypeError>()));
+        expect(result, isA<Success<Name>>());
+        result.map(
+          success: (s) => expect(s.value.value.length, greaterThanOrEqualTo(minLength)),
+          failure: (_) => fail('Should be a success'),
+        );
       },
     );
 
@@ -57,12 +64,14 @@ void main() {
       params: [maxLength - 1, maxLength],
       test: (length) {
         // Act
-        Name name = Name("A" * length);
+        final result = Name.create("A" * length);
 
         // Assert
-        expect(name.hasError, false);
-        expect(name.value.length, lessThanOrEqualTo(maxLength));
-        expect(() => name.error, throwsA(TypeMatcher<TypeError>()));
+        expect(result, isA<Success<Name>>());
+        result.map(
+          success: (s) => expect(s.value.value.length, lessThanOrEqualTo(maxLength)),
+          failure: (_) => fail('Should be a success'),
+        );
       },
     );
   });

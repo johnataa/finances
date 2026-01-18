@@ -1,4 +1,4 @@
-import 'package:finances/shared/result.dart';
+import 'package:finances/features/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../mocks/error_mock.dart';
@@ -13,9 +13,11 @@ void main() {
       Result<DateTime> result = Result.success(subject);
 
       // Assert
-      expect(result.isSuccess, true);
-      expect(result.subject, subject);
-      expect(() => result.error, throwsA(TypeMatcher<TypeError>()));
+      expect(result, isA<Success<DateTime>>());
+      result.map(
+        success: (s) => expect(s.value, subject),
+        failure: (_) => fail('Should be a success'),
+      );
     });
 
     test("Should be a failure when subject is null and error is not null", () {
@@ -26,11 +28,15 @@ void main() {
       Result<DateTime> result = Result.failure(error);
 
       // Assert
-      expect(result.isSuccess, false);
-      expect(result.error, error);
-      expect(result.error.code, "error#code");
-      expect(result.error.message, "error message");
-      expect(() => result.subject, throwsA(TypeMatcher<TypeError>()));
+      expect(result, isA<Failure<DateTime>>());
+      result.map(
+        success: (_) => fail('Should be a failure'),
+        failure: (f) {
+          expect(f.error, error);
+          expect(f.error.code, "error#code");
+          expect(f.error.message, "error message");
+        },
+      );
     });
   });
 }
