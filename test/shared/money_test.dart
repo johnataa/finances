@@ -100,12 +100,17 @@ void main() {
     });
   });
 
-  group('Zero Money', () {
+  group('Static Construction', () {
     test('Zero should return valid zero money', () {
       final result = Money.zero(Currency.brl);
-      expect(result, isA<Money>());
       expect(result.currency, Currency.brl);
       expect(result.amount, Decimal.zero);
+    });
+
+    test('One should return valid money with amount one', () {
+      final result = Money.one(Currency.brl);
+      expect(result.currency, Currency.brl);
+      expect(result.amount, Decimal.one);
     });
   });
 

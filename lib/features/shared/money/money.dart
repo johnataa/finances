@@ -25,6 +25,7 @@ abstract class Money with _$Money {
       create(Currency.parse(currency), Decimal.tryParse(amount));
 
   static Money zero(Currency currency) => Money._create(currency, Decimal.zero);
+  static Money one(Currency currency) => Money._create(currency, Decimal.one);
 
   Money operator +(Money other) {
     _ensureValidOperation(other);
