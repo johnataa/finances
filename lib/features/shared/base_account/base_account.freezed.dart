@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BaseAccount {
 
- Name get name; Money get balance; List<Transaction> get transactions; EntityMeta get meta;
+ EntityMeta get meta; Name get name; Money get balance; List<Transaction> get transactions;
 /// Create a copy of BaseAccount
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $BaseAccountCopyWith<BaseAccount> get copyWith => _$BaseAccountCopyWithImpl<Base
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BaseAccount&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&const DeepCollectionEquality().equals(other.transactions, transactions)&&(identical(other.meta, meta) || other.meta == meta));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BaseAccount&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&const DeepCollectionEquality().equals(other.transactions, transactions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,balance,const DeepCollectionEquality().hash(transactions),meta);
+int get hashCode => Object.hash(runtimeType,meta,name,balance,const DeepCollectionEquality().hash(transactions));
 
 @override
 String toString() {
-  return 'BaseAccount(name: $name, balance: $balance, transactions: $transactions, meta: $meta)';
+  return 'BaseAccount(meta: $meta, name: $name, balance: $balance, transactions: $transactions)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $BaseAccountCopyWith<$Res>  {
   factory $BaseAccountCopyWith(BaseAccount value, $Res Function(BaseAccount) _then) = _$BaseAccountCopyWithImpl;
 @useResult
 $Res call({
- Name name, Money balance, List<Transaction> transactions, EntityMeta meta
+ EntityMeta meta, Name name, Money balance, List<Transaction> transactions
 });
 
 
-$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get balance;$EntityMetaCopyWith<$Res> get meta;
+$EntityMetaCopyWith<$Res> get meta;$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get balance;
 
 }
 /// @nodoc
@@ -62,16 +62,25 @@ class _$BaseAccountCopyWithImpl<$Res>
 
 /// Create a copy of BaseAccount
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? balance = null,Object? transactions = null,Object? meta = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? meta = null,Object? name = null,Object? balance = null,Object? transactions = null,}) {
   return _then(_self.copyWith(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as EntityMeta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
 as Money,transactions: null == transactions ? _self.transactions : transactions // ignore: cast_nullable_to_non_nullable
-as List<Transaction>,meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as EntityMeta,
+as List<Transaction>,
   ));
 }
 /// Create a copy of BaseAccount
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$EntityMetaCopyWith<$Res> get meta {
+  
+  return $EntityMetaCopyWith<$Res>(_self.meta, (value) {
+    return _then(_self.copyWith(meta: value));
+  });
+}/// Create a copy of BaseAccount
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -88,15 +97,6 @@ $MoneyCopyWith<$Res> get balance {
   
   return $MoneyCopyWith<$Res>(_self.balance, (value) {
     return _then(_self.copyWith(balance: value));
-  });
-}/// Create a copy of BaseAccount
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$EntityMetaCopyWith<$Res> get meta {
-  
-  return $EntityMetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
   });
 }
 }
@@ -180,10 +180,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Name name,  Money balance,  List<Transaction> transactions,  EntityMeta meta)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( EntityMeta meta,  Name name,  Money balance,  List<Transaction> transactions)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BaseAccount() when $default != null:
-return $default(_that.name,_that.balance,_that.transactions,_that.meta);case _:
+return $default(_that.meta,_that.name,_that.balance,_that.transactions);case _:
   return orElse();
 
 }
@@ -201,10 +201,10 @@ return $default(_that.name,_that.balance,_that.transactions,_that.meta);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Name name,  Money balance,  List<Transaction> transactions,  EntityMeta meta)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( EntityMeta meta,  Name name,  Money balance,  List<Transaction> transactions)  $default,) {final _that = this;
 switch (_that) {
 case _BaseAccount():
-return $default(_that.name,_that.balance,_that.transactions,_that.meta);case _:
+return $default(_that.meta,_that.name,_that.balance,_that.transactions);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -221,10 +221,10 @@ return $default(_that.name,_that.balance,_that.transactions,_that.meta);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Name name,  Money balance,  List<Transaction> transactions,  EntityMeta meta)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( EntityMeta meta,  Name name,  Money balance,  List<Transaction> transactions)?  $default,) {final _that = this;
 switch (_that) {
 case _BaseAccount() when $default != null:
-return $default(_that.name,_that.balance,_that.transactions,_that.meta);case _:
+return $default(_that.meta,_that.name,_that.balance,_that.transactions);case _:
   return null;
 
 }
@@ -236,9 +236,10 @@ return $default(_that.name,_that.balance,_that.transactions,_that.meta);case _:
 
 
 class _BaseAccount implements BaseAccount {
-  const _BaseAccount({required this.name, required this.balance, final  List<Transaction> transactions = const [], this.meta = EntityMeta.empty}): _transactions = transactions;
+  const _BaseAccount({this.meta = EntityMeta.empty, required this.name, required this.balance, final  List<Transaction> transactions = const []}): _transactions = transactions;
   
 
+@override@JsonKey() final  EntityMeta meta;
 @override final  Name name;
 @override final  Money balance;
  final  List<Transaction> _transactions;
@@ -248,7 +249,6 @@ class _BaseAccount implements BaseAccount {
   return EqualUnmodifiableListView(_transactions);
 }
 
-@override@JsonKey() final  EntityMeta meta;
 
 /// Create a copy of BaseAccount
 /// with the given fields replaced by the non-null parameter values.
@@ -260,16 +260,16 @@ _$BaseAccountCopyWith<_BaseAccount> get copyWith => __$BaseAccountCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BaseAccount&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&const DeepCollectionEquality().equals(other._transactions, _transactions)&&(identical(other.meta, meta) || other.meta == meta));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BaseAccount&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&const DeepCollectionEquality().equals(other._transactions, _transactions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,balance,const DeepCollectionEquality().hash(_transactions),meta);
+int get hashCode => Object.hash(runtimeType,meta,name,balance,const DeepCollectionEquality().hash(_transactions));
 
 @override
 String toString() {
-  return 'BaseAccount(name: $name, balance: $balance, transactions: $transactions, meta: $meta)';
+  return 'BaseAccount(meta: $meta, name: $name, balance: $balance, transactions: $transactions)';
 }
 
 
@@ -280,11 +280,11 @@ abstract mixin class _$BaseAccountCopyWith<$Res> implements $BaseAccountCopyWith
   factory _$BaseAccountCopyWith(_BaseAccount value, $Res Function(_BaseAccount) _then) = __$BaseAccountCopyWithImpl;
 @override @useResult
 $Res call({
- Name name, Money balance, List<Transaction> transactions, EntityMeta meta
+ EntityMeta meta, Name name, Money balance, List<Transaction> transactions
 });
 
 
-@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get balance;@override $EntityMetaCopyWith<$Res> get meta;
+@override $EntityMetaCopyWith<$Res> get meta;@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get balance;
 
 }
 /// @nodoc
@@ -297,17 +297,26 @@ class __$BaseAccountCopyWithImpl<$Res>
 
 /// Create a copy of BaseAccount
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? balance = null,Object? transactions = null,Object? meta = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? meta = null,Object? name = null,Object? balance = null,Object? transactions = null,}) {
   return _then(_BaseAccount(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as EntityMeta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
 as Money,transactions: null == transactions ? _self._transactions : transactions // ignore: cast_nullable_to_non_nullable
-as List<Transaction>,meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as EntityMeta,
+as List<Transaction>,
   ));
 }
 
 /// Create a copy of BaseAccount
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$EntityMetaCopyWith<$Res> get meta {
+  
+  return $EntityMetaCopyWith<$Res>(_self.meta, (value) {
+    return _then(_self.copyWith(meta: value));
+  });
+}/// Create a copy of BaseAccount
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -324,15 +333,6 @@ $MoneyCopyWith<$Res> get balance {
   
   return $MoneyCopyWith<$Res>(_self.balance, (value) {
     return _then(_self.copyWith(balance: value));
-  });
-}/// Create a copy of BaseAccount
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$EntityMetaCopyWith<$Res> get meta {
-  
-  return $EntityMetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
   });
 }
 }
