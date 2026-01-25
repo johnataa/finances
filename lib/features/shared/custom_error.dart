@@ -8,7 +8,9 @@ abstract class CustomError {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is CustomError && other.code == code && other.message == message;
+    return other is CustomError &&
+        other.code == code &&
+        other.message == message;
   }
 
   @override

@@ -1,12 +1,15 @@
 import '../custom_error.dart';
-import 'name.dart';
 
 const String _codePrefix = "NameError";
 
 final class InvalidNameLengthError extends CustomError {
-  const InvalidNameLengthError()
+  const InvalidNameLengthError(int minLength, int maxLength)
     : super(
         "$_codePrefix#001",
-        'Name cannot have less than ${Name.minLength} or more than ${Name.maxLength} chars.',
+        'Name cannot have less than $minLength or more than $maxLength chars.',
       );
+}
+
+final class EmptyNameError extends CustomError {
+  const EmptyNameError() : super("$_codePrefix#002", 'Name cannot be empty.');
 }

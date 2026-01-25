@@ -76,8 +76,8 @@ as String,
 /// @nodoc
 
 
-class _Name implements Name {
-  const _Name(this.value);
+class _Name extends Name {
+  const _Name(this.value): super._();
   
 
 @override final  String value;
@@ -101,7 +101,7 @@ int get hashCode => Object.hash(runtimeType,value);
 
 @override
 String toString() {
-  return 'Name._(value: $value)';
+  return 'Name._create(value: $value)';
 }
 
 

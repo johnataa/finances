@@ -10,22 +10,27 @@ part 'money.freezed.dart';
 @freezed
 abstract class Money with _$Money {
   const Money._();
-
   const factory Money._create(Currency currency, Decimal amount) = _Money;
-
-  static Result<Money> create(Currency currency, Decimal? amount) {
-    if (amount == null) {
-      return Result.failure(InvalidMoneyFormatError());
-    }
-
-    return Result.success(Money._create(currency, amount));
-  }
-
-  static Result<Money> parse(String currency, String amount) =>
-      create(Currency.parse(currency), Decimal.tryParse(amount));
 
   static Money zero(Currency currency) => Money._create(currency, Decimal.zero);
   static Money one(Currency currency) => Money._create(currency, Decimal.one);
+
+  static Money create(Currency currency, String amount) =>
+      tryCreate(currency, amount).getOrThrow();
+
+  static Money parse(String currency, String amount) =>
+      tryCreate(Currency.parse(currency), amount).getOrThrow();
+
+  /// Tries to create a [Money] from a currency and amount.
+  /// Returns a [Result] with the created [Money] or an error.
+  static Result<Money> tryCreate(Currency currency, String amount) {
+    final parsedAmount = Decimal.tryParse(amount);
+    if (parsedAmount == null) {
+      return Result.failure(InvalidMoneyFormatError());
+    }
+
+    return Result.success(Money._create(currency, parsedAmount));
+  }
 
   Money operator +(Money other) {
     _ensureValidOperation(other);
@@ -44,7 +49,10 @@ abstract class Money with _$Money {
 
   Money operator /(Money other) {
     _ensureValidOperation(other);
-    return Money._create(currency, (amount / other.amount).toDecimal(scaleOnInfinitePrecision: 15));
+    return Money._create(
+      currency,
+      (amount / other.amount).toDecimal(scaleOnInfinitePrecision: 15),
+    );
   }
 
   /// Converts the [value] into another [Money] object with the new given [currency].

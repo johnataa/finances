@@ -83,7 +83,10 @@ final _that = this;
 switch (_that) {
 case Success():
 return success(_that);case Failure():
-return failure(_that);}
+return failure(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -145,7 +148,10 @@ return failure(_that.error);case _:
 switch (_that) {
 case Success():
 return success(_that.value);case Failure():
-return failure(_that.error);}
+return failure(_that.error);case _:
+  throw StateError('Unexpected subclass');
+
+}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -174,8 +180,8 @@ return failure(_that.error);case _:
 /// @nodoc
 
 
-class Success<T> implements Result<T> {
-  const Success(this.value);
+class Success<T> extends Result<T> {
+  const Success(this.value): super._();
   
 
  final  T value;
@@ -240,8 +246,8 @@ as T,
 /// @nodoc
 
 
-class Failure<T> implements Result<T> {
-  const Failure(this.error);
+class Failure<T> extends Result<T> {
+  const Failure(this.error): super._();
   
 
  final  CustomError error;
