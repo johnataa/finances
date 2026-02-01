@@ -38,5 +38,29 @@ void main() {
         },
       );
     });
+
+    test("getOrNull should return value on success and null on failure", () {
+      final success = Result.success('ok');
+      const failure = Result.failure(ErrorMock('code', 'msg'));
+
+      expect(success.getOrNull(), 'ok');
+      expect(failure.getOrNull(), isNull);
+    });
+
+    test("getOrThrow should return value on success and throw on failure", () {
+      final success = Result.success('ok');
+      const failure = Result.failure(ErrorMock('code', 'msg'));
+
+      expect(success.getOrThrow(), 'ok');
+      expect(() => failure.getOrThrow(), throwsA(isA<ErrorMock>()));
+    });
+
+    test("getOrDefault should return value on success and default on failure", () {
+      final success = Result.success('ok');
+      const failure = Result.failure(ErrorMock('code', 'msg'));
+
+      expect(success.getOrDefault('default'), 'ok');
+      expect(failure.getOrDefault('default'), 'default');
+    });
   });
 }
