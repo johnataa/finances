@@ -32,5 +32,5 @@ flutter:
 
 objectbox:
   output_dir:
-    lib: infra/data
-    test: infra/data
+    lib: infra/data/objectbox/gen
+    test: infra/data/objectbox/gen
