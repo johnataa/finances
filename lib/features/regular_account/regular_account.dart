@@ -9,6 +9,8 @@ part 'regular_account.freezed.dart';
 abstract class RegularAccount with _$RegularAccount {
   const RegularAccount._();
 
-  const factory RegularAccount({required BaseAccount base, @Default([]) List<Schedule> schedules}) =
-      _RegularAccount;
+  const factory RegularAccount({
+    required BaseAccount base,
+    @Default([]) List<Schedule> schedules,
+  }) = _RegularAccount;
 }

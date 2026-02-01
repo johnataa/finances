@@ -1,11 +1,12 @@
 {
   "editor.tabSize": 2,
+  "dart.lineLength": 90,
   "editor.insertSpaces": true,
   "editor.suggest.insertMode": "replace",
   "editor.detectIndentation": false,
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "*.dart": "$(capture).g.dart, $(capture).freezed.dart, $(capture).mocks.dart, $(capture).filter.dart"
+    "*.dart": "$(capture).g.dart, $(capture).freezed.dart, $(capture).mocks.dart,"
   }
 }

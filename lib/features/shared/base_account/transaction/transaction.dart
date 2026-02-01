@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../regular_account/schedule.dart';
-import '../category.dart';
+import '../category/category.dart';
 import 'base_transaction.dart';
 
 part 'transaction.freezed.dart';

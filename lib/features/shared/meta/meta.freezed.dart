@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'entity_meta.dart';
+part of 'meta.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,20 +12,20 @@ part of 'entity_meta.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$EntityMeta {
+mixin _$Meta {
 
  int get id; DateTime? get createdAt; DateTime? get updatedAt;
-/// Create a copy of EntityMeta
+/// Create a copy of Meta
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$EntityMetaCopyWith<EntityMeta> get copyWith => _$EntityMetaCopyWithImpl<EntityMeta>(this as EntityMeta, _$identity);
+$MetaCopyWith<Meta> get copyWith => _$MetaCopyWithImpl<Meta>(this as Meta, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EntityMeta&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Meta&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 
@@ -34,15 +34,15 @@ int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'EntityMeta(id: $id, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'Meta(id: $id, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $EntityMetaCopyWith<$Res>  {
-  factory $EntityMetaCopyWith(EntityMeta value, $Res Function(EntityMeta) _then) = _$EntityMetaCopyWithImpl;
+abstract mixin class $MetaCopyWith<$Res>  {
+  factory $MetaCopyWith(Meta value, $Res Function(Meta) _then) = _$MetaCopyWithImpl;
 @useResult
 $Res call({
  int id, DateTime? createdAt, DateTime? updatedAt
@@ -53,14 +53,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$EntityMetaCopyWithImpl<$Res>
-    implements $EntityMetaCopyWith<$Res> {
-  _$EntityMetaCopyWithImpl(this._self, this._then);
+class _$MetaCopyWithImpl<$Res>
+    implements $MetaCopyWith<$Res> {
+  _$MetaCopyWithImpl(this._self, this._then);
 
-  final EntityMeta _self;
-  final $Res Function(EntityMeta) _then;
+  final Meta _self;
+  final $Res Function(Meta) _then;
 
-/// Create a copy of EntityMeta
+/// Create a copy of Meta
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_self.copyWith(
@@ -74,8 +74,8 @@ as DateTime?,
 }
 
 
-/// Adds pattern-matching-related methods to [EntityMeta].
-extension EntityMetaPatterns on EntityMeta {
+/// Adds pattern-matching-related methods to [Meta].
+extension MetaPatterns on Meta {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -88,10 +88,10 @@ extension EntityMetaPatterns on EntityMeta {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _EntityMeta value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Meta value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _EntityMeta() when $default != null:
+case _Meta() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -110,10 +110,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _EntityMeta value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Meta value)  $default,){
 final _that = this;
 switch (_that) {
-case _EntityMeta():
+case _Meta():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -131,10 +131,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _EntityMeta value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Meta value)?  $default,){
 final _that = this;
 switch (_that) {
-case _EntityMeta() when $default != null:
+case _Meta() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -154,7 +154,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  DateTime? createdAt,  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _EntityMeta() when $default != null:
+case _Meta() when $default != null:
 return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
@@ -175,7 +175,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  DateTime? createdAt,  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
-case _EntityMeta():
+case _Meta():
 return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
@@ -195,7 +195,7 @@ return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  DateTime? createdAt,  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
-case _EntityMeta() when $default != null:
+case _Meta() when $default != null:
 return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
   return null;
 
@@ -207,25 +207,25 @@ return $default(_that.id,_that.createdAt,_that.updatedAt);case _:
 /// @nodoc
 
 
-class _EntityMeta implements EntityMeta {
-  const _EntityMeta({this.id = 0, this.createdAt, this.updatedAt});
+class _Meta implements Meta {
+  const _Meta({this.id = 0, this.createdAt, this.updatedAt});
   
 
 @override@JsonKey() final  int id;
 @override final  DateTime? createdAt;
 @override final  DateTime? updatedAt;
 
-/// Create a copy of EntityMeta
+/// Create a copy of Meta
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$EntityMetaCopyWith<_EntityMeta> get copyWith => __$EntityMetaCopyWithImpl<_EntityMeta>(this, _$identity);
+_$MetaCopyWith<_Meta> get copyWith => __$MetaCopyWithImpl<_Meta>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EntityMeta&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Meta&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 
@@ -234,15 +234,15 @@ int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'EntityMeta(id: $id, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'Meta(id: $id, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$EntityMetaCopyWith<$Res> implements $EntityMetaCopyWith<$Res> {
-  factory _$EntityMetaCopyWith(_EntityMeta value, $Res Function(_EntityMeta) _then) = __$EntityMetaCopyWithImpl;
+abstract mixin class _$MetaCopyWith<$Res> implements $MetaCopyWith<$Res> {
+  factory _$MetaCopyWith(_Meta value, $Res Function(_Meta) _then) = __$MetaCopyWithImpl;
 @override @useResult
 $Res call({
  int id, DateTime? createdAt, DateTime? updatedAt
@@ -253,17 +253,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$EntityMetaCopyWithImpl<$Res>
-    implements _$EntityMetaCopyWith<$Res> {
-  __$EntityMetaCopyWithImpl(this._self, this._then);
+class __$MetaCopyWithImpl<$Res>
+    implements _$MetaCopyWith<$Res> {
+  __$MetaCopyWithImpl(this._self, this._then);
 
-  final _EntityMeta _self;
-  final $Res Function(_EntityMeta) _then;
+  final _Meta _self;
+  final $Res Function(_Meta) _then;
 
-/// Create a copy of EntityMeta
+/// Create a copy of Meta
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
-  return _then(_EntityMeta(
+  return _then(_Meta(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable

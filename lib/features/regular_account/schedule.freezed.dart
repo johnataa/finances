@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Schedule {
 
- Name get name; Money get amount; Frequency get frequency; ScheduleType get type; DateTime get startDate; RegularAccount get account; Category get category; DateTime? get endDate; EntityMeta get meta;
+ Meta get meta; Name get name; Money get amount; Frequency get frequency; ScheduleType get type; DateTime get startDate; RegularAccount get account; Category get category; DateTime? get endDate;
 /// Create a copy of Schedule
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ScheduleCopyWith<Schedule> get copyWith => _$ScheduleCopyWithImpl<Schedule>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Schedule&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.frequency, frequency) || other.frequency == frequency)&&(identical(other.type, type) || other.type == type)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.account, account) || other.account == account)&&(identical(other.category, category) || other.category == category)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.meta, meta) || other.meta == meta));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Schedule&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.frequency, frequency) || other.frequency == frequency)&&(identical(other.type, type) || other.type == type)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.account, account) || other.account == account)&&(identical(other.category, category) || other.category == category)&&(identical(other.endDate, endDate) || other.endDate == endDate));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,amount,frequency,type,startDate,account,category,endDate,meta);
+int get hashCode => Object.hash(runtimeType,meta,name,amount,frequency,type,startDate,account,category,endDate);
 
 @override
 String toString() {
-  return 'Schedule(name: $name, amount: $amount, frequency: $frequency, type: $type, startDate: $startDate, account: $account, category: $category, endDate: $endDate, meta: $meta)';
+  return 'Schedule(meta: $meta, name: $name, amount: $amount, frequency: $frequency, type: $type, startDate: $startDate, account: $account, category: $category, endDate: $endDate)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $ScheduleCopyWith<$Res>  {
   factory $ScheduleCopyWith(Schedule value, $Res Function(Schedule) _then) = _$ScheduleCopyWithImpl;
 @useResult
 $Res call({
- Name name, Money amount, Frequency frequency, ScheduleType type, DateTime startDate, RegularAccount account, Category category, DateTime? endDate, EntityMeta meta
+ Meta meta, Name name, Money amount, Frequency frequency, ScheduleType type, DateTime startDate, RegularAccount account, Category category, DateTime? endDate
 });
 
 
-$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get amount;$FrequencyCopyWith<$Res> get frequency;$RegularAccountCopyWith<$Res> get account;$CategoryCopyWith<$Res> get category;$EntityMetaCopyWith<$Res> get meta;
+$MetaCopyWith<$Res> get meta;$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get amount;$FrequencyCopyWith<$Res> get frequency;$RegularAccountCopyWith<$Res> get account;$CategoryCopyWith<$Res> get category;
 
 }
 /// @nodoc
@@ -62,9 +62,10 @@ class _$ScheduleCopyWithImpl<$Res>
 
 /// Create a copy of Schedule
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? amount = null,Object? frequency = null,Object? type = null,Object? startDate = null,Object? account = null,Object? category = null,Object? endDate = freezed,Object? meta = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? meta = null,Object? name = null,Object? amount = null,Object? frequency = null,Object? type = null,Object? startDate = null,Object? account = null,Object? category = null,Object? endDate = freezed,}) {
   return _then(_self.copyWith(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as Meta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as Money,frequency: null == frequency ? _self.frequency : frequency // ignore: cast_nullable_to_non_nullable
 as Frequency,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -72,11 +73,19 @@ as ScheduleType,startDate: null == startDate ? _self.startDate : startDate // ig
 as DateTime,account: null == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
 as RegularAccount,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as Category,endDate: freezed == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as EntityMeta,
+as DateTime?,
   ));
 }
 /// Create a copy of Schedule
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MetaCopyWith<$Res> get meta {
+  
+  return $MetaCopyWith<$Res>(_self.meta, (value) {
+    return _then(_self.copyWith(meta: value));
+  });
+}/// Create a copy of Schedule
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -120,15 +129,6 @@ $CategoryCopyWith<$Res> get category {
   
   return $CategoryCopyWith<$Res>(_self.category, (value) {
     return _then(_self.copyWith(category: value));
-  });
-}/// Create a copy of Schedule
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$EntityMetaCopyWith<$Res> get meta {
-  
-  return $EntityMetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
   });
 }
 }
@@ -212,10 +212,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  RegularAccount account,  Category category,  DateTime? endDate,  EntityMeta meta)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  RegularAccount account,  Category category,  DateTime? endDate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Schedule() when $default != null:
-return $default(_that.name,_that.amount,_that.frequency,_that.type,_that.startDate,_that.account,_that.category,_that.endDate,_that.meta);case _:
+return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_that.startDate,_that.account,_that.category,_that.endDate);case _:
   return orElse();
 
 }
@@ -233,10 +233,10 @@ return $default(_that.name,_that.amount,_that.frequency,_that.type,_that.startDa
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  RegularAccount account,  Category category,  DateTime? endDate,  EntityMeta meta)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  RegularAccount account,  Category category,  DateTime? endDate)  $default,) {final _that = this;
 switch (_that) {
 case _Schedule():
-return $default(_that.name,_that.amount,_that.frequency,_that.type,_that.startDate,_that.account,_that.category,_that.endDate,_that.meta);case _:
+return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_that.startDate,_that.account,_that.category,_that.endDate);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -253,10 +253,10 @@ return $default(_that.name,_that.amount,_that.frequency,_that.type,_that.startDa
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  RegularAccount account,  Category category,  DateTime? endDate,  EntityMeta meta)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Meta meta,  Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  RegularAccount account,  Category category,  DateTime? endDate)?  $default,) {final _that = this;
 switch (_that) {
 case _Schedule() when $default != null:
-return $default(_that.name,_that.amount,_that.frequency,_that.type,_that.startDate,_that.account,_that.category,_that.endDate,_that.meta);case _:
+return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_that.startDate,_that.account,_that.category,_that.endDate);case _:
   return null;
 
 }
@@ -268,9 +268,10 @@ return $default(_that.name,_that.amount,_that.frequency,_that.type,_that.startDa
 
 
 class _Schedule implements Schedule {
-  const _Schedule({required this.name, required this.amount, required this.frequency, required this.type, required this.startDate, required this.account, required this.category, this.endDate, this.meta = EntityMeta.empty});
+  const _Schedule({this.meta = Meta.empty, required this.name, required this.amount, required this.frequency, required this.type, required this.startDate, required this.account, required this.category, this.endDate});
   
 
+@override@JsonKey() final  Meta meta;
 @override final  Name name;
 @override final  Money amount;
 @override final  Frequency frequency;
@@ -279,7 +280,6 @@ class _Schedule implements Schedule {
 @override final  RegularAccount account;
 @override final  Category category;
 @override final  DateTime? endDate;
-@override@JsonKey() final  EntityMeta meta;
 
 /// Create a copy of Schedule
 /// with the given fields replaced by the non-null parameter values.
@@ -291,16 +291,16 @@ _$ScheduleCopyWith<_Schedule> get copyWith => __$ScheduleCopyWithImpl<_Schedule>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Schedule&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.frequency, frequency) || other.frequency == frequency)&&(identical(other.type, type) || other.type == type)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.account, account) || other.account == account)&&(identical(other.category, category) || other.category == category)&&(identical(other.endDate, endDate) || other.endDate == endDate)&&(identical(other.meta, meta) || other.meta == meta));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Schedule&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.frequency, frequency) || other.frequency == frequency)&&(identical(other.type, type) || other.type == type)&&(identical(other.startDate, startDate) || other.startDate == startDate)&&(identical(other.account, account) || other.account == account)&&(identical(other.category, category) || other.category == category)&&(identical(other.endDate, endDate) || other.endDate == endDate));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,amount,frequency,type,startDate,account,category,endDate,meta);
+int get hashCode => Object.hash(runtimeType,meta,name,amount,frequency,type,startDate,account,category,endDate);
 
 @override
 String toString() {
-  return 'Schedule(name: $name, amount: $amount, frequency: $frequency, type: $type, startDate: $startDate, account: $account, category: $category, endDate: $endDate, meta: $meta)';
+  return 'Schedule(meta: $meta, name: $name, amount: $amount, frequency: $frequency, type: $type, startDate: $startDate, account: $account, category: $category, endDate: $endDate)';
 }
 
 
@@ -311,11 +311,11 @@ abstract mixin class _$ScheduleCopyWith<$Res> implements $ScheduleCopyWith<$Res>
   factory _$ScheduleCopyWith(_Schedule value, $Res Function(_Schedule) _then) = __$ScheduleCopyWithImpl;
 @override @useResult
 $Res call({
- Name name, Money amount, Frequency frequency, ScheduleType type, DateTime startDate, RegularAccount account, Category category, DateTime? endDate, EntityMeta meta
+ Meta meta, Name name, Money amount, Frequency frequency, ScheduleType type, DateTime startDate, RegularAccount account, Category category, DateTime? endDate
 });
 
 
-@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get amount;@override $FrequencyCopyWith<$Res> get frequency;@override $RegularAccountCopyWith<$Res> get account;@override $CategoryCopyWith<$Res> get category;@override $EntityMetaCopyWith<$Res> get meta;
+@override $MetaCopyWith<$Res> get meta;@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get amount;@override $FrequencyCopyWith<$Res> get frequency;@override $RegularAccountCopyWith<$Res> get account;@override $CategoryCopyWith<$Res> get category;
 
 }
 /// @nodoc
@@ -328,9 +328,10 @@ class __$ScheduleCopyWithImpl<$Res>
 
 /// Create a copy of Schedule
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? amount = null,Object? frequency = null,Object? type = null,Object? startDate = null,Object? account = null,Object? category = null,Object? endDate = freezed,Object? meta = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? meta = null,Object? name = null,Object? amount = null,Object? frequency = null,Object? type = null,Object? startDate = null,Object? account = null,Object? category = null,Object? endDate = freezed,}) {
   return _then(_Schedule(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as Meta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as Money,frequency: null == frequency ? _self.frequency : frequency // ignore: cast_nullable_to_non_nullable
 as Frequency,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
@@ -338,12 +339,20 @@ as ScheduleType,startDate: null == startDate ? _self.startDate : startDate // ig
 as DateTime,account: null == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
 as RegularAccount,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as Category,endDate: freezed == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
-as DateTime?,meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as EntityMeta,
+as DateTime?,
   ));
 }
 
 /// Create a copy of Schedule
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MetaCopyWith<$Res> get meta {
+  
+  return $MetaCopyWith<$Res>(_self.meta, (value) {
+    return _then(_self.copyWith(meta: value));
+  });
+}/// Create a copy of Schedule
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -387,15 +396,6 @@ $CategoryCopyWith<$Res> get category {
   
   return $CategoryCopyWith<$Res>(_self.category, (value) {
     return _then(_self.copyWith(category: value));
-  });
-}/// Create a copy of Schedule
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$EntityMetaCopyWith<$Res> get meta {
-  
-  return $EntityMetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
   });
 }
 }

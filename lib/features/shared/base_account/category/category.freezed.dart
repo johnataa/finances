@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Category {
 
- Name get name; String get icon; EntityMeta get meta;
+ Meta get meta; Name get name; String get icon; String get color;
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CategoryCopyWith<Category> get copyWith => _$CategoryCopyWithImpl<Category>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Category&&(identical(other.name, name) || other.name == name)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.meta, meta) || other.meta == meta));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Category&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,icon,meta);
+int get hashCode => Object.hash(runtimeType,meta,name,icon,color);
 
 @override
 String toString() {
-  return 'Category(name: $name, icon: $icon, meta: $meta)';
+  return 'Category(meta: $meta, name: $name, icon: $icon, color: $color)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $CategoryCopyWith<$Res>  {
   factory $CategoryCopyWith(Category value, $Res Function(Category) _then) = _$CategoryCopyWithImpl;
 @useResult
 $Res call({
- Name name, String icon, EntityMeta meta
+ Meta meta, Name name, String icon, String color
 });
 
 
-$NameCopyWith<$Res> get name;$EntityMetaCopyWith<$Res> get meta;
+$MetaCopyWith<$Res> get meta;$NameCopyWith<$Res> get name;
 
 }
 /// @nodoc
@@ -62,15 +62,25 @@ class _$CategoryCopyWithImpl<$Res>
 
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? icon = null,Object? meta = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? meta = null,Object? name = null,Object? icon = null,Object? color = null,}) {
   return _then(_self.copyWith(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as Meta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,icon: null == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
-as String,meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as EntityMeta,
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 /// Create a copy of Category
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$MetaCopyWith<$Res> get meta {
+  
+  return $MetaCopyWith<$Res>(_self.meta, (value) {
+    return _then(_self.copyWith(meta: value));
+  });
+}/// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -78,15 +88,6 @@ $NameCopyWith<$Res> get name {
   
   return $NameCopyWith<$Res>(_self.name, (value) {
     return _then(_self.copyWith(name: value));
-  });
-}/// Create a copy of Category
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$EntityMetaCopyWith<$Res> get meta {
-  
-  return $EntityMetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
   });
 }
 }
@@ -170,10 +171,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Name name,  String icon,  EntityMeta meta)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Meta meta,  Name name,  String icon,  String color)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Category() when $default != null:
-return $default(_that.name,_that.icon,_that.meta);case _:
+return $default(_that.meta,_that.name,_that.icon,_that.color);case _:
   return orElse();
 
 }
@@ -191,10 +192,10 @@ return $default(_that.name,_that.icon,_that.meta);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Name name,  String icon,  EntityMeta meta)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Meta meta,  Name name,  String icon,  String color)  $default,) {final _that = this;
 switch (_that) {
 case _Category():
-return $default(_that.name,_that.icon,_that.meta);case _:
+return $default(_that.meta,_that.name,_that.icon,_that.color);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -211,10 +212,10 @@ return $default(_that.name,_that.icon,_that.meta);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Name name,  String icon,  EntityMeta meta)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Meta meta,  Name name,  String icon,  String color)?  $default,) {final _that = this;
 switch (_that) {
 case _Category() when $default != null:
-return $default(_that.name,_that.icon,_that.meta);case _:
+return $default(_that.meta,_that.name,_that.icon,_that.color);case _:
   return null;
 
 }
@@ -226,12 +227,13 @@ return $default(_that.name,_that.icon,_that.meta);case _:
 
 
 class _Category implements Category {
-  const _Category({required this.name, required this.icon, this.meta = EntityMeta.empty});
+  const _Category({this.meta = Meta.empty, required this.name, required this.icon, required this.color});
   
 
+@override@JsonKey() final  Meta meta;
 @override final  Name name;
 @override final  String icon;
-@override@JsonKey() final  EntityMeta meta;
+@override final  String color;
 
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
@@ -243,16 +245,16 @@ _$CategoryCopyWith<_Category> get copyWith => __$CategoryCopyWithImpl<_Category>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Category&&(identical(other.name, name) || other.name == name)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.meta, meta) || other.meta == meta));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Category&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.color, color) || other.color == color));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,icon,meta);
+int get hashCode => Object.hash(runtimeType,meta,name,icon,color);
 
 @override
 String toString() {
-  return 'Category(name: $name, icon: $icon, meta: $meta)';
+  return 'Category(meta: $meta, name: $name, icon: $icon, color: $color)';
 }
 
 
@@ -263,11 +265,11 @@ abstract mixin class _$CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res>
   factory _$CategoryCopyWith(_Category value, $Res Function(_Category) _then) = __$CategoryCopyWithImpl;
 @override @useResult
 $Res call({
- Name name, String icon, EntityMeta meta
+ Meta meta, Name name, String icon, String color
 });
 
 
-@override $NameCopyWith<$Res> get name;@override $EntityMetaCopyWith<$Res> get meta;
+@override $MetaCopyWith<$Res> get meta;@override $NameCopyWith<$Res> get name;
 
 }
 /// @nodoc
@@ -280,12 +282,13 @@ class __$CategoryCopyWithImpl<$Res>
 
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? icon = null,Object? meta = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? meta = null,Object? name = null,Object? icon = null,Object? color = null,}) {
   return _then(_Category(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as Meta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,icon: null == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
-as String,meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as EntityMeta,
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -293,19 +296,19 @@ as EntityMeta,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$NameCopyWith<$Res> get name {
+$MetaCopyWith<$Res> get meta {
   
-  return $NameCopyWith<$Res>(_self.name, (value) {
-    return _then(_self.copyWith(name: value));
+  return $MetaCopyWith<$Res>(_self.meta, (value) {
+    return _then(_self.copyWith(meta: value));
   });
 }/// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$EntityMetaCopyWith<$Res> get meta {
+$NameCopyWith<$Res> get name {
   
-  return $EntityMetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
+  return $NameCopyWith<$Res>(_self.name, (value) {
+    return _then(_self.copyWith(name: value));
   });
 }
 }
