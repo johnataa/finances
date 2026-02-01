@@ -1,9 +1,6 @@
-abstract interface class Repository<
-  TModel extends Object,
-  TFilter extends Object
-> {
-  Stream<List<TModel>> getStream([TFilter? filter]);
-  Future<List<TModel>> getAll([TFilter? filter]);
+abstract interface class Repository<TModel, TFilter, TSort> {
+  Stream<List<TModel>> getStream({TFilter filter, TSort? sort});
+  Future<List<TModel>> getAll({TFilter filter, TSort? sort});
   Future<TModel> persist(TModel entity);
   Future<bool> delete(int id);
 }
