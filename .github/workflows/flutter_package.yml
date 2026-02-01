@@ -17,6 +17,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Setup ObjectBox
+        run: |
+          bash <(curl -s https://raw.githubusercontent.com/objectbox/objectbox-dart/main/install.sh)
+
       - name: Analyze project source
         run: flutter analyze --fatal-infos
         
