@@ -5,12 +5,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('CategoryFilter', () {
-    test('defaults to union type', () {
+    test('defaults to or logic', () {
       // Arrange & Act
       const filter = CategoryFilter();
 
       // Assert
-      expect(filter.type, FilterType.union);
+      expect(filter.logic, FilterLogic.or);
     });
 
     test('stores name filter correctly', () {
@@ -27,7 +27,7 @@ void main() {
 
     test('stores meta filter correctly', () {
       // Arrange
-      const metaFilter = MetaFilter.empty;
+      const metaFilter = MetaFilter.filter();
 
       // Act
       const filter = CategoryFilter(meta: metaFilter);

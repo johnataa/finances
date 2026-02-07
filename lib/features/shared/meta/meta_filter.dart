@@ -10,7 +10,7 @@ abstract class MetaFilter with _$MetaFilter {
     IntFilter? id,
     DateTimeFilter? createdAt,
     DateTimeFilter? updatedAt,
-    @Default(FilterType.union) FilterType type,
+    @Default(FilterLogic.or) FilterLogic logic,
   }) = _MetaFilter;
 }
 

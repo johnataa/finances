@@ -10,7 +10,7 @@ abstract class CategoryFilter with _$CategoryFilter {
   const factory CategoryFilter({
     StringFilter? name,
     MetaFilter? meta,
-    @Default(FilterType.union) FilterType type,
+    @Default(FilterLogic.or) FilterLogic logic,
   }) = _CategoryFilter;
 }
 

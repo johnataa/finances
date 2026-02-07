@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$MetaFilter {
 
- IntFilter? get id; DateTimeFilter? get createdAt; DateTimeFilter? get updatedAt; FilterType get type;
+ IntFilter? get id; DateTimeFilter? get createdAt; DateTimeFilter? get updatedAt; FilterLogic get logic;
 /// Create a copy of MetaFilter
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $MetaFilterCopyWith<MetaFilter> get copyWith => _$MetaFilterCopyWithImpl<MetaFil
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaFilter&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.type, type) || other.type == type));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MetaFilter&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.logic, logic) || other.logic == logic));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,type);
+int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,logic);
 
 @override
 String toString() {
-  return 'MetaFilter(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, type: $type)';
+  return 'MetaFilter(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, logic: $logic)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $MetaFilterCopyWith<$Res>  {
   factory $MetaFilterCopyWith(MetaFilter value, $Res Function(MetaFilter) _then) = _$MetaFilterCopyWithImpl;
 @useResult
 $Res call({
- IntFilter? id, DateTimeFilter? createdAt, DateTimeFilter? updatedAt, FilterType type
+ IntFilter? id, DateTimeFilter? createdAt, DateTimeFilter? updatedAt, FilterLogic logic
 });
 
 
@@ -62,13 +62,13 @@ class _$MetaFilterCopyWithImpl<$Res>
 
 /// Create a copy of MetaFilter
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? type = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? logic = null,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as IntFilter?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTimeFilter?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTimeFilter?,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as FilterType,
+as DateTimeFilter?,logic: null == logic ? _self.logic : logic // ignore: cast_nullable_to_non_nullable
+as FilterLogic,
   ));
 }
 /// Create a copy of MetaFilter
@@ -189,10 +189,10 @@ return filter(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( IntFilter? id,  DateTimeFilter? createdAt,  DateTimeFilter? updatedAt,  FilterType type)?  filter,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( IntFilter? id,  DateTimeFilter? createdAt,  DateTimeFilter? updatedAt,  FilterLogic logic)?  filter,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _MetaFilter() when filter != null:
-return filter(_that.id,_that.createdAt,_that.updatedAt,_that.type);case _:
+return filter(_that.id,_that.createdAt,_that.updatedAt,_that.logic);case _:
   return orElse();
 
 }
@@ -210,10 +210,10 @@ return filter(_that.id,_that.createdAt,_that.updatedAt,_that.type);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( IntFilter? id,  DateTimeFilter? createdAt,  DateTimeFilter? updatedAt,  FilterType type)  filter,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( IntFilter? id,  DateTimeFilter? createdAt,  DateTimeFilter? updatedAt,  FilterLogic logic)  filter,}) {final _that = this;
 switch (_that) {
 case _MetaFilter():
-return filter(_that.id,_that.createdAt,_that.updatedAt,_that.type);case _:
+return filter(_that.id,_that.createdAt,_that.updatedAt,_that.logic);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -230,10 +230,10 @@ return filter(_that.id,_that.createdAt,_that.updatedAt,_that.type);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( IntFilter? id,  DateTimeFilter? createdAt,  DateTimeFilter? updatedAt,  FilterType type)?  filter,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( IntFilter? id,  DateTimeFilter? createdAt,  DateTimeFilter? updatedAt,  FilterLogic logic)?  filter,}) {final _that = this;
 switch (_that) {
 case _MetaFilter() when filter != null:
-return filter(_that.id,_that.createdAt,_that.updatedAt,_that.type);case _:
+return filter(_that.id,_that.createdAt,_that.updatedAt,_that.logic);case _:
   return null;
 
 }
@@ -245,13 +245,13 @@ return filter(_that.id,_that.createdAt,_that.updatedAt,_that.type);case _:
 
 
 class _MetaFilter implements MetaFilter {
-  const _MetaFilter({this.id, this.createdAt, this.updatedAt, this.type = FilterType.union});
+  const _MetaFilter({this.id, this.createdAt, this.updatedAt, this.logic = FilterLogic.or});
   
 
 @override final  IntFilter? id;
 @override final  DateTimeFilter? createdAt;
 @override final  DateTimeFilter? updatedAt;
-@override@JsonKey() final  FilterType type;
+@override@JsonKey() final  FilterLogic logic;
 
 /// Create a copy of MetaFilter
 /// with the given fields replaced by the non-null parameter values.
@@ -263,16 +263,16 @@ _$MetaFilterCopyWith<_MetaFilter> get copyWith => __$MetaFilterCopyWithImpl<_Met
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaFilter&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.type, type) || other.type == type));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _MetaFilter&&(identical(other.id, id) || other.id == id)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.logic, logic) || other.logic == logic));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,type);
+int get hashCode => Object.hash(runtimeType,id,createdAt,updatedAt,logic);
 
 @override
 String toString() {
-  return 'MetaFilter.filter(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, type: $type)';
+  return 'MetaFilter.filter(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, logic: $logic)';
 }
 
 
@@ -283,7 +283,7 @@ abstract mixin class _$MetaFilterCopyWith<$Res> implements $MetaFilterCopyWith<$
   factory _$MetaFilterCopyWith(_MetaFilter value, $Res Function(_MetaFilter) _then) = __$MetaFilterCopyWithImpl;
 @override @useResult
 $Res call({
- IntFilter? id, DateTimeFilter? createdAt, DateTimeFilter? updatedAt, FilterType type
+ IntFilter? id, DateTimeFilter? createdAt, DateTimeFilter? updatedAt, FilterLogic logic
 });
 
 
@@ -300,13 +300,13 @@ class __$MetaFilterCopyWithImpl<$Res>
 
 /// Create a copy of MetaFilter
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? type = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,Object? logic = null,}) {
   return _then(_MetaFilter(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as IntFilter?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTimeFilter?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTimeFilter?,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as FilterType,
+as DateTimeFilter?,logic: null == logic ? _self.logic : logic // ignore: cast_nullable_to_non_nullable
+as FilterLogic,
   ));
 }
 

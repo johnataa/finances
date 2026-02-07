@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'filter.freezed.dart';
 
-enum FilterType { union, intersection }
+enum FilterLogic { and, or }
 
 @freezed
 sealed class Filter with _$Filter {

@@ -4,12 +4,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('MetaFilter', () {
-    test('defaults to union type', () {
+    test('defaults to or logic', () {
       // Arrange & Act
-      const filter = MetaFilter.empty;
+      const filter = MetaFilter.filter();
 
       // Assert
-      expect(filter.type, FilterType.union);
+      expect(filter.logic, FilterLogic.or);
     });
 
     test('stores id filter correctly', () {
@@ -69,15 +69,15 @@ void main() {
       );
     });
 
-    test('stores type correctly', () {
+    test('stores logic correctly', () {
       // Arrange
-      const FilterType input = FilterType.intersection;
+      const FilterLogic input = FilterLogic.and;
 
       // Act
-      const filter = MetaFilter.filter(type: input);
+      const filter = MetaFilter.filter(logic: input);
 
       // Assert
-      expect(filter.type, input);
+      expect(filter.logic, input);
     });
   });
 

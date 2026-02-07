@@ -3,16 +3,20 @@ import 'package:objectbox/objectbox.dart';
 import '../../../../../features/shared/base_account/category/category.dart';
 import '../../../../../features/shared/meta/meta.dart';
 import '../../../../../features/shared/name/name.dart';
+import '../base/base_box_model.dart';
 
 @Entity()
-final class CategoryBM {
+final class CategoryBM implements BaseBoxModel<Category> {
   @Id()
+  @override
   int id = 0;
 
   @Property(type: PropertyType.date)
+  @override
   DateTime? createdAt;
 
   @Property(type: PropertyType.date)
+  @override
   DateTime? updatedAt;
 
   String name;
@@ -30,18 +34,11 @@ final class CategoryBM {
     entity.color,
   );
 
+  @override
   Category toEntity() => Category(
     meta: Meta(id: id, createdAt: createdAt, updatedAt: updatedAt),
     name: Name.create(name),
     icon: icon,
     color: color,
   );
-}
-
-extension CategoryListExtension on List<CategoryBM> {
-  List<Category> toEntities() => map((categoryMap) => categoryMap.toEntity()).toList();
-}
-
-extension CategoryListAsyncExtension on Future<List<CategoryBM>> {
-  Future<List<Category>> toEntities() async => (await this).toEntities();
 }

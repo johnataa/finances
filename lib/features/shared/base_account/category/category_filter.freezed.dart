@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CategoryFilter {
 
- StringFilter? get name; MetaFilter? get meta; FilterType get type;
+ StringFilter? get name; MetaFilter? get meta; FilterLogic get logic;
 /// Create a copy of CategoryFilter
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $CategoryFilterCopyWith<CategoryFilter> get copyWith => _$CategoryFilterCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoryFilter&&(identical(other.name, name) || other.name == name)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.type, type) || other.type == type));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CategoryFilter&&(identical(other.name, name) || other.name == name)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.logic, logic) || other.logic == logic));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,meta,type);
+int get hashCode => Object.hash(runtimeType,name,meta,logic);
 
 @override
 String toString() {
-  return 'CategoryFilter(name: $name, meta: $meta, type: $type)';
+  return 'CategoryFilter(name: $name, meta: $meta, logic: $logic)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $CategoryFilterCopyWith<$Res>  {
   factory $CategoryFilterCopyWith(CategoryFilter value, $Res Function(CategoryFilter) _then) = _$CategoryFilterCopyWithImpl;
 @useResult
 $Res call({
- StringFilter? name, MetaFilter? meta, FilterType type
+ StringFilter? name, MetaFilter? meta, FilterLogic logic
 });
 
 
@@ -62,12 +62,12 @@ class _$CategoryFilterCopyWithImpl<$Res>
 
 /// Create a copy of CategoryFilter
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? meta = freezed,Object? type = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = freezed,Object? meta = freezed,Object? logic = null,}) {
   return _then(_self.copyWith(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as StringFilter?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as MetaFilter?,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as FilterType,
+as MetaFilter?,logic: null == logic ? _self.logic : logic // ignore: cast_nullable_to_non_nullable
+as FilterLogic,
   ));
 }
 /// Create a copy of CategoryFilter
@@ -176,10 +176,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StringFilter? name,  MetaFilter? meta,  FilterType type)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StringFilter? name,  MetaFilter? meta,  FilterLogic logic)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CategoryFilter() when $default != null:
-return $default(_that.name,_that.meta,_that.type);case _:
+return $default(_that.name,_that.meta,_that.logic);case _:
   return orElse();
 
 }
@@ -197,10 +197,10 @@ return $default(_that.name,_that.meta,_that.type);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StringFilter? name,  MetaFilter? meta,  FilterType type)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StringFilter? name,  MetaFilter? meta,  FilterLogic logic)  $default,) {final _that = this;
 switch (_that) {
 case _CategoryFilter():
-return $default(_that.name,_that.meta,_that.type);case _:
+return $default(_that.name,_that.meta,_that.logic);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -217,10 +217,10 @@ return $default(_that.name,_that.meta,_that.type);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StringFilter? name,  MetaFilter? meta,  FilterType type)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StringFilter? name,  MetaFilter? meta,  FilterLogic logic)?  $default,) {final _that = this;
 switch (_that) {
 case _CategoryFilter() when $default != null:
-return $default(_that.name,_that.meta,_that.type);case _:
+return $default(_that.name,_that.meta,_that.logic);case _:
   return null;
 
 }
@@ -232,12 +232,12 @@ return $default(_that.name,_that.meta,_that.type);case _:
 
 
 class _CategoryFilter implements CategoryFilter {
-  const _CategoryFilter({this.name, this.meta, this.type = FilterType.union});
+  const _CategoryFilter({this.name, this.meta, this.logic = FilterLogic.or});
   
 
 @override final  StringFilter? name;
 @override final  MetaFilter? meta;
-@override@JsonKey() final  FilterType type;
+@override@JsonKey() final  FilterLogic logic;
 
 /// Create a copy of CategoryFilter
 /// with the given fields replaced by the non-null parameter values.
@@ -249,16 +249,16 @@ _$CategoryFilterCopyWith<_CategoryFilter> get copyWith => __$CategoryFilterCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoryFilter&&(identical(other.name, name) || other.name == name)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.type, type) || other.type == type));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CategoryFilter&&(identical(other.name, name) || other.name == name)&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.logic, logic) || other.logic == logic));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,name,meta,type);
+int get hashCode => Object.hash(runtimeType,name,meta,logic);
 
 @override
 String toString() {
-  return 'CategoryFilter(name: $name, meta: $meta, type: $type)';
+  return 'CategoryFilter(name: $name, meta: $meta, logic: $logic)';
 }
 
 
@@ -269,7 +269,7 @@ abstract mixin class _$CategoryFilterCopyWith<$Res> implements $CategoryFilterCo
   factory _$CategoryFilterCopyWith(_CategoryFilter value, $Res Function(_CategoryFilter) _then) = __$CategoryFilterCopyWithImpl;
 @override @useResult
 $Res call({
- StringFilter? name, MetaFilter? meta, FilterType type
+ StringFilter? name, MetaFilter? meta, FilterLogic logic
 });
 
 
@@ -286,12 +286,12 @@ class __$CategoryFilterCopyWithImpl<$Res>
 
 /// Create a copy of CategoryFilter
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? meta = freezed,Object? type = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = freezed,Object? meta = freezed,Object? logic = null,}) {
   return _then(_CategoryFilter(
 name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as StringFilter?,meta: freezed == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as MetaFilter?,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as FilterType,
+as MetaFilter?,logic: null == logic ? _self.logic : logic // ignore: cast_nullable_to_non_nullable
+as FilterLogic,
   ));
 }
 
