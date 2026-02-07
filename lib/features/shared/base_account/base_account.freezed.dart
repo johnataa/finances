@@ -142,10 +142,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _BaseAccount():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -204,10 +201,7 @@ return $default(_that.meta,_that.name,_that.balance,_that.transactions);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money balance,  List<Transaction> transactions)  $default,) {final _that = this;
 switch (_that) {
 case _BaseAccount():
-return $default(_that.meta,_that.name,_that.balance,_that.transactions);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.meta,_that.name,_that.balance,_that.transactions);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -235,8 +229,8 @@ return $default(_that.meta,_that.name,_that.balance,_that.transactions);case _:
 /// @nodoc
 
 
-class _BaseAccount implements BaseAccount {
-  const _BaseAccount({this.meta = Meta.empty, required this.name, required this.balance, final  List<Transaction> transactions = const []}): _transactions = transactions;
+class _BaseAccount extends BaseAccount {
+  const _BaseAccount({this.meta = Meta.empty, required this.name, required this.balance, final  List<Transaction> transactions = const []}): _transactions = transactions,super._();
   
 
 @override@JsonKey() final  Meta meta;

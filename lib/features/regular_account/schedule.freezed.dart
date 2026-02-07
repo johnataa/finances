@@ -174,10 +174,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _Schedule():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -236,10 +233,7 @@ return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_t
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  RegularAccount account,  Category category,  DateTime? endDate)  $default,) {final _that = this;
 switch (_that) {
 case _Schedule():
-return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_that.startDate,_that.account,_that.category,_that.endDate);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_that.startDate,_that.account,_that.category,_that.endDate);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -267,8 +261,8 @@ return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_t
 /// @nodoc
 
 
-class _Schedule implements Schedule {
-  const _Schedule({this.meta = Meta.empty, required this.name, required this.amount, required this.frequency, required this.type, required this.startDate, required this.account, required this.category, this.endDate});
+class _Schedule extends Schedule {
+  const _Schedule({this.meta = Meta.empty, required this.name, required this.amount, required this.frequency, required this.type, required this.startDate, required this.account, required this.category, this.endDate}): super._();
   
 
 @override@JsonKey() final  Meta meta;

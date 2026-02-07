@@ -12,8 +12,6 @@ abstract class MetaFilter with _$MetaFilter {
     DateTimeFilter? updatedAt,
     @Default(FilterType.union) FilterType type,
   }) = _MetaFilter;
-
-  static const MetaFilter empty = MetaFilter.filter();
 }
 
 @freezed

@@ -1,12 +1,18 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../entity.dart';
 import '../../meta/meta.dart';
 import '../../name/name.dart';
 
 part 'category.freezed.dart';
 
 @freezed
-abstract class Category with _$Category {
+sealed class Category with _$Category implements Entity {
+  const Category._();
+
+  @override
+  int get id => meta.id;
+
   const factory Category({
     @Default(Meta.empty) Meta meta,
     required Name name,

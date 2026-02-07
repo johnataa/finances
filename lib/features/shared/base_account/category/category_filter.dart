@@ -12,8 +12,6 @@ abstract class CategoryFilter with _$CategoryFilter {
     MetaFilter? meta,
     @Default(FilterType.union) FilterType type,
   }) = _CategoryFilter;
-
-  static const CategoryFilter empty = CategoryFilter();
 }
 
 @freezed

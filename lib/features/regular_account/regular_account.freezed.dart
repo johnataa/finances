@@ -122,10 +122,7 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _RegularAccount():
-return $default(_that);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -184,10 +181,7 @@ return $default(_that.base,_that.schedules);case _:
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( BaseAccount base,  List<Schedule> schedules)  $default,) {final _that = this;
 switch (_that) {
 case _RegularAccount():
-return $default(_that.base,_that.schedules);case _:
-  throw StateError('Unexpected subclass');
-
-}
+return $default(_that.base,_that.schedules);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
