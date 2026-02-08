@@ -32,7 +32,7 @@ void main() {
     color: 'color',
   );
 
-  group('BaseBox.persistAsync', () {
+  group('BaseBox.persist', () {
     /// Verifies that new entities (id = 0) get createdAt set automatically.
     test('sets createdAt when id is 0 (new entity)', () async {
       // Arrange
@@ -112,6 +112,55 @@ void main() {
         stream,
         emits(predicate<List<Category>>((list) => list.length == 1)),
       );
+    });
+
+    test('watch with filter only emits matching entities', () async {
+      // Arrange
+      await box.persist(createCategory(name: 'Apple'));
+      await box.persist(createCategory(name: 'Banana'));
+
+      // Act
+      final stream = box.watch(filter: CategoryFilter(name: .equals('Apple')));
+
+      // Assert
+      expect(
+        stream,
+        emits(
+          predicate<List<Category>>(
+            (list) => list.length == 1 && list.first.name.value == 'Apple',
+          ),
+        ),
+      );
+    });
+
+    test('watch with sort emits entities in expected order', () async {
+      // Arrange
+      await box.persist(createCategory(name: 'Zebra'));
+      await box.persist(createCategory(name: 'Alpha'));
+
+      // Act
+      final stream = box.watch(sort: const CategorySort.name());
+
+      // Assert
+      expect(
+        stream,
+        emits(
+          predicate<List<Category>>(
+            (list) => list.length == 2 && list[0].name.value == 'Zebra',
+          ),
+        ),
+      );
+    });
+  });
+
+  group('BaseBox.dispose', () {
+    // Since store is closed, subsequent operations should fail
+    test('closes the store', () async {
+      // Act
+      box.dispose();
+
+      // Assert
+      expect(() => box.getAll(), throwsStateError);
     });
   });
 

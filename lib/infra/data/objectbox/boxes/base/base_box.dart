@@ -8,8 +8,9 @@ import 'base_box_model.dart';
 abstract class BaseBox<TModel extends BaseBoxModel<TDomain>, TDomain, TFilter, TSort> {
   final Store _store;
   final Box<TModel> _box;
+  final TModel Function(TDomain entity) _fromEntityMap;
 
-  BaseBox(this._store) : _box = _store.box<TModel>();
+  BaseBox(this._store, this._fromEntityMap) : _box = _store.box<TModel>();
 
   void dispose() => _store.close();
 
@@ -23,8 +24,9 @@ abstract class BaseBox<TModel extends BaseBoxModel<TDomain>, TDomain, TFilter, T
 
   Future<bool> delete(int id) => _box.removeAsync(id);
 
-  @protected
-  Future<TModel> persistAsync(TModel model) async {
+  Future<TDomain> persist(TDomain entity) async {
+    final model = _fromEntityMap(entity);
+
     if (model.id == 0) {
       model.createdAt = DateTime.now();
     } else {
@@ -32,7 +34,7 @@ abstract class BaseBox<TModel extends BaseBoxModel<TDomain>, TDomain, TFilter, T
     }
 
     model.id = await _box.putAsync(model);
-    return model;
+    return model.toEntity();
   }
 
   @protected

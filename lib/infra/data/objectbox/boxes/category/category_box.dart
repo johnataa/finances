@@ -10,17 +10,7 @@ import 'category_box_model.dart';
 final class CategoryBox
     extends BaseBox<CategoryBM, Category, CategoryFilter, CategorySort>
     implements CategoryRepository {
-  CategoryBox(super.store);
-
-  @override
-  Future<Category> persist(Category category) async {
-    final model = await super.persistAsync(CategoryBM.fromEntity(category));
-    return category.copyWith.meta(
-      id: model.id,
-      createdAt: model.createdAt,
-      updatedAt: model.updatedAt,
-    );
-  }
+  CategoryBox(Store store) : super(store, CategoryBM.fromEntityMap);
 
   @override
   @protected

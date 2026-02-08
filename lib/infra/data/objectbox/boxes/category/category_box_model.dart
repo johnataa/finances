@@ -25,20 +25,20 @@ final class CategoryBM implements BaseBoxModel<Category> {
 
   CategoryBM(this.id, this.createdAt, this.updatedAt, this.name, this.icon, this.color);
 
-  factory CategoryBM.fromEntity(Category entity) => CategoryBM(
-    entity.meta.id,
-    entity.meta.createdAt,
-    entity.meta.updatedAt,
-    entity.name.value,
-    entity.icon,
-    entity.color,
-  );
-
   @override
   Category toEntity() => Category(
     meta: Meta(id: id, createdAt: createdAt, updatedAt: updatedAt),
     name: Name.create(name),
     icon: icon,
     color: color,
+  );
+
+  static CategoryBM fromEntityMap(Category entity) => CategoryBM(
+    entity.meta.id,
+    entity.meta.createdAt,
+    entity.meta.updatedAt,
+    entity.name.value,
+    entity.icon,
+    entity.color,
   );
 }
