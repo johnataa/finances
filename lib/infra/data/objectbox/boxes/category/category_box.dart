@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart' show protected;
 
-import '../../../../../features/shared/base_account/category/category.dart';
-import '../../../../../features/shared/base_account/category/category.repository.dart';
-import '../../../../../features/shared/base_account/category/category_filter.dart';
+import '../../../../../features/category/category.dart';
+import '../../../../../features/category/category.repository.dart';
+import '../../../../../features/category/category_filter.dart';
 import '../../gen/objectbox.g.dart';
 import '../base/base_box.dart';
 import 'category_box_model.dart';

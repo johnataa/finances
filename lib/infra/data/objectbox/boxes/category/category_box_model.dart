@@ -1,8 +1,8 @@
 import 'package:objectbox/objectbox.dart';
 
-import '../../../../../features/shared/base_account/category/category.dart';
-import '../../../../../features/shared/meta/meta.dart';
-import '../../../../../features/shared/name/name.dart';
+import '../../../../../features/category/category.dart';
+import '../../../../../shared/meta/meta.dart';
+import '../../../../../shared/name/name.dart';
 import '../base/base_box_model.dart';
 
 @Entity()

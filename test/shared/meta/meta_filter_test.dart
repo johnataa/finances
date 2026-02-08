@@ -1,5 +1,5 @@
-import 'package:finances/features/shared/filter.dart';
-import 'package:finances/features/shared/meta/meta_filter.dart';
+import 'package:finances/shared/filter.dart';
+import 'package:finances/shared/meta/meta_filter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

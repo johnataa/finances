@@ -1,4 +1,4 @@
-import 'package:finances/features/shared/custom_error.dart';
+import 'package:finances/shared/custom_error.dart';
 
 /// Represents a mock class implementation of the abstract [CustomError] class.
 class ErrorMock extends CustomError {

@@ -1,4 +1,4 @@
-import '../../repository.dart';
+import '../../shared/repository.dart';
 import 'category.dart';
 import 'category_filter.dart';
 

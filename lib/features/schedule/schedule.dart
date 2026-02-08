@@ -1,12 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../shared/base_account/category/category.dart';
-import '../shared/entity.dart';
-import '../shared/frequency/frequency.dart';
-import '../shared/meta/meta.dart';
-import '../shared/money/money.dart';
-import '../shared/name/name.dart';
-import 'regular_account.dart';
+import '../../shared/entity.dart';
+import '../../shared/frequency/frequency.dart';
+import '../../shared/meta/meta.dart';
+import '../../shared/money/money.dart';
+import '../../shared/name/name.dart';
+import '../account/account.dart';
+import '../category/category.dart';
 import 'schedule_type.dart';
 
 part 'schedule.freezed.dart';
@@ -25,7 +25,7 @@ sealed class Schedule with _$Schedule implements Entity {
     required Frequency frequency,
     required ScheduleType type,
     required DateTime startDate,
-    required RegularAccount account,
+    required Account account,
     required Category category,
     DateTime? endDate,
   }) = _Schedule;

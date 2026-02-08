@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:objectbox/objectbox.dart';
 
-import '../../../../../features/shared/filter.dart';
-import '../../../../../features/shared/meta/meta_filter.dart';
+import '../../../../../shared/filter.dart';
+import '../../../../../shared/meta/meta_filter.dart';
 import 'base_box_model.dart';
 
 abstract class BaseBox<TModel extends BaseBoxModel<TDomain>, TDomain, TFilter, TSort> {

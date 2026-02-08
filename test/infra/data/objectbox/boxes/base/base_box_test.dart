@@ -1,11 +1,11 @@
-import 'package:finances/features/shared/base_account/category/category.dart';
-import 'package:finances/features/shared/base_account/category/category_filter.dart';
-import 'package:finances/features/shared/filter.dart';
-import 'package:finances/features/shared/meta/meta.dart';
-import 'package:finances/features/shared/meta/meta_filter.dart';
-import 'package:finances/features/shared/name/name.dart';
+import 'package:finances/features/category/category.dart';
+import 'package:finances/features/category/category_filter.dart';
 import 'package:finances/infra/data/objectbox/boxes/category/category_box.dart';
 import 'package:finances/infra/data/objectbox/gen/objectbox.g.dart';
+import 'package:finances/shared/filter.dart';
+import 'package:finances/shared/meta/meta.dart';
+import 'package:finances/shared/meta/meta_filter.dart';
+import 'package:finances/shared/name/name.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../../mocks/store_mock.dart';

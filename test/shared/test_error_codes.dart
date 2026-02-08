@@ -1,4 +1,4 @@
-import 'package:finances/features/shared/custom_error.dart';
+import 'package:finances/shared/custom_error.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void testErrorCodes(Map<CustomError, String> testCases) {

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Schedule {
 
- Meta get meta; Name get name; Money get amount; Frequency get frequency; ScheduleType get type; DateTime get startDate; RegularAccount get account; Category get category; DateTime? get endDate;
+ Meta get meta; Name get name; Money get amount; Frequency get frequency; ScheduleType get type; DateTime get startDate; Account get account; Category get category; DateTime? get endDate;
 /// Create a copy of Schedule
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -45,11 +45,11 @@ abstract mixin class $ScheduleCopyWith<$Res>  {
   factory $ScheduleCopyWith(Schedule value, $Res Function(Schedule) _then) = _$ScheduleCopyWithImpl;
 @useResult
 $Res call({
- Meta meta, Name name, Money amount, Frequency frequency, ScheduleType type, DateTime startDate, RegularAccount account, Category category, DateTime? endDate
+ Meta meta, Name name, Money amount, Frequency frequency, ScheduleType type, DateTime startDate, Account account, Category category, DateTime? endDate
 });
 
 
-$MetaCopyWith<$Res> get meta;$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get amount;$FrequencyCopyWith<$Res> get frequency;$RegularAccountCopyWith<$Res> get account;$CategoryCopyWith<$Res> get category;
+$MetaCopyWith<$Res> get meta;$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get amount;$FrequencyCopyWith<$Res> get frequency;$CategoryCopyWith<$Res> get category;
 
 }
 /// @nodoc
@@ -71,7 +71,7 @@ as Money,frequency: null == frequency ? _self.frequency : frequency // ignore: c
 as Frequency,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as ScheduleType,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,account: null == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
-as RegularAccount,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as Account,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as Category,endDate: freezed == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
@@ -111,15 +111,6 @@ $FrequencyCopyWith<$Res> get frequency {
   
   return $FrequencyCopyWith<$Res>(_self.frequency, (value) {
     return _then(_self.copyWith(frequency: value));
-  });
-}/// Create a copy of Schedule
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$RegularAccountCopyWith<$Res> get account {
-  
-  return $RegularAccountCopyWith<$Res>(_self.account, (value) {
-    return _then(_self.copyWith(account: value));
   });
 }/// Create a copy of Schedule
 /// with the given fields replaced by the non-null parameter values.
@@ -209,7 +200,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  RegularAccount account,  Category category,  DateTime? endDate)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  Account account,  Category category,  DateTime? endDate)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Schedule() when $default != null:
 return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_that.startDate,_that.account,_that.category,_that.endDate);case _:
@@ -230,7 +221,7 @@ return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  RegularAccount account,  Category category,  DateTime? endDate)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  Account account,  Category category,  DateTime? endDate)  $default,) {final _that = this;
 switch (_that) {
 case _Schedule():
 return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_that.startDate,_that.account,_that.category,_that.endDate);}
@@ -247,7 +238,7 @@ return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Meta meta,  Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  RegularAccount account,  Category category,  DateTime? endDate)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Meta meta,  Name name,  Money amount,  Frequency frequency,  ScheduleType type,  DateTime startDate,  Account account,  Category category,  DateTime? endDate)?  $default,) {final _that = this;
 switch (_that) {
 case _Schedule() when $default != null:
 return $default(_that.meta,_that.name,_that.amount,_that.frequency,_that.type,_that.startDate,_that.account,_that.category,_that.endDate);case _:
@@ -271,7 +262,7 @@ class _Schedule extends Schedule {
 @override final  Frequency frequency;
 @override final  ScheduleType type;
 @override final  DateTime startDate;
-@override final  RegularAccount account;
+@override final  Account account;
 @override final  Category category;
 @override final  DateTime? endDate;
 
@@ -305,11 +296,11 @@ abstract mixin class _$ScheduleCopyWith<$Res> implements $ScheduleCopyWith<$Res>
   factory _$ScheduleCopyWith(_Schedule value, $Res Function(_Schedule) _then) = __$ScheduleCopyWithImpl;
 @override @useResult
 $Res call({
- Meta meta, Name name, Money amount, Frequency frequency, ScheduleType type, DateTime startDate, RegularAccount account, Category category, DateTime? endDate
+ Meta meta, Name name, Money amount, Frequency frequency, ScheduleType type, DateTime startDate, Account account, Category category, DateTime? endDate
 });
 
 
-@override $MetaCopyWith<$Res> get meta;@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get amount;@override $FrequencyCopyWith<$Res> get frequency;@override $RegularAccountCopyWith<$Res> get account;@override $CategoryCopyWith<$Res> get category;
+@override $MetaCopyWith<$Res> get meta;@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get amount;@override $FrequencyCopyWith<$Res> get frequency;@override $CategoryCopyWith<$Res> get category;
 
 }
 /// @nodoc
@@ -331,7 +322,7 @@ as Money,frequency: null == frequency ? _self.frequency : frequency // ignore: c
 as Frequency,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as ScheduleType,startDate: null == startDate ? _self.startDate : startDate // ignore: cast_nullable_to_non_nullable
 as DateTime,account: null == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
-as RegularAccount,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
+as Account,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
 as Category,endDate: freezed == endDate ? _self.endDate : endDate // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
@@ -372,15 +363,6 @@ $FrequencyCopyWith<$Res> get frequency {
   
   return $FrequencyCopyWith<$Res>(_self.frequency, (value) {
     return _then(_self.copyWith(frequency: value));
-  });
-}/// Create a copy of Schedule
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$RegularAccountCopyWith<$Res> get account {
-  
-  return $RegularAccountCopyWith<$Res>(_self.account, (value) {
-    return _then(_self.copyWith(account: value));
   });
 }/// Create a copy of Schedule
 /// with the given fields replaced by the non-null parameter values.

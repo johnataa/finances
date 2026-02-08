@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../filter.dart';
-import '../../meta/meta_filter.dart';
+import '../../shared/filter.dart';
+import '../../shared/meta/meta_filter.dart';
 
 part 'category_filter.freezed.dart';
 

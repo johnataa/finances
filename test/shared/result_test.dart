@@ -1,4 +1,4 @@
-import 'package:finances/features/shared/result.dart';
+import 'package:finances/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../mocks/error_mock.dart';

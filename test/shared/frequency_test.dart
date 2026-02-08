@@ -1,7 +1,7 @@
-import 'package:finances/features/shared/frequency/errors.dart';
-import 'package:finances/features/shared/frequency/frequency.dart';
-import 'package:finances/features/shared/frequency/frequency_unit.dart';
-import 'package:finances/features/shared/result.dart';
+import 'package:finances/shared/frequency/errors.dart';
+import 'package:finances/shared/frequency/frequency.dart';
+import 'package:finances/shared/frequency/frequency_unit.dart';
+import 'package:finances/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_many.dart';
@@ -106,10 +106,7 @@ void main() {
           failure: (_) => fail("Should be success"),
           success: (s) {
             expect(s.value.value, greaterThan(1));
-            expect(
-              "${s.value}",
-              equals("Every ${s.value.value} ${s.value.unit.name}s"),
-            );
+            expect("${s.value}", equals("Every ${s.value.value} ${s.value.unit.name}s"));
           },
         );
       },

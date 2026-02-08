@@ -1,6 +1,6 @@
-import 'package:finances/features/shared/name/errors.dart';
-import 'package:finances/features/shared/name/name.dart';
-import 'package:finances/features/shared/result.dart';
+import 'package:finances/shared/name/errors.dart';
+import 'package:finances/shared/name/name.dart';
+import 'package:finances/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_many.dart';
@@ -11,41 +11,35 @@ void main() {
   const maxLength = Name.maxLength;
 
   group("Invalid name length", () {
-    test(
-      "Should be an invalid name when name length is less than $minLength.",
-      () {
-        // Arrange
-        int length = minLength - 1;
+    test("Should be an invalid name when name length is less than $minLength.", () {
+      // Arrange
+      int length = minLength - 1;
 
-        // Act
-        final result = Name.tryCreate('A' * length);
+      // Act
+      final result = Name.tryCreate('A' * length);
 
-        // Assert
-        expect(result, isA<Failure<Name>>());
-        result.map(
-          success: (_) => fail('Should be a failure'),
-          failure: (f) => expect(f.error, isA<InvalidNameLengthError>()),
-        );
-      },
-    );
+      // Assert
+      expect(result, isA<Failure<Name>>());
+      result.map(
+        success: (_) => fail('Should be a failure'),
+        failure: (f) => expect(f.error, isA<InvalidNameLengthError>()),
+      );
+    });
 
-    test(
-      "Should be an invalid name when name length is more than $maxLength.",
-      () {
-        // Arrange
-        int length = maxLength + 1;
+    test("Should be an invalid name when name length is more than $maxLength.", () {
+      // Arrange
+      int length = maxLength + 1;
 
-        // Act
-        final result = Name.tryCreate('A' * length);
+      // Act
+      final result = Name.tryCreate('A' * length);
 
-        // Assert
-        expect(result, isA<Failure<Name>>());
-        result.map(
-          success: (_) => fail('Should be a failure'),
-          failure: (f) => expect(f.error, isA<InvalidNameLengthError>()),
-        );
-      },
-    );
+      // Assert
+      expect(result, isA<Failure<Name>>());
+      result.map(
+        success: (_) => fail('Should be a failure'),
+        failure: (f) => expect(f.error, isA<InvalidNameLengthError>()),
+      );
+    });
   });
 
   group("Valid name length", () {
@@ -59,8 +53,7 @@ void main() {
         // Assert
         expect(result, isA<Success<Name>>());
         result.map(
-          success: (s) =>
-              expect(s.value.value.length, greaterThanOrEqualTo(minLength)),
+          success: (s) => expect(s.value.value.length, greaterThanOrEqualTo(minLength)),
           failure: (_) => fail('Should be a success'),
         );
       },
@@ -76,8 +69,7 @@ void main() {
         // Assert
         expect(result, isA<Success<Name>>());
         result.map(
-          success: (s) =>
-              expect(s.value.value.length, lessThanOrEqualTo(maxLength)),
+          success: (s) => expect(s.value.value.length, lessThanOrEqualTo(maxLength)),
           failure: (_) => fail('Should be a success'),
         );
       },

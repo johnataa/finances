@@ -1,8 +1,8 @@
 import 'package:decimal/decimal.dart';
-import 'package:finances/features/shared/money/currency.dart';
-import 'package:finances/features/shared/money/errors.dart';
-import 'package:finances/features/shared/money/money.dart';
-import 'package:finances/features/shared/result.dart';
+import 'package:finances/shared/money/currency.dart';
+import 'package:finances/shared/money/errors.dart';
+import 'package:finances/shared/money/money.dart';
+import 'package:finances/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'test_error_codes.dart';
@@ -68,29 +68,23 @@ void main() {
       expect(result.amount, Decimal.fromInt(2));
     });
 
-    test(
-      'Operators should throw InvalidOperationError for different currencies',
-      () {
-        expect(() => m10 + m10brl, throwsA(isA<InvalidOperationError>()));
-        expect(() => m10 - m10brl, throwsA(isA<InvalidOperationError>()));
-      },
-    );
+    test('Operators should throw InvalidOperationError for different currencies', () {
+      expect(() => m10 + m10brl, throwsA(isA<InvalidOperationError>()));
+      expect(() => m10 - m10brl, throwsA(isA<InvalidOperationError>()));
+    });
   });
 
   group('Money Conversion', () {
-    test(
-      'convertTo should return new money with new currency and rate applied',
-      () {
-        final m10usd = Money.create(Currency.usd, "10");
-        final converted = m10usd.convertTo(
-          currency: Currency.brl,
-          withFxRate: Decimal.fromInt(5),
-        );
+    test('convertTo should return new money with new currency and rate applied', () {
+      final m10usd = Money.create(Currency.usd, "10");
+      final converted = m10usd.convertTo(
+        currency: Currency.brl,
+        withFxRate: Decimal.fromInt(5),
+      );
 
-        expect(converted.currency, Currency.brl);
-        expect(converted.amount, Decimal.fromInt(50));
-      },
-    );
+      expect(converted.currency, Currency.brl);
+      expect(converted.amount, Decimal.fromInt(50));
+    });
   });
 
   group('Equality', () {
