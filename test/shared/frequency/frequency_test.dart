@@ -4,8 +4,8 @@ import 'package:finances/shared/frequency/frequency_unit.dart';
 import 'package:finances/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../test_many.dart';
-import 'test_error_codes.dart';
+import '../../test_many.dart';
+import '../test_error_codes.dart';
 
 void main() {
   group("Invalid frequency values", () {

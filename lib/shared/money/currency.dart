@@ -1,13 +1,12 @@
 enum Currency {
-  usd('\$'),
-  eur('€'),
-  brl('R\$');
+  usd(id: 1, symbol: '\$'),
+  eur(id: 2, symbol: '€'),
+  brl(id: 3, symbol: 'R\$');
 
-  const Currency(this.symbol);
+  const Currency({required this.id, required this.symbol});
 
+  final int id;
   final String symbol;
 
-  /// Parses the [Currency.name] to its enum value.
-  static Currency parse(String currencyStr) =>
-      Currency.values.firstWhere((v) => v.name == currencyStr);
+  static Currency fromId(int id) => Currency.values.firstWhere((c) => c.id == id);
 }

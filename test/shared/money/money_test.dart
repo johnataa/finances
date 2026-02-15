@@ -5,7 +5,7 @@ import 'package:finances/shared/money/money.dart';
 import 'package:finances/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'test_error_codes.dart';
+import '../test_error_codes.dart';
 
 void main() {
   group('Money Construction and Validation', () {
@@ -21,10 +21,10 @@ void main() {
       );
     });
 
-    test('Money.parse should create from strings', () {
-      final money = Money.parse('usd', '15.75');
+    test('Money.fromInt should create from int', () {
+      final money = Money.fromInt(Currency.usd.id, 15);
       expect(money.currency, Currency.usd);
-      expect(money.amount, Decimal.parse('15.75'));
+      expect(money.amount, Decimal.fromInt(15));
     });
 
     test('Money.create should create from currency and string', () {
