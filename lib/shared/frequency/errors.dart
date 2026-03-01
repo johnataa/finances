@@ -1,8 +1,10 @@
 import '../abstractions/custom_error.dart';
 
-const String _codePrefix = "FrequencyError";
+final class FrequencyErrors {
+  static const String _codePrefix = "FrequencyError";
 
-final class InvalidFrequencyValueError extends CustomError {
-  const InvalidFrequencyValueError()
-    : super("$_codePrefix#001", "Frequency must greater than zero.");
+  static const CustomError invalidFrequencyValueError = CustomError(
+    code: "$_codePrefix#001",
+    message: "Frequency must greater than zero.",
+  );
 }
