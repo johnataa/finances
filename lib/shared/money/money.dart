@@ -33,7 +33,7 @@ sealed class Money with _$Money {
   static Result<Money> tryCreate(Currency currency, String amount) {
     final parsedAmount = Decimal.tryParse(amount);
     if (parsedAmount == null) {
-      return .failure(InvalidMoneyFormatError());
+      return const .failure(MoneyErrors.invalidMoneyFormatError);
     }
 
     return .success(._create(currency, parsedAmount));
@@ -72,7 +72,7 @@ sealed class Money with _$Money {
 
   void _ensureValidOperation(Money other) {
     if (currency != other.currency) {
-      throw InvalidOperationError(currency, other.currency);
+      throw MoneyErrors.invalidOperationError(currency, other.currency);
     }
   }
 }

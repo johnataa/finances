@@ -19,13 +19,13 @@ abstract class Name with _$Name {
   /// Returns a [Result] with the created [Name] or an error.
   static Result<Name> tryCreate(String value) {
     if (value.length < minLength || value.length > maxLength) {
-      return Result.failure(InvalidNameLengthError(minLength, maxLength));
+      return const .failure(NameErrors.invalidNameLengthError);
     }
 
     if (value.trim().isEmpty) {
-      return Result.failure(const EmptyNameError());
+      return const .failure(NameErrors.emptyNameError);
     }
 
-    return Result.success(Name._create(value));
+    return .success(._create(value));
   }
 }

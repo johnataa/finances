@@ -9,12 +9,13 @@ part 'frequency.freezed.dart';
 @freezed
 abstract class Frequency with _$Frequency {
   const Frequency._();
+
   const factory Frequency._create(int value, FrequencyUnit unit) = _Frequency;
 
-  static final Frequency daily = Frequency._create(1, FrequencyUnit.day);
-  static final Frequency weekly = Frequency._create(1, FrequencyUnit.week);
-  static final Frequency monthly = Frequency._create(1, FrequencyUnit.month);
-  static final Frequency annualy = Frequency._create(1, FrequencyUnit.year);
+  static final Frequency daily = ._create(1, .day);
+  static final Frequency weekly = ._create(1, .week);
+  static final Frequency monthly = ._create(1, .month);
+  static final Frequency annualy = ._create(1, .year);
 
   /// Creates a [Frequency] from a value and unit.
   /// Throws an exception if the value is invalid.
@@ -25,10 +26,10 @@ abstract class Frequency with _$Frequency {
   /// Returns a [Result] with the created [Frequency] or an error.
   static Result<Frequency> tryCreate(int value, FrequencyUnit unit) {
     if (value < 1) {
-      return const Result.failure(InvalidFrequencyValueError());
+      return const .failure(FrequencyErrors.invalidFrequencyValueError);
     }
 
-    return Result.success(Frequency._create(value, unit));
+    return .success(._create(value, unit));
   }
 
   @override
