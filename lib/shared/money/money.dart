@@ -22,11 +22,9 @@ sealed class Money with _$Money {
   static Money fromScaledInt(int currencyId, int value) =>
       ._create(.fromId(currencyId), (Decimal.fromInt(value) / _scale).toDecimal());
 
-  static int toScaledInt(String amount) =>
-      (Decimal.parse(amount) * _scale).toBigInt().toInt();
+  static int toScaledInt(String amount) => (Decimal.parse(amount) * _scale).toBigInt().toInt();
 
-  static Money create(Currency currency, String amount) =>
-      tryCreate(currency, amount).getOrThrow();
+  static Money create(Currency currency, String amount) => tryCreate(currency, amount).getOrThrow();
 
   /// Tries to create a [Money] from a currency and amount.
   /// Returns a [Result] with the created [Money] or an error.
@@ -56,10 +54,7 @@ sealed class Money with _$Money {
 
   Money operator /(Money other) {
     _ensureValidOperation(other);
-    return ._create(
-      currency,
-      (amount / other.amount).toDecimal(scaleOnInfinitePrecision: 15),
-    );
+    return ._create(currency, (amount / other.amount).toDecimal(scaleOnInfinitePrecision: 15));
   }
 
   /// Converts the [value] into another [Money] object with the new given [currency].

@@ -9,8 +9,7 @@ import '../../../../features/entity_mock.query.dart';
 import 'entity_mock_box.model.dart';
 
 final class EntityBoxMock
-    extends
-        BaseBox<EntityBMMock, EntityMock, EntityFilterMock, OrderBy<EntityFieldMock>> {
+    extends BaseBox<EntityBMMock, EntityMock, EntityFilterMock, OrderBy<EntityFieldMock>> {
   EntityBoxMock(super.store, super.mapper);
 
   @override

@@ -24,20 +24,18 @@ void main() {
     store.close();
   });
 
-  RegularAccount createRegularAccount({int id = 0, String name = 'Checking'}) =>
-      RegularAccount(
-        base: .create(id: id),
-        name: .create(name),
-        balance: .create(.brl, '1000'),
-      );
+  RegularAccount createRegularAccount({int id = 0, String name = 'Checking'}) => RegularAccount(
+    base: .create(id: id),
+    name: .create(name),
+    balance: .create(.brl, '1000'),
+  );
 
-  SavingsAccount createSavingsAccount({int id = 0, String name = 'Emergency'}) =>
-      SavingsAccount(
-        base: .create(id: id),
-        name: .create(name),
-        balance: .create(.brl, '5000'),
-        goal: SavingsGoal.free,
-      );
+  SavingsAccount createSavingsAccount({int id = 0, String name = 'Emergency'}) => SavingsAccount(
+    base: .create(id: id),
+    name: .create(name),
+    balance: .create(.brl, '5000'),
+    goal: SavingsGoal.free,
+  );
 
   group('AccountBox.persist', () {
     test('persists RegularAccount correctly', () async {

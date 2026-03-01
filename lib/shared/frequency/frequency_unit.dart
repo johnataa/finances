@@ -7,6 +7,5 @@ enum FrequencyUnit {
   const FrequencyUnit({required this.id});
   final int id;
 
-  static FrequencyUnit fromId(int id) =>
-      FrequencyUnit.values.firstWhere((unit) => unit.id == id);
+  static FrequencyUnit fromId(int id) => FrequencyUnit.values.firstWhere((unit) => unit.id == id);
 }

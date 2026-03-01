@@ -6,8 +6,7 @@ abstract interface class IMapper<TDomain, TBoxModel> {
 extension MapperExtensions<TDomain, TBoxModel> on IMapper<TDomain, TBoxModel> {
   TDomain? toEntityOrNull(TBoxModel? model) => model == null ? null : toEntity(model);
 
-  List<TDomain> toEntities(Iterable<TBoxModel> entities) =>
-      entities.map(toEntity).toList();
+  List<TDomain> toEntities(Iterable<TBoxModel> entities) => entities.map(toEntity).toList();
 }
 
 extension MapperAsyncExtension<TDomain, TBoxModel> on IMapper<TDomain, TBoxModel> {

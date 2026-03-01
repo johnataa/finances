@@ -240,10 +240,93 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "8:4535552962201957170",
+      "lastPropertyId": "13:53057998159008244",
+      "name": "TransactionBM",
+      "properties": [
+        {
+          "id": "1:7071128419024463476",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3803438582541818975",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:7135771100691452353",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "4:1136276882970987617",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "5:6744701976702793746",
+          "name": "amount",
+          "type": 6
+        },
+        {
+          "id": "6:6035768955602942479",
+          "name": "currency",
+          "type": 6
+        },
+        {
+          "id": "7:7607692425600564618",
+          "name": "type",
+          "type": 6
+        },
+        {
+          "id": "8:5326567750685398059",
+          "name": "status",
+          "type": 6
+        },
+        {
+          "id": "9:8114647361211451338",
+          "name": "date",
+          "type": 10
+        },
+        {
+          "id": "10:4471780186255874914",
+          "name": "notes",
+          "type": 9
+        },
+        {
+          "id": "11:3353486848422070206",
+          "name": "accountId",
+          "indexId": "9:842025243799839566",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "AccountBM"
+        },
+        {
+          "id": "12:2345785946129718665",
+          "name": "categoryId",
+          "indexId": "10:5775467024361905902",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "CategoryBM"
+        },
+        {
+          "id": "13:53057998159008244",
+          "name": "scheduleId",
+          "indexId": "11:8345275422722803583",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "ScheduleBM"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "7:3153984487599977684",
-  "lastIndexId": "8:5094840912984460872",
+  "lastEntityId": "8:4535552962201957170",
+  "lastIndexId": "11:8345275422722803583",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

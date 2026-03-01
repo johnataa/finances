@@ -6,8 +6,7 @@ final class NameErrors {
 
   static const CustomError invalidNameLengthError = CustomError(
     code: "$_codePrefix#001",
-    message:
-        "Name cannot have less than ${Name.minLength} or more than ${Name.maxLength} chars.",
+    message: "Name cannot have less than ${Name.minLength} or more than ${Name.maxLength} chars.",
   );
 
   static const CustomError emptyNameError = CustomError(

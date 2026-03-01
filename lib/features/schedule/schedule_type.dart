@@ -6,6 +6,5 @@ enum ScheduleType {
   const ScheduleType({required this.id});
   final int id;
 
-  static ScheduleType fromId(int id) =>
-      ScheduleType.values.firstWhere((type) => type.id == id);
+  static ScheduleType fromId(int id) => ScheduleType.values.firstWhere((type) => type.id == id);
 }

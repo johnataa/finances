@@ -17,6 +17,7 @@ import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 import '../../../../infra/data/objectbox/boxes/account_box.model.dart';
 import '../../../../infra/data/objectbox/boxes/category_box.model.dart';
 import '../../../../infra/data/objectbox/boxes/schedule_box.model.dart';
+import '../../../../infra/data/objectbox/boxes/transaction_box.model.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -130,11 +131,7 @@ final _entities = <obx_int.ModelEntity>[
     ],
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[
-      obx_int.ModelBacklink(
-        name: 'schedules',
-        srcEntity: 'ScheduleBM',
-        srcField: 'account',
-      ),
+      obx_int.ModelBacklink(name: 'schedules', srcEntity: 'ScheduleBM', srcField: 'account'),
     ],
   ),
   obx_int.ModelEntity(
@@ -305,6 +302,103 @@ final _entities = <obx_int.ModelEntity>[
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(8, 4535552962201957170),
+    name: 'TransactionBM',
+    lastPropertyId: const obx_int.IdUid(13, 53057998159008244),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 7071128419024463476),
+        name: 'id',
+        type: 6,
+        flags: 1,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 3803438582541818975),
+        name: 'createdAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 7135771100691452353),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 1136276882970987617),
+        name: 'name',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 6744701976702793746),
+        name: 'amount',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(6, 6035768955602942479),
+        name: 'currency',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(7, 7607692425600564618),
+        name: 'type',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(8, 5326567750685398059),
+        name: 'status',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(9, 8114647361211451338),
+        name: 'date',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(10, 4471780186255874914),
+        name: 'notes',
+        type: 9,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(11, 3353486848422070206),
+        name: 'accountId',
+        type: 11,
+        flags: 520,
+        indexId: const obx_int.IdUid(9, 842025243799839566),
+        relationField: 'account',
+        relationTarget: 'AccountBM',
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(12, 2345785946129718665),
+        name: 'categoryId',
+        type: 11,
+        flags: 520,
+        indexId: const obx_int.IdUid(10, 5775467024361905902),
+        relationField: 'category',
+        relationTarget: 'CategoryBM',
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(13, 53057998159008244),
+        name: 'scheduleId',
+        type: 11,
+        flags: 520,
+        indexId: const obx_int.IdUid(11, 8345275422722803583),
+        relationField: 'schedule',
+        relationTarget: 'ScheduleBM',
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -350,8 +444,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
     // Typically, this is done with `dart run build_runner build`.
     generatorVersion: obx_int.GeneratorVersion.v2025_12_16,
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(7, 3153984487599977684),
-    lastIndexId: const obx_int.IdUid(8, 5094840912984460872),
+    lastEntityId: const obx_int.IdUid(8, 4535552962201957170),
+    lastIndexId: const obx_int.IdUid(11, 8345275422722803583),
     lastRelationId: const obx_int.IdUid(0, 0),
     lastSequenceId: const obx_int.IdUid(0, 0),
     retiredEntityUids: const [2307836238596210717, 6294535215836320734],
@@ -418,22 +512,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectFromFB: (obx.Store store, ByteData fbData) {
         final buffer = fb.BufferContext(fbData);
         final rootOffset = buffer.derefObject(0);
-        final createdAtValue = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          6,
-        );
-        final updatedAtValue = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          8,
-        );
-        final idParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          4,
-          0,
-        );
+        final createdAtValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 6);
+        final updatedAtValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 8);
+        final idParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
         final createdAtParam = createdAtValue == null
             ? null
             : DateTime.fromMillisecondsSinceEpoch(createdAtValue);
@@ -463,10 +544,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
     ),
     AccountBM: obx_int.EntityDefinition<AccountBM>(
       model: _entities[1],
-      toOneRelations: (AccountBM object) => [
-        object.regularAccount,
-        object.savingsAccount,
-      ],
+      toOneRelations: (AccountBM object) => [object.regularAccount, object.savingsAccount],
       toManyRelations: (AccountBM object) => {
         obx_int.RelInfo<ScheduleBM>.toOneBacklink(
           12,
@@ -495,22 +573,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectFromFB: (obx.Store store, ByteData fbData) {
         final buffer = fb.BufferContext(fbData);
         final rootOffset = buffer.derefObject(0);
-        final createdAtValue = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          6,
-        );
-        final updatedAtValue = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          8,
-        );
-        final idParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          4,
-          0,
-        );
+        final createdAtValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 6);
+        final updatedAtValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 8);
+        final idParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
         final createdAtParam = createdAtValue == null
             ? null
             : DateTime.fromMillisecondsSinceEpoch(createdAtValue);
@@ -520,18 +585,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final nameParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 10, '');
-        final balanceParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          18,
-          0,
-        );
-        final balanceCurrencyParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          20,
-          0,
-        );
+        final balanceParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
+        final balanceCurrencyParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
         final object = AccountBM(
           id: idParam,
           createdAt: createdAtParam,
@@ -596,27 +651,10 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectFromFB: (obx.Store store, ByteData fbData) {
         final buffer = fb.BufferContext(fbData);
         final rootOffset = buffer.derefObject(0);
-        final createdAtValue = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          6,
-        );
-        final updatedAtValue = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          8,
-        );
-        final endDateValue = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          24,
-        );
-        final idParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          4,
-          0,
-        );
+        final createdAtValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 6);
+        final updatedAtValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 8);
+        final endDateValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 24);
+        final idParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
         final createdAtParam = createdAtValue == null
             ? null
             : DateTime.fromMillisecondsSinceEpoch(createdAtValue);
@@ -626,36 +664,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
         final nameParam = const fb.StringReader(
           asciiOptimization: true,
         ).vTableGet(buffer, rootOffset, 10, '');
-        final amountParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          14,
-          0,
-        );
-        final currencyParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          16,
-          0,
-        );
-        final frequencyValueParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          18,
-          0,
-        );
-        final frequencyUnitParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          20,
-          0,
-        );
-        final typeParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          12,
-          0,
-        );
+        final amountParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0);
+        final currencyParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0);
+        final frequencyValueParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
+        final frequencyUnitParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 20, 0);
+        final typeParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
         final startDateParam = DateTime.fromMillisecondsSinceEpoch(
           const fb.Int64Reader().vTableGet(buffer, rootOffset, 22, 0),
         );
@@ -675,19 +688,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           startDate: startDateParam,
           endDate: endDateParam,
         );
-        object.account.targetId = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          26,
-          0,
-        );
+        object.account.targetId = const fb.Int64Reader().vTableGet(buffer, rootOffset, 26, 0);
         object.account.attach(store);
-        object.category.targetId = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          28,
-          0,
-        );
+        object.category.targetId = const fb.Int64Reader().vTableGet(buffer, rootOffset, 28, 0);
         object.category.attach(store);
         return object;
       },
@@ -710,19 +713,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectFromFB: (obx.Store store, ByteData fbData) {
         final buffer = fb.BufferContext(fbData);
         final rootOffset = buffer.derefObject(0);
-        final idParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          4,
-          0,
-        );
+        final idParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
         final object = RegularAccountBM(id: idParam);
-        object.account.targetId = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          10,
-          0,
-        );
+        object.account.targetId = const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
         object.account.attach(store);
         return object;
       },
@@ -749,25 +742,14 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectFromFB: (obx.Store store, ByteData fbData) {
         final buffer = fb.BufferContext(fbData);
         final rootOffset = buffer.derefObject(0);
-        final idParam = const fb.Int64Reader().vTableGet(
+        final idParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+        final savingsGoalParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
+        final amountToCoverParam = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 14);
+        final amountToCoverCurrencyParam = const fb.Int64Reader().vTableGetNullable(
           buffer,
           rootOffset,
-          4,
-          0,
+          20,
         );
-        final savingsGoalParam = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          18,
-          0,
-        );
-        final amountToCoverParam = const fb.Int64Reader().vTableGetNullable(
-          buffer,
-          rootOffset,
-          14,
-        );
-        final amountToCoverCurrencyParam = const fb.Int64Reader()
-            .vTableGetNullable(buffer, rootOffset, 20);
         final coverageInMonthParam = const fb.Int64Reader().vTableGetNullable(
           buffer,
           rootOffset,
@@ -780,13 +762,81 @@ obx_int.ModelDefinition getObjectBoxModel() {
           amountToCoverCurrency: amountToCoverCurrencyParam,
           coverageInMonth: coverageInMonthParam,
         );
-        object.account.targetId = const fb.Int64Reader().vTableGet(
-          buffer,
-          rootOffset,
-          10,
-          0,
-        );
+        object.account.targetId = const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
         object.account.attach(store);
+        return object;
+      },
+    ),
+    TransactionBM: obx_int.EntityDefinition<TransactionBM>(
+      model: _entities[5],
+      toOneRelations: (TransactionBM object) => [object.account, object.category, object.schedule],
+      toManyRelations: (TransactionBM object) => {},
+      getId: (TransactionBM object) => object.id,
+      setId: (TransactionBM object, int id) {
+        object.id = id;
+      },
+      objectToFB: (TransactionBM object, fb.Builder fbb) {
+        final nameOffset = fbb.writeString(object.name);
+        final notesOffset = object.notes == null ? null : fbb.writeString(object.notes!);
+        fbb.startTable(14);
+        fbb.addInt64(0, object.id);
+        fbb.addInt64(1, object.createdAt?.millisecondsSinceEpoch);
+        fbb.addInt64(2, object.updatedAt?.millisecondsSinceEpoch);
+        fbb.addOffset(3, nameOffset);
+        fbb.addInt64(4, object.amount);
+        fbb.addInt64(5, object.currency);
+        fbb.addInt64(6, object.type);
+        fbb.addInt64(7, object.status);
+        fbb.addInt64(8, object.date?.millisecondsSinceEpoch);
+        fbb.addOffset(9, notesOffset);
+        fbb.addInt64(10, object.account.targetId);
+        fbb.addInt64(11, object.category.targetId);
+        fbb.addInt64(12, object.schedule.targetId);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final createdAtValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 6);
+        final updatedAtValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 8);
+        final dateValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 20);
+        final idParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+        final createdAtParam = createdAtValue == null
+            ? null
+            : DateTime.fromMillisecondsSinceEpoch(createdAtValue);
+        final updatedAtParam = updatedAtValue == null
+            ? null
+            : DateTime.fromMillisecondsSinceEpoch(updatedAtValue);
+        final nameParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGet(buffer, rootOffset, 10, '');
+        final amountParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 12, 0);
+        final currencyParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 14, 0);
+        final typeParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 16, 0);
+        final statusParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 18, 0);
+        final dateParam = dateValue == null ? null : DateTime.fromMillisecondsSinceEpoch(dateValue);
+        final notesParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 22);
+        final object = TransactionBM(
+          id: idParam,
+          createdAt: createdAtParam,
+          updatedAt: updatedAtParam,
+          name: nameParam,
+          amount: amountParam,
+          currency: currencyParam,
+          type: typeParam,
+          status: statusParam,
+          date: dateParam,
+          notes: notesParam,
+        );
+        object.account.targetId = const fb.Int64Reader().vTableGet(buffer, rootOffset, 24, 0);
+        object.account.attach(store);
+        object.category.targetId = const fb.Int64Reader().vTableGet(buffer, rootOffset, 26, 0);
+        object.category.attach(store);
+        object.schedule.targetId = const fb.Int64Reader().vTableGet(buffer, rootOffset, 28, 0);
+        object.schedule.attach(store);
         return object;
       },
     ),
@@ -798,147 +848,95 @@ obx_int.ModelDefinition getObjectBoxModel() {
 /// [CategoryBM] entity fields to define ObjectBox queries.
 class CategoryBM_ {
   /// See [CategoryBM.id].
-  static final id = obx.QueryIntegerProperty<CategoryBM>(
-    _entities[0].properties[0],
-  );
+  static final id = obx.QueryIntegerProperty<CategoryBM>(_entities[0].properties[0]);
 
   /// See [CategoryBM.createdAt].
-  static final createdAt = obx.QueryDateProperty<CategoryBM>(
-    _entities[0].properties[1],
-  );
+  static final createdAt = obx.QueryDateProperty<CategoryBM>(_entities[0].properties[1]);
 
   /// See [CategoryBM.updatedAt].
-  static final updatedAt = obx.QueryDateProperty<CategoryBM>(
-    _entities[0].properties[2],
-  );
+  static final updatedAt = obx.QueryDateProperty<CategoryBM>(_entities[0].properties[2]);
 
   /// See [CategoryBM.name].
-  static final name = obx.QueryStringProperty<CategoryBM>(
-    _entities[0].properties[3],
-  );
+  static final name = obx.QueryStringProperty<CategoryBM>(_entities[0].properties[3]);
 
   /// See [CategoryBM.icon].
-  static final icon = obx.QueryStringProperty<CategoryBM>(
-    _entities[0].properties[4],
-  );
+  static final icon = obx.QueryStringProperty<CategoryBM>(_entities[0].properties[4]);
 
   /// See [CategoryBM.color].
-  static final color = obx.QueryStringProperty<CategoryBM>(
-    _entities[0].properties[5],
-  );
+  static final color = obx.QueryStringProperty<CategoryBM>(_entities[0].properties[5]);
 }
 
 /// [AccountBM] entity fields to define ObjectBox queries.
 class AccountBM_ {
   /// See [AccountBM.id].
-  static final id = obx.QueryIntegerProperty<AccountBM>(
-    _entities[1].properties[0],
-  );
+  static final id = obx.QueryIntegerProperty<AccountBM>(_entities[1].properties[0]);
 
   /// See [AccountBM.createdAt].
-  static final createdAt = obx.QueryDateProperty<AccountBM>(
-    _entities[1].properties[1],
-  );
+  static final createdAt = obx.QueryDateProperty<AccountBM>(_entities[1].properties[1]);
 
   /// See [AccountBM.updatedAt].
-  static final updatedAt = obx.QueryDateProperty<AccountBM>(
-    _entities[1].properties[2],
-  );
+  static final updatedAt = obx.QueryDateProperty<AccountBM>(_entities[1].properties[2]);
 
   /// See [AccountBM.name].
-  static final name = obx.QueryStringProperty<AccountBM>(
-    _entities[1].properties[3],
-  );
+  static final name = obx.QueryStringProperty<AccountBM>(_entities[1].properties[3]);
 
   /// See [AccountBM.balance].
-  static final balance = obx.QueryIntegerProperty<AccountBM>(
-    _entities[1].properties[4],
-  );
+  static final balance = obx.QueryIntegerProperty<AccountBM>(_entities[1].properties[4]);
 
   /// See [AccountBM.balanceCurrency].
-  static final balanceCurrency = obx.QueryIntegerProperty<AccountBM>(
-    _entities[1].properties[5],
-  );
+  static final balanceCurrency = obx.QueryIntegerProperty<AccountBM>(_entities[1].properties[5]);
 
   /// See [AccountBM.regularAccount].
-  static final regularAccount =
-      obx.QueryRelationToOne<AccountBM, RegularAccountBM>(
-        _entities[1].properties[6],
-      );
+  static final regularAccount = obx.QueryRelationToOne<AccountBM, RegularAccountBM>(
+    _entities[1].properties[6],
+  );
 
   /// See [AccountBM.savingsAccount].
-  static final savingsAccount =
-      obx.QueryRelationToOne<AccountBM, SavingsAccountBM>(
-        _entities[1].properties[7],
-      );
+  static final savingsAccount = obx.QueryRelationToOne<AccountBM, SavingsAccountBM>(
+    _entities[1].properties[7],
+  );
 
   /// see [AccountBM.schedules]
-  static final schedules = obx.QueryBacklinkToMany<ScheduleBM, AccountBM>(
-    ScheduleBM_.account,
-  );
+  static final schedules = obx.QueryBacklinkToMany<ScheduleBM, AccountBM>(ScheduleBM_.account);
 }
 
 /// [ScheduleBM] entity fields to define ObjectBox queries.
 class ScheduleBM_ {
   /// See [ScheduleBM.id].
-  static final id = obx.QueryIntegerProperty<ScheduleBM>(
-    _entities[2].properties[0],
-  );
+  static final id = obx.QueryIntegerProperty<ScheduleBM>(_entities[2].properties[0]);
 
   /// See [ScheduleBM.createdAt].
-  static final createdAt = obx.QueryDateProperty<ScheduleBM>(
-    _entities[2].properties[1],
-  );
+  static final createdAt = obx.QueryDateProperty<ScheduleBM>(_entities[2].properties[1]);
 
   /// See [ScheduleBM.updatedAt].
-  static final updatedAt = obx.QueryDateProperty<ScheduleBM>(
-    _entities[2].properties[2],
-  );
+  static final updatedAt = obx.QueryDateProperty<ScheduleBM>(_entities[2].properties[2]);
 
   /// See [ScheduleBM.name].
-  static final name = obx.QueryStringProperty<ScheduleBM>(
-    _entities[2].properties[3],
-  );
+  static final name = obx.QueryStringProperty<ScheduleBM>(_entities[2].properties[3]);
 
   /// See [ScheduleBM.type].
-  static final type = obx.QueryIntegerProperty<ScheduleBM>(
-    _entities[2].properties[4],
-  );
+  static final type = obx.QueryIntegerProperty<ScheduleBM>(_entities[2].properties[4]);
 
   /// See [ScheduleBM.amount].
-  static final amount = obx.QueryIntegerProperty<ScheduleBM>(
-    _entities[2].properties[5],
-  );
+  static final amount = obx.QueryIntegerProperty<ScheduleBM>(_entities[2].properties[5]);
 
   /// See [ScheduleBM.currency].
-  static final currency = obx.QueryIntegerProperty<ScheduleBM>(
-    _entities[2].properties[6],
-  );
+  static final currency = obx.QueryIntegerProperty<ScheduleBM>(_entities[2].properties[6]);
 
   /// See [ScheduleBM.frequencyValue].
-  static final frequencyValue = obx.QueryIntegerProperty<ScheduleBM>(
-    _entities[2].properties[7],
-  );
+  static final frequencyValue = obx.QueryIntegerProperty<ScheduleBM>(_entities[2].properties[7]);
 
   /// See [ScheduleBM.frequencyUnit].
-  static final frequencyUnit = obx.QueryIntegerProperty<ScheduleBM>(
-    _entities[2].properties[8],
-  );
+  static final frequencyUnit = obx.QueryIntegerProperty<ScheduleBM>(_entities[2].properties[8]);
 
   /// See [ScheduleBM.startDate].
-  static final startDate = obx.QueryDateProperty<ScheduleBM>(
-    _entities[2].properties[9],
-  );
+  static final startDate = obx.QueryDateProperty<ScheduleBM>(_entities[2].properties[9]);
 
   /// See [ScheduleBM.endDate].
-  static final endDate = obx.QueryDateProperty<ScheduleBM>(
-    _entities[2].properties[10],
-  );
+  static final endDate = obx.QueryDateProperty<ScheduleBM>(_entities[2].properties[10]);
 
   /// See [ScheduleBM.account].
-  static final account = obx.QueryRelationToOne<ScheduleBM, AccountBM>(
-    _entities[2].properties[11],
-  );
+  static final account = obx.QueryRelationToOne<ScheduleBM, AccountBM>(_entities[2].properties[11]);
 
   /// See [ScheduleBM.category].
   static final category = obx.QueryRelationToOne<ScheduleBM, CategoryBM>(
@@ -949,9 +947,7 @@ class ScheduleBM_ {
 /// [RegularAccountBM] entity fields to define ObjectBox queries.
 class RegularAccountBM_ {
   /// See [RegularAccountBM.id].
-  static final id = obx.QueryIntegerProperty<RegularAccountBM>(
-    _entities[3].properties[0],
-  );
+  static final id = obx.QueryIntegerProperty<RegularAccountBM>(_entities[3].properties[0]);
 
   /// See [RegularAccountBM.account].
   static final account = obx.QueryRelationToOne<RegularAccountBM, AccountBM>(
@@ -962,9 +958,7 @@ class RegularAccountBM_ {
 /// [SavingsAccountBM] entity fields to define ObjectBox queries.
 class SavingsAccountBM_ {
   /// See [SavingsAccountBM.id].
-  static final id = obx.QueryIntegerProperty<SavingsAccountBM>(
-    _entities[4].properties[0],
-  );
+  static final id = obx.QueryIntegerProperty<SavingsAccountBM>(_entities[4].properties[0]);
 
   /// See [SavingsAccountBM.account].
   static final account = obx.QueryRelationToOne<SavingsAccountBM, AccountBM>(
@@ -982,11 +976,58 @@ class SavingsAccountBM_ {
   );
 
   /// See [SavingsAccountBM.savingsGoal].
-  static final savingsGoal = obx.QueryIntegerProperty<SavingsAccountBM>(
-    _entities[4].properties[4],
-  );
+  static final savingsGoal = obx.QueryIntegerProperty<SavingsAccountBM>(_entities[4].properties[4]);
 
   /// See [SavingsAccountBM.amountToCoverCurrency].
-  static final amountToCoverCurrency =
-      obx.QueryIntegerProperty<SavingsAccountBM>(_entities[4].properties[5]);
+  static final amountToCoverCurrency = obx.QueryIntegerProperty<SavingsAccountBM>(
+    _entities[4].properties[5],
+  );
+}
+
+/// [TransactionBM] entity fields to define ObjectBox queries.
+class TransactionBM_ {
+  /// See [TransactionBM.id].
+  static final id = obx.QueryIntegerProperty<TransactionBM>(_entities[5].properties[0]);
+
+  /// See [TransactionBM.createdAt].
+  static final createdAt = obx.QueryDateProperty<TransactionBM>(_entities[5].properties[1]);
+
+  /// See [TransactionBM.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<TransactionBM>(_entities[5].properties[2]);
+
+  /// See [TransactionBM.name].
+  static final name = obx.QueryStringProperty<TransactionBM>(_entities[5].properties[3]);
+
+  /// See [TransactionBM.amount].
+  static final amount = obx.QueryIntegerProperty<TransactionBM>(_entities[5].properties[4]);
+
+  /// See [TransactionBM.currency].
+  static final currency = obx.QueryIntegerProperty<TransactionBM>(_entities[5].properties[5]);
+
+  /// See [TransactionBM.type].
+  static final type = obx.QueryIntegerProperty<TransactionBM>(_entities[5].properties[6]);
+
+  /// See [TransactionBM.status].
+  static final status = obx.QueryIntegerProperty<TransactionBM>(_entities[5].properties[7]);
+
+  /// See [TransactionBM.date].
+  static final date = obx.QueryDateProperty<TransactionBM>(_entities[5].properties[8]);
+
+  /// See [TransactionBM.notes].
+  static final notes = obx.QueryStringProperty<TransactionBM>(_entities[5].properties[9]);
+
+  /// See [TransactionBM.account].
+  static final account = obx.QueryRelationToOne<TransactionBM, AccountBM>(
+    _entities[5].properties[10],
+  );
+
+  /// See [TransactionBM.category].
+  static final category = obx.QueryRelationToOne<TransactionBM, CategoryBM>(
+    _entities[5].properties[11],
+  );
+
+  /// See [TransactionBM.schedule].
+  static final schedule = obx.QueryRelationToOne<TransactionBM, ScheduleBM>(
+    _entities[5].properties[12],
+  );
 }

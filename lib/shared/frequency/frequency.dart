@@ -19,8 +19,7 @@ abstract class Frequency with _$Frequency {
 
   /// Creates a [Frequency] from a value and unit.
   /// Throws an exception if the value is invalid.
-  static Frequency create(int value, FrequencyUnit unit) =>
-      tryCreate(value, unit).getOrThrow();
+  static Frequency create(int value, FrequencyUnit unit) => tryCreate(value, unit).getOrThrow();
 
   /// Tries to create a [Frequency] from a value and unit.
   /// Returns a [Result] with the created [Frequency] or an error.

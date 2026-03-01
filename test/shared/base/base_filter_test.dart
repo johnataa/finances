@@ -22,11 +22,7 @@ void main() {
       // Assert
       expect(filter.id, isNotNull);
       expect(
-        filter.id!.map(
-          equals: (f) => f.input,
-          greaterThan: (_) => null,
-          lessThan: (_) => null,
-        ),
+        filter.id!.map(equals: (f) => f.input, greaterThan: (_) => null, lessThan: (_) => null),
         input,
       );
     });

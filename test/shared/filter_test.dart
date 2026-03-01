@@ -12,10 +12,7 @@ void main() {
 
       // Assert
       expect(filter, isA<StringFilter>());
-      filter.map(
-        equals: (f) => expect(f.input, input),
-        contains: (_) => fail('Should be equals'),
-      );
+      filter.map(equals: (f) => expect(f.input, input), contains: (_) => fail('Should be equals'));
     });
 
     test('.contains stores correct value', () {

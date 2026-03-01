@@ -23,11 +23,10 @@ void main() {
     store.close();
   });
 
-  EntityMock createEntityMock({int id = 0, String sillyProp = 'Test Entity'}) =>
-      EntityMock(
-        base: .create(id: id),
-        sillyProp: sillyProp,
-      );
+  EntityMock createEntityMock({int id = 0, String sillyProp = 'Test Entity'}) => EntityMock(
+    base: .create(id: id),
+    sillyProp: sillyProp,
+  );
 
   group('BaseBox.persist', () {
     /// Verifies that new entities (id = 0) get createdAt set automatically.
@@ -107,10 +106,7 @@ void main() {
       final stream = box.watch();
 
       // Assert
-      await expectLater(
-        stream,
-        emits(predicate<List<EntityMock>>((list) => list.length == 1)),
-      );
+      await expectLater(stream, emits(predicate<List<EntityMock>>((list) => list.length == 1)));
     });
 
     test('watch with filter only emits matching entities', () async {
@@ -144,9 +140,7 @@ void main() {
       expect(
         stream,
         emits(
-          predicate<List<EntityMock>>(
-            (list) => list.length == 2 && list[0].sillyProp == 'Alpha',
-          ),
+          predicate<List<EntityMock>>((list) => list.length == 2 && list[0].sillyProp == 'Alpha'),
         ),
       );
     });
@@ -297,16 +291,12 @@ void main() {
       final e1 = await box.persist(createEntityMock(sillyProp: 'Entity One'));
       expect(e1, isNotNull);
 
-      await Future.delayed(
-        const Duration(milliseconds: 10),
-      ); // Ensure distinct timestamps
+      await Future.delayed(const Duration(milliseconds: 10)); // Ensure distinct timestamps
       await box.persist(createEntityMock(sillyProp: 'Entity Two'));
       await box.persist(createEntityMock(sillyProp: 'Entity Three'));
 
       // Act
-      final list = await box.getAll(
-        filter: .by(createdAt: .equals(e1?.base.createdAt ?? .now())),
-      );
+      final list = await box.getAll(filter: .by(createdAt: .equals(e1?.base.createdAt ?? .now())));
 
       // Assert
       expect(list.length, 1);

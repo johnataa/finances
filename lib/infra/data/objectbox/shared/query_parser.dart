@@ -85,11 +85,10 @@ extension MoneyFilterExtension on MoneyFilter? {
 }
 
 extension OrderByExtension on OrderBy? {
-  OrderProp<TModel>? using<TModel extends IBoxModel>(
-    QueryProperty<TModel, dynamic> prop,
-  ) => switch (this?.way) {
-    OrderWay.asc => (prop: prop, flag: 0),
-    OrderWay.desc => (prop: prop, flag: 1),
-    _ => null,
-  };
+  OrderProp<TModel>? using<TModel extends IBoxModel>(QueryProperty<TModel, dynamic> prop) =>
+      switch (this?.way) {
+        OrderWay.asc => (prop: prop, flag: 0),
+        OrderWay.desc => (prop: prop, flag: 1),
+        _ => null,
+      };
 }

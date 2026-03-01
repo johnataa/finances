@@ -1,6 +1,6 @@
 {
   "editor.tabSize": 2,
-  "dart.lineLength": 90,
+  "dart.lineLength": 100,
   "editor.insertSpaces": true,
   "editor.suggest.insertMode": "replace",
   "editor.detectIndentation": false,

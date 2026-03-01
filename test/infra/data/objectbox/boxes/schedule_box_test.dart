@@ -98,9 +98,7 @@ void main() {
     test('filters by amount', () async {
       // Arrange
       await box.persist(createSchedule(name: 'Cheap', amount: .create(.brl, '10.00')));
-      await box.persist(
-        createSchedule(name: 'Expensive', amount: .create(.brl, '100.00')),
-      );
+      await box.persist(createSchedule(name: 'Expensive', amount: .create(.brl, '100.00')));
 
       // Act
       final list = await box.getAll(
