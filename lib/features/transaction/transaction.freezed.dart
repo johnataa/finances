@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Transaction {
 
- Meta get meta; Name get name; Money get amount; TransactionType get type; TransactionStatus get status; DateTime? get date; String? get notes; Category get category; Schedule? get schedule;
+ Base get base; Name get name; Money get amount; TransactionType get type; int get accountId; int get categoryId; int? get scheduleId; TransactionStatus get status; DateTime? get date; String? get notes;
 /// Create a copy of Transaction
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $TransactionCopyWith<Transaction> get copyWith => _$TransactionCopyWithImpl<Tran
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Transaction&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.type, type) || other.type == type)&&(identical(other.status, status) || other.status == status)&&(identical(other.date, date) || other.date == date)&&(identical(other.notes, notes) || other.notes == notes)&&(identical(other.category, category) || other.category == category)&&(identical(other.schedule, schedule) || other.schedule == schedule));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Transaction&&(identical(other.base, base) || other.base == base)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.type, type) || other.type == type)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.scheduleId, scheduleId) || other.scheduleId == scheduleId)&&(identical(other.status, status) || other.status == status)&&(identical(other.date, date) || other.date == date)&&(identical(other.notes, notes) || other.notes == notes));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,meta,name,amount,type,status,date,notes,category,schedule);
+int get hashCode => Object.hash(runtimeType,base,name,amount,type,accountId,categoryId,scheduleId,status,date,notes);
 
 @override
 String toString() {
-  return 'Transaction(meta: $meta, name: $name, amount: $amount, type: $type, status: $status, date: $date, notes: $notes, category: $category, schedule: $schedule)';
+  return 'Transaction(base: $base, name: $name, amount: $amount, type: $type, accountId: $accountId, categoryId: $categoryId, scheduleId: $scheduleId, status: $status, date: $date, notes: $notes)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $TransactionCopyWith<$Res>  {
   factory $TransactionCopyWith(Transaction value, $Res Function(Transaction) _then) = _$TransactionCopyWithImpl;
 @useResult
 $Res call({
- Meta meta, Name name, Money amount, TransactionType type, TransactionStatus status, DateTime? date, String? notes, Category category, Schedule? schedule
+ Base base, Name name, Money amount, TransactionType type, int accountId, int categoryId, int? scheduleId, TransactionStatus status, DateTime? date, String? notes
 });
 
 
-$MetaCopyWith<$Res> get meta;$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get amount;$CategoryCopyWith<$Res> get category;$ScheduleCopyWith<$Res>? get schedule;
+$BaseCopyWith<$Res> get base;$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get amount;
 
 }
 /// @nodoc
@@ -62,28 +62,29 @@ class _$TransactionCopyWithImpl<$Res>
 
 /// Create a copy of Transaction
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? meta = null,Object? name = null,Object? amount = null,Object? type = null,Object? status = null,Object? date = freezed,Object? notes = freezed,Object? category = null,Object? schedule = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? base = null,Object? name = null,Object? amount = null,Object? type = null,Object? accountId = null,Object? categoryId = null,Object? scheduleId = freezed,Object? status = null,Object? date = freezed,Object? notes = freezed,}) {
   return _then(_self.copyWith(
-meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as Meta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+base: null == base ? _self.base : base // ignore: cast_nullable_to_non_nullable
+as Base,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as Money,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as TransactionType,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as TransactionType,accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
+as int,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int,scheduleId: freezed == scheduleId ? _self.scheduleId : scheduleId // ignore: cast_nullable_to_non_nullable
+as int?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as TransactionStatus,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime?,notes: freezed == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
-as String?,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
-as Category,schedule: freezed == schedule ? _self.schedule : schedule // ignore: cast_nullable_to_non_nullable
-as Schedule?,
+as String?,
   ));
 }
 /// Create a copy of Transaction
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$MetaCopyWith<$Res> get meta {
+$BaseCopyWith<$Res> get base {
   
-  return $MetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
+  return $BaseCopyWith<$Res>(_self.base, (value) {
+    return _then(_self.copyWith(base: value));
   });
 }/// Create a copy of Transaction
 /// with the given fields replaced by the non-null parameter values.
@@ -102,27 +103,6 @@ $MoneyCopyWith<$Res> get amount {
   
   return $MoneyCopyWith<$Res>(_self.amount, (value) {
     return _then(_self.copyWith(amount: value));
-  });
-}/// Create a copy of Transaction
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$CategoryCopyWith<$Res> get category {
-  
-  return $CategoryCopyWith<$Res>(_self.category, (value) {
-    return _then(_self.copyWith(category: value));
-  });
-}/// Create a copy of Transaction
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$ScheduleCopyWith<$Res>? get schedule {
-    if (_self.schedule == null) {
-    return null;
-  }
-
-  return $ScheduleCopyWith<$Res>(_self.schedule!, (value) {
-    return _then(_self.copyWith(schedule: value));
   });
 }
 }
@@ -203,10 +183,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money amount,  TransactionType type,  TransactionStatus status,  DateTime? date,  String? notes,  Category category,  Schedule? schedule)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Base base,  Name name,  Money amount,  TransactionType type,  int accountId,  int categoryId,  int? scheduleId,  TransactionStatus status,  DateTime? date,  String? notes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Transaction() when $default != null:
-return $default(_that.meta,_that.name,_that.amount,_that.type,_that.status,_that.date,_that.notes,_that.category,_that.schedule);case _:
+return $default(_that.base,_that.name,_that.amount,_that.type,_that.accountId,_that.categoryId,_that.scheduleId,_that.status,_that.date,_that.notes);case _:
   return orElse();
 
 }
@@ -224,10 +204,10 @@ return $default(_that.meta,_that.name,_that.amount,_that.type,_that.status,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money amount,  TransactionType type,  TransactionStatus status,  DateTime? date,  String? notes,  Category category,  Schedule? schedule)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Base base,  Name name,  Money amount,  TransactionType type,  int accountId,  int categoryId,  int? scheduleId,  TransactionStatus status,  DateTime? date,  String? notes)  $default,) {final _that = this;
 switch (_that) {
 case _Transaction():
-return $default(_that.meta,_that.name,_that.amount,_that.type,_that.status,_that.date,_that.notes,_that.category,_that.schedule);}
+return $default(_that.base,_that.name,_that.amount,_that.type,_that.accountId,_that.categoryId,_that.scheduleId,_that.status,_that.date,_that.notes);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -241,10 +221,10 @@ return $default(_that.meta,_that.name,_that.amount,_that.type,_that.status,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Meta meta,  Name name,  Money amount,  TransactionType type,  TransactionStatus status,  DateTime? date,  String? notes,  Category category,  Schedule? schedule)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Base base,  Name name,  Money amount,  TransactionType type,  int accountId,  int categoryId,  int? scheduleId,  TransactionStatus status,  DateTime? date,  String? notes)?  $default,) {final _that = this;
 switch (_that) {
 case _Transaction() when $default != null:
-return $default(_that.meta,_that.name,_that.amount,_that.type,_that.status,_that.date,_that.notes,_that.category,_that.schedule);case _:
+return $default(_that.base,_that.name,_that.amount,_that.type,_that.accountId,_that.categoryId,_that.scheduleId,_that.status,_that.date,_that.notes);case _:
   return null;
 
 }
@@ -256,18 +236,19 @@ return $default(_that.meta,_that.name,_that.amount,_that.type,_that.status,_that
 
 
 class _Transaction extends Transaction {
-  const _Transaction({this.meta = Meta.empty, required this.name, required this.amount, required this.type, this.status = TransactionStatus.pending, this.date, this.notes, required this.category, this.schedule}): super._();
+  const _Transaction({this.base = Base.empty, required this.name, required this.amount, required this.type, required this.accountId, required this.categoryId, this.scheduleId, this.status = TransactionStatus.pending, this.date, this.notes}): super._();
   
 
-@override@JsonKey() final  Meta meta;
+@override@JsonKey() final  Base base;
 @override final  Name name;
 @override final  Money amount;
 @override final  TransactionType type;
+@override final  int accountId;
+@override final  int categoryId;
+@override final  int? scheduleId;
 @override@JsonKey() final  TransactionStatus status;
 @override final  DateTime? date;
 @override final  String? notes;
-@override final  Category category;
-@override final  Schedule? schedule;
 
 /// Create a copy of Transaction
 /// with the given fields replaced by the non-null parameter values.
@@ -279,16 +260,16 @@ _$TransactionCopyWith<_Transaction> get copyWith => __$TransactionCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Transaction&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.type, type) || other.type == type)&&(identical(other.status, status) || other.status == status)&&(identical(other.date, date) || other.date == date)&&(identical(other.notes, notes) || other.notes == notes)&&(identical(other.category, category) || other.category == category)&&(identical(other.schedule, schedule) || other.schedule == schedule));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Transaction&&(identical(other.base, base) || other.base == base)&&(identical(other.name, name) || other.name == name)&&(identical(other.amount, amount) || other.amount == amount)&&(identical(other.type, type) || other.type == type)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&(identical(other.categoryId, categoryId) || other.categoryId == categoryId)&&(identical(other.scheduleId, scheduleId) || other.scheduleId == scheduleId)&&(identical(other.status, status) || other.status == status)&&(identical(other.date, date) || other.date == date)&&(identical(other.notes, notes) || other.notes == notes));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,meta,name,amount,type,status,date,notes,category,schedule);
+int get hashCode => Object.hash(runtimeType,base,name,amount,type,accountId,categoryId,scheduleId,status,date,notes);
 
 @override
 String toString() {
-  return 'Transaction(meta: $meta, name: $name, amount: $amount, type: $type, status: $status, date: $date, notes: $notes, category: $category, schedule: $schedule)';
+  return 'Transaction(base: $base, name: $name, amount: $amount, type: $type, accountId: $accountId, categoryId: $categoryId, scheduleId: $scheduleId, status: $status, date: $date, notes: $notes)';
 }
 
 
@@ -299,11 +280,11 @@ abstract mixin class _$TransactionCopyWith<$Res> implements $TransactionCopyWith
   factory _$TransactionCopyWith(_Transaction value, $Res Function(_Transaction) _then) = __$TransactionCopyWithImpl;
 @override @useResult
 $Res call({
- Meta meta, Name name, Money amount, TransactionType type, TransactionStatus status, DateTime? date, String? notes, Category category, Schedule? schedule
+ Base base, Name name, Money amount, TransactionType type, int accountId, int categoryId, int? scheduleId, TransactionStatus status, DateTime? date, String? notes
 });
 
 
-@override $MetaCopyWith<$Res> get meta;@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get amount;@override $CategoryCopyWith<$Res> get category;@override $ScheduleCopyWith<$Res>? get schedule;
+@override $BaseCopyWith<$Res> get base;@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get amount;
 
 }
 /// @nodoc
@@ -316,18 +297,19 @@ class __$TransactionCopyWithImpl<$Res>
 
 /// Create a copy of Transaction
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? meta = null,Object? name = null,Object? amount = null,Object? type = null,Object? status = null,Object? date = freezed,Object? notes = freezed,Object? category = null,Object? schedule = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? base = null,Object? name = null,Object? amount = null,Object? type = null,Object? accountId = null,Object? categoryId = null,Object? scheduleId = freezed,Object? status = null,Object? date = freezed,Object? notes = freezed,}) {
   return _then(_Transaction(
-meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as Meta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+base: null == base ? _self.base : base // ignore: cast_nullable_to_non_nullable
+as Base,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,amount: null == amount ? _self.amount : amount // ignore: cast_nullable_to_non_nullable
 as Money,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as TransactionType,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as TransactionType,accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
+as int,categoryId: null == categoryId ? _self.categoryId : categoryId // ignore: cast_nullable_to_non_nullable
+as int,scheduleId: freezed == scheduleId ? _self.scheduleId : scheduleId // ignore: cast_nullable_to_non_nullable
+as int?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as TransactionStatus,date: freezed == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as DateTime?,notes: freezed == notes ? _self.notes : notes // ignore: cast_nullable_to_non_nullable
-as String?,category: null == category ? _self.category : category // ignore: cast_nullable_to_non_nullable
-as Category,schedule: freezed == schedule ? _self.schedule : schedule // ignore: cast_nullable_to_non_nullable
-as Schedule?,
+as String?,
   ));
 }
 
@@ -335,10 +317,10 @@ as Schedule?,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$MetaCopyWith<$Res> get meta {
+$BaseCopyWith<$Res> get base {
   
-  return $MetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
+  return $BaseCopyWith<$Res>(_self.base, (value) {
+    return _then(_self.copyWith(base: value));
   });
 }/// Create a copy of Transaction
 /// with the given fields replaced by the non-null parameter values.
@@ -357,27 +339,6 @@ $MoneyCopyWith<$Res> get amount {
   
   return $MoneyCopyWith<$Res>(_self.amount, (value) {
     return _then(_self.copyWith(amount: value));
-  });
-}/// Create a copy of Transaction
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$CategoryCopyWith<$Res> get category {
-  
-  return $CategoryCopyWith<$Res>(_self.category, (value) {
-    return _then(_self.copyWith(category: value));
-  });
-}/// Create a copy of Transaction
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$ScheduleCopyWith<$Res>? get schedule {
-    if (_self.schedule == null) {
-    return null;
-  }
-
-  return $ScheduleCopyWith<$Res>(_self.schedule!, (value) {
-    return _then(_self.copyWith(schedule: value));
   });
 }
 }

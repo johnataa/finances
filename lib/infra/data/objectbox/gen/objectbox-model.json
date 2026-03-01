@@ -41,17 +41,248 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:3489135971844163742",
+      "lastPropertyId": "11:4138107293020741598",
+      "name": "AccountBM",
+      "properties": [
+        {
+          "id": "1:4697298319093321241",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1109109793745907045",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:6571396041118820814",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "4:213356325388222679",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "8:6914202325180574895",
+          "name": "balance",
+          "type": 6
+        },
+        {
+          "id": "9:2093213267124814372",
+          "name": "balanceCurrency",
+          "type": 6
+        },
+        {
+          "id": "10:2279370910318706873",
+          "name": "regularAccountId",
+          "indexId": "7:1636457673558991609",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "RegularAccountBM"
+        },
+        {
+          "id": "11:4138107293020741598",
+          "name": "savingsAccountId",
+          "indexId": "8:5094840912984460872",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "SavingsAccountBM"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:5920432786192636731",
+      "lastPropertyId": "13:1518381290075102141",
+      "name": "ScheduleBM",
+      "properties": [
+        {
+          "id": "1:8337312496427283321",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1743952418934099963",
+          "name": "createdAt",
+          "type": 10
+        },
+        {
+          "id": "3:3748535746816874022",
+          "name": "updatedAt",
+          "type": 10
+        },
+        {
+          "id": "4:8255288993398378084",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "5:8918462083127815145",
+          "name": "type",
+          "type": 6
+        },
+        {
+          "id": "6:3120281139080646111",
+          "name": "amount",
+          "type": 6
+        },
+        {
+          "id": "7:7827081574081704623",
+          "name": "currency",
+          "type": 6
+        },
+        {
+          "id": "8:8181558725858739376",
+          "name": "frequencyValue",
+          "type": 6
+        },
+        {
+          "id": "9:8214830886111296249",
+          "name": "frequencyUnit",
+          "type": 6
+        },
+        {
+          "id": "10:1586115444977397494",
+          "name": "startDate",
+          "type": 10
+        },
+        {
+          "id": "11:38115295840840600",
+          "name": "endDate",
+          "type": 10
+        },
+        {
+          "id": "12:7962508596663229359",
+          "name": "accountId",
+          "indexId": "3:4638984880318342048",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "AccountBM"
+        },
+        {
+          "id": "13:1518381290075102141",
+          "name": "categoryId",
+          "indexId": "4:1063237047910638854",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "CategoryBM"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:9135657577798090697",
+      "lastPropertyId": "4:6007870559106153587",
+      "name": "RegularAccountBM",
+      "properties": [
+        {
+          "id": "1:7762188817843240378",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "4:6007870559106153587",
+          "name": "accountId",
+          "indexId": "5:2055751060249885533",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "AccountBM"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:3153984487599977684",
+      "lastPropertyId": "9:2471750241745531548",
+      "name": "SavingsAccountBM",
+      "properties": [
+        {
+          "id": "1:7325475302060854923",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "4:749214908239402286",
+          "name": "accountId",
+          "indexId": "6:2461397074804965782",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "AccountBM"
+        },
+        {
+          "id": "6:4401272242053369027",
+          "name": "amountToCover",
+          "type": 6
+        },
+        {
+          "id": "7:6180084670538007711",
+          "name": "coverageInMonth",
+          "type": 6
+        },
+        {
+          "id": "8:2307342740667111293",
+          "name": "savingsGoal",
+          "type": 6
+        },
+        {
+          "id": "9:2471750241745531548",
+          "name": "amountToCoverCurrency",
+          "type": 6
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:4903362883703324482",
-  "lastIndexId": "0:0",
+  "lastEntityId": "7:3153984487599977684",
+  "lastIndexId": "8:5094840912984460872",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [],
+  "retiredEntityUids": [
+    2307836238596210717,
+    6294535215836320734
+  ],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    5638032042713162959,
+    434694983657577216,
+    3212733045095893058,
+    3082288664930833420,
+    8542165285494444177,
+    2680183894652323370,
+    1238391883647830388,
+    5652303373140723104,
+    6633118356088938854,
+    7923316990051408400,
+    2536621193345487511,
+    8243257239085473103,
+    7048965039165401180,
+    6905124100682131955,
+    167890299884035000,
+    4478790763081980201,
+    1840190989947267704,
+    3180855373653814055,
+    5568047458744313487,
+    1698775002127108476,
+    4102495439526925416,
+    8830621830010784964,
+    4830974466624972985,
+    8571461560586615641,
+    7308070078412284974,
+    7547262587104678957,
+    4685385924670013549,
+    340852708613025644
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

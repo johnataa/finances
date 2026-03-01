@@ -1,28 +1,29 @@
 import 'package:decimal/decimal.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../result.dart';
+import '../abstractions/result.dart';
 import 'currency.dart';
 import 'errors.dart';
 
 part 'money.freezed.dart';
 
 @freezed
-abstract class Money with _$Money {
-  static final Decimal _scale = Decimal.fromInt(100_000_000);
+sealed class Money with _$Money {
+  static final Decimal _scale = .fromInt(100_000_000);
 
-  int get asInt => (amount * _scale).toBigInt().toInt();
+  int get asScaledInt => (amount * _scale).toBigInt().toInt();
 
   const Money._();
   const factory Money._create(Currency currency, Decimal amount) = _Money;
 
-  static Money zero(Currency currency) => Money._create(currency, Decimal.zero);
-  static Money one(Currency currency) => Money._create(currency, Decimal.one);
+  static Money zero(Currency currency) => Money._create(currency, .zero);
+  static Money one(Currency currency) => Money._create(currency, .one);
 
-  static Money fromInt(int currencyId, int value) => Money._create(
-    Currency.fromId(currencyId),
-    (Decimal.fromInt(value) / _scale).toDecimal(),
-  );
+  static Money fromScaledInt(int currencyId, int value) =>
+      ._create(.fromId(currencyId), (Decimal.fromInt(value) / _scale).toDecimal());
+
+  static int toScaledInt(String amount) =>
+      (Decimal.parse(amount) * _scale).toBigInt().toInt();
 
   static Money create(Currency currency, String amount) =>
       tryCreate(currency, amount).getOrThrow();
@@ -32,30 +33,30 @@ abstract class Money with _$Money {
   static Result<Money> tryCreate(Currency currency, String amount) {
     final parsedAmount = Decimal.tryParse(amount);
     if (parsedAmount == null) {
-      return Result.failure(InvalidMoneyFormatError());
+      return .failure(InvalidMoneyFormatError());
     }
 
-    return Result.success(Money._create(currency, parsedAmount));
+    return .success(._create(currency, parsedAmount));
   }
 
   Money operator +(Money other) {
     _ensureValidOperation(other);
-    return Money._create(currency, amount + other.amount);
+    return ._create(currency, amount + other.amount);
   }
 
   Money operator -(Money other) {
     _ensureValidOperation(other);
-    return Money._create(currency, amount - other.amount);
+    return ._create(currency, amount - other.amount);
   }
 
   Money operator *(Money other) {
     _ensureValidOperation(other);
-    return Money._create(currency, amount * other.amount);
+    return ._create(currency, amount * other.amount);
   }
 
   Money operator /(Money other) {
     _ensureValidOperation(other);
-    return Money._create(
+    return ._create(
       currency,
       (amount / other.amount).toDecimal(scaleOnInfinitePrecision: 15),
     );
@@ -63,7 +64,7 @@ abstract class Money with _$Money {
 
   /// Converts the [value] into another [Money] object with the new given [currency].
   Money convertTo({required Currency currency, required Decimal withFxRate}) =>
-      Money._create(currency, amount * withFxRate);
+      ._create(currency, amount * withFxRate);
 
   @override
   String toString({int withPrecision = 2}) =>

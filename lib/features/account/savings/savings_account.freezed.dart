@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SavingsAccount {
 
- Meta get meta; Name get name; Money get balance; SavingsGoal get goal; Money? get amountToCover; int? get coverageInMonth; List<Schedule> get schedules; List<Transaction> get transactions;
+ Base get base; Name get name; Money get balance; SavingsGoal get goal; Money? get amountToCover; int? get coverageInMonth; int get accountId; List<Schedule> get schedules; List<Transaction> get transactions;
 /// Create a copy of SavingsAccount
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SavingsAccountCopyWith<SavingsAccount> get copyWith => _$SavingsAccountCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SavingsAccount&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.goal, goal) || other.goal == goal)&&(identical(other.amountToCover, amountToCover) || other.amountToCover == amountToCover)&&(identical(other.coverageInMonth, coverageInMonth) || other.coverageInMonth == coverageInMonth)&&const DeepCollectionEquality().equals(other.schedules, schedules)&&const DeepCollectionEquality().equals(other.transactions, transactions));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SavingsAccount&&(identical(other.base, base) || other.base == base)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.goal, goal) || other.goal == goal)&&(identical(other.amountToCover, amountToCover) || other.amountToCover == amountToCover)&&(identical(other.coverageInMonth, coverageInMonth) || other.coverageInMonth == coverageInMonth)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&const DeepCollectionEquality().equals(other.schedules, schedules)&&const DeepCollectionEquality().equals(other.transactions, transactions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,meta,name,balance,goal,amountToCover,coverageInMonth,const DeepCollectionEquality().hash(schedules),const DeepCollectionEquality().hash(transactions));
+int get hashCode => Object.hash(runtimeType,base,name,balance,goal,amountToCover,coverageInMonth,accountId,const DeepCollectionEquality().hash(schedules),const DeepCollectionEquality().hash(transactions));
 
 @override
 String toString() {
-  return 'SavingsAccount(meta: $meta, name: $name, balance: $balance, goal: $goal, amountToCover: $amountToCover, coverageInMonth: $coverageInMonth, schedules: $schedules, transactions: $transactions)';
+  return 'SavingsAccount(base: $base, name: $name, balance: $balance, goal: $goal, amountToCover: $amountToCover, coverageInMonth: $coverageInMonth, accountId: $accountId, schedules: $schedules, transactions: $transactions)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $SavingsAccountCopyWith<$Res>  {
   factory $SavingsAccountCopyWith(SavingsAccount value, $Res Function(SavingsAccount) _then) = _$SavingsAccountCopyWithImpl;
 @useResult
 $Res call({
- Meta meta, Name name, Money balance, SavingsGoal goal, Money? amountToCover, int? coverageInMonth, List<Schedule> schedules, List<Transaction> transactions
+ Base base, Name name, Money balance, SavingsGoal goal, Money? amountToCover, int? coverageInMonth, int accountId, List<Schedule> schedules, List<Transaction> transactions
 });
 
 
-$MetaCopyWith<$Res> get meta;$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get balance;$MoneyCopyWith<$Res>? get amountToCover;
+$BaseCopyWith<$Res> get base;$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get balance;$MoneyCopyWith<$Res>? get amountToCover;
 
 }
 /// @nodoc
@@ -62,15 +62,16 @@ class _$SavingsAccountCopyWithImpl<$Res>
 
 /// Create a copy of SavingsAccount
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? meta = null,Object? name = null,Object? balance = null,Object? goal = null,Object? amountToCover = freezed,Object? coverageInMonth = freezed,Object? schedules = null,Object? transactions = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? base = null,Object? name = null,Object? balance = null,Object? goal = null,Object? amountToCover = freezed,Object? coverageInMonth = freezed,Object? accountId = null,Object? schedules = null,Object? transactions = null,}) {
   return _then(_self.copyWith(
-meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as Meta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+base: null == base ? _self.base : base // ignore: cast_nullable_to_non_nullable
+as Base,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
 as Money,goal: null == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
 as SavingsGoal,amountToCover: freezed == amountToCover ? _self.amountToCover : amountToCover // ignore: cast_nullable_to_non_nullable
 as Money?,coverageInMonth: freezed == coverageInMonth ? _self.coverageInMonth : coverageInMonth // ignore: cast_nullable_to_non_nullable
-as int?,schedules: null == schedules ? _self.schedules : schedules // ignore: cast_nullable_to_non_nullable
+as int?,accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
+as int,schedules: null == schedules ? _self.schedules : schedules // ignore: cast_nullable_to_non_nullable
 as List<Schedule>,transactions: null == transactions ? _self.transactions : transactions // ignore: cast_nullable_to_non_nullable
 as List<Transaction>,
   ));
@@ -79,10 +80,10 @@ as List<Transaction>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$MetaCopyWith<$Res> get meta {
+$BaseCopyWith<$Res> get base {
   
-  return $MetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
+  return $BaseCopyWith<$Res>(_self.base, (value) {
+    return _then(_self.copyWith(base: value));
   });
 }/// Create a copy of SavingsAccount
 /// with the given fields replaced by the non-null parameter values.
@@ -193,10 +194,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money balance,  SavingsGoal goal,  Money? amountToCover,  int? coverageInMonth,  List<Schedule> schedules,  List<Transaction> transactions)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Base base,  Name name,  Money balance,  SavingsGoal goal,  Money? amountToCover,  int? coverageInMonth,  int accountId,  List<Schedule> schedules,  List<Transaction> transactions)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SavingsAccount() when $default != null:
-return $default(_that.meta,_that.name,_that.balance,_that.goal,_that.amountToCover,_that.coverageInMonth,_that.schedules,_that.transactions);case _:
+return $default(_that.base,_that.name,_that.balance,_that.goal,_that.amountToCover,_that.coverageInMonth,_that.accountId,_that.schedules,_that.transactions);case _:
   return orElse();
 
 }
@@ -214,10 +215,10 @@ return $default(_that.meta,_that.name,_that.balance,_that.goal,_that.amountToCov
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money balance,  SavingsGoal goal,  Money? amountToCover,  int? coverageInMonth,  List<Schedule> schedules,  List<Transaction> transactions)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Base base,  Name name,  Money balance,  SavingsGoal goal,  Money? amountToCover,  int? coverageInMonth,  int accountId,  List<Schedule> schedules,  List<Transaction> transactions)  $default,) {final _that = this;
 switch (_that) {
 case _SavingsAccount():
-return $default(_that.meta,_that.name,_that.balance,_that.goal,_that.amountToCover,_that.coverageInMonth,_that.schedules,_that.transactions);}
+return $default(_that.base,_that.name,_that.balance,_that.goal,_that.amountToCover,_that.coverageInMonth,_that.accountId,_that.schedules,_that.transactions);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -231,10 +232,10 @@ return $default(_that.meta,_that.name,_that.balance,_that.goal,_that.amountToCov
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Meta meta,  Name name,  Money balance,  SavingsGoal goal,  Money? amountToCover,  int? coverageInMonth,  List<Schedule> schedules,  List<Transaction> transactions)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Base base,  Name name,  Money balance,  SavingsGoal goal,  Money? amountToCover,  int? coverageInMonth,  int accountId,  List<Schedule> schedules,  List<Transaction> transactions)?  $default,) {final _that = this;
 switch (_that) {
 case _SavingsAccount() when $default != null:
-return $default(_that.meta,_that.name,_that.balance,_that.goal,_that.amountToCover,_that.coverageInMonth,_that.schedules,_that.transactions);case _:
+return $default(_that.base,_that.name,_that.balance,_that.goal,_that.amountToCover,_that.coverageInMonth,_that.accountId,_that.schedules,_that.transactions);case _:
   return null;
 
 }
@@ -246,15 +247,16 @@ return $default(_that.meta,_that.name,_that.balance,_that.goal,_that.amountToCov
 
 
 class _SavingsAccount extends SavingsAccount {
-  const _SavingsAccount({this.meta = Meta.empty, required this.name, required this.balance, required this.goal, this.amountToCover, this.coverageInMonth, final  List<Schedule> schedules = const [], final  List<Transaction> transactions = const []}): _schedules = schedules,_transactions = transactions,super._();
+  const _SavingsAccount({this.base = Base.empty, required this.name, required this.balance, required this.goal, this.amountToCover, this.coverageInMonth, this.accountId = 0, final  List<Schedule> schedules = const [], final  List<Transaction> transactions = const []}): _schedules = schedules,_transactions = transactions,super._();
   
 
-@override@JsonKey() final  Meta meta;
+@override@JsonKey() final  Base base;
 @override final  Name name;
 @override final  Money balance;
 @override final  SavingsGoal goal;
 @override final  Money? amountToCover;
 @override final  int? coverageInMonth;
+@override@JsonKey() final  int accountId;
  final  List<Schedule> _schedules;
 @override@JsonKey() List<Schedule> get schedules {
   if (_schedules is EqualUnmodifiableListView) return _schedules;
@@ -280,16 +282,16 @@ _$SavingsAccountCopyWith<_SavingsAccount> get copyWith => __$SavingsAccountCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SavingsAccount&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.goal, goal) || other.goal == goal)&&(identical(other.amountToCover, amountToCover) || other.amountToCover == amountToCover)&&(identical(other.coverageInMonth, coverageInMonth) || other.coverageInMonth == coverageInMonth)&&const DeepCollectionEquality().equals(other._schedules, _schedules)&&const DeepCollectionEquality().equals(other._transactions, _transactions));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SavingsAccount&&(identical(other.base, base) || other.base == base)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.goal, goal) || other.goal == goal)&&(identical(other.amountToCover, amountToCover) || other.amountToCover == amountToCover)&&(identical(other.coverageInMonth, coverageInMonth) || other.coverageInMonth == coverageInMonth)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&const DeepCollectionEquality().equals(other._schedules, _schedules)&&const DeepCollectionEquality().equals(other._transactions, _transactions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,meta,name,balance,goal,amountToCover,coverageInMonth,const DeepCollectionEquality().hash(_schedules),const DeepCollectionEquality().hash(_transactions));
+int get hashCode => Object.hash(runtimeType,base,name,balance,goal,amountToCover,coverageInMonth,accountId,const DeepCollectionEquality().hash(_schedules),const DeepCollectionEquality().hash(_transactions));
 
 @override
 String toString() {
-  return 'SavingsAccount(meta: $meta, name: $name, balance: $balance, goal: $goal, amountToCover: $amountToCover, coverageInMonth: $coverageInMonth, schedules: $schedules, transactions: $transactions)';
+  return 'SavingsAccount(base: $base, name: $name, balance: $balance, goal: $goal, amountToCover: $amountToCover, coverageInMonth: $coverageInMonth, accountId: $accountId, schedules: $schedules, transactions: $transactions)';
 }
 
 
@@ -300,11 +302,11 @@ abstract mixin class _$SavingsAccountCopyWith<$Res> implements $SavingsAccountCo
   factory _$SavingsAccountCopyWith(_SavingsAccount value, $Res Function(_SavingsAccount) _then) = __$SavingsAccountCopyWithImpl;
 @override @useResult
 $Res call({
- Meta meta, Name name, Money balance, SavingsGoal goal, Money? amountToCover, int? coverageInMonth, List<Schedule> schedules, List<Transaction> transactions
+ Base base, Name name, Money balance, SavingsGoal goal, Money? amountToCover, int? coverageInMonth, int accountId, List<Schedule> schedules, List<Transaction> transactions
 });
 
 
-@override $MetaCopyWith<$Res> get meta;@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get balance;@override $MoneyCopyWith<$Res>? get amountToCover;
+@override $BaseCopyWith<$Res> get base;@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get balance;@override $MoneyCopyWith<$Res>? get amountToCover;
 
 }
 /// @nodoc
@@ -317,15 +319,16 @@ class __$SavingsAccountCopyWithImpl<$Res>
 
 /// Create a copy of SavingsAccount
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? meta = null,Object? name = null,Object? balance = null,Object? goal = null,Object? amountToCover = freezed,Object? coverageInMonth = freezed,Object? schedules = null,Object? transactions = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? base = null,Object? name = null,Object? balance = null,Object? goal = null,Object? amountToCover = freezed,Object? coverageInMonth = freezed,Object? accountId = null,Object? schedules = null,Object? transactions = null,}) {
   return _then(_SavingsAccount(
-meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as Meta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+base: null == base ? _self.base : base // ignore: cast_nullable_to_non_nullable
+as Base,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
 as Money,goal: null == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
 as SavingsGoal,amountToCover: freezed == amountToCover ? _self.amountToCover : amountToCover // ignore: cast_nullable_to_non_nullable
 as Money?,coverageInMonth: freezed == coverageInMonth ? _self.coverageInMonth : coverageInMonth // ignore: cast_nullable_to_non_nullable
-as int?,schedules: null == schedules ? _self._schedules : schedules // ignore: cast_nullable_to_non_nullable
+as int?,accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
+as int,schedules: null == schedules ? _self._schedules : schedules // ignore: cast_nullable_to_non_nullable
 as List<Schedule>,transactions: null == transactions ? _self._transactions : transactions // ignore: cast_nullable_to_non_nullable
 as List<Transaction>,
   ));
@@ -335,10 +338,10 @@ as List<Transaction>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$MetaCopyWith<$Res> get meta {
+$BaseCopyWith<$Res> get base {
   
-  return $MetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
+  return $BaseCopyWith<$Res>(_self.base, (value) {
+    return _then(_self.copyWith(base: value));
   });
 }/// Create a copy of SavingsAccount
 /// with the given fields replaced by the non-null parameter values.

@@ -1,4 +1,4 @@
-import '../custom_error.dart';
+import '../abstractions/custom_error.dart';
 import 'currency.dart';
 
 const String _codePrefix = "MoneyError";

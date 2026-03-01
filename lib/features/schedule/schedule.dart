@@ -1,32 +1,30 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../shared/entity.dart';
+import '../../shared/base/base.dart';
+import '../../shared/contracts/entity.dart';
 import '../../shared/frequency/frequency.dart';
-import '../../shared/meta/meta.dart';
 import '../../shared/money/money.dart';
 import '../../shared/name/name.dart';
-import '../account/account.dart';
-import '../category/category.dart';
 import 'schedule_type.dart';
 
 part 'schedule.freezed.dart';
 
 @freezed
-sealed class Schedule with _$Schedule implements Entity {
+sealed class Schedule with _$Schedule implements IEntity {
   const Schedule._();
 
   @override
-  int get id => meta.id;
+  int get id => base.id;
 
   const factory Schedule({
-    @Default(Meta.empty) Meta meta,
+    @Default(Base.empty) Base base,
     required Name name,
     required Money amount,
     required Frequency frequency,
     required ScheduleType type,
     required DateTime startDate,
-    required Account account,
-    required Category category,
+    required int accountId,
+    required int categoryId,
     DateTime? endDate,
   }) = _Schedule;
 }

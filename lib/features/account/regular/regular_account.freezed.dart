@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RegularAccount {
 
- Meta get meta; Name get name; Money get balance; List<Schedule> get schedules; List<Transaction> get transactions;
+ Base get base; Name get name; Money get balance; int get accountId; List<Schedule> get schedules; List<Transaction> get transactions;
 /// Create a copy of RegularAccount
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $RegularAccountCopyWith<RegularAccount> get copyWith => _$RegularAccountCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegularAccount&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&const DeepCollectionEquality().equals(other.schedules, schedules)&&const DeepCollectionEquality().equals(other.transactions, transactions));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RegularAccount&&(identical(other.base, base) || other.base == base)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&const DeepCollectionEquality().equals(other.schedules, schedules)&&const DeepCollectionEquality().equals(other.transactions, transactions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,meta,name,balance,const DeepCollectionEquality().hash(schedules),const DeepCollectionEquality().hash(transactions));
+int get hashCode => Object.hash(runtimeType,base,name,balance,accountId,const DeepCollectionEquality().hash(schedules),const DeepCollectionEquality().hash(transactions));
 
 @override
 String toString() {
-  return 'RegularAccount(meta: $meta, name: $name, balance: $balance, schedules: $schedules, transactions: $transactions)';
+  return 'RegularAccount(base: $base, name: $name, balance: $balance, accountId: $accountId, schedules: $schedules, transactions: $transactions)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $RegularAccountCopyWith<$Res>  {
   factory $RegularAccountCopyWith(RegularAccount value, $Res Function(RegularAccount) _then) = _$RegularAccountCopyWithImpl;
 @useResult
 $Res call({
- Meta meta, Name name, Money balance, List<Schedule> schedules, List<Transaction> transactions
+ Base base, Name name, Money balance, int accountId, List<Schedule> schedules, List<Transaction> transactions
 });
 
 
-$MetaCopyWith<$Res> get meta;$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get balance;
+$BaseCopyWith<$Res> get base;$NameCopyWith<$Res> get name;$MoneyCopyWith<$Res> get balance;
 
 }
 /// @nodoc
@@ -62,12 +62,13 @@ class _$RegularAccountCopyWithImpl<$Res>
 
 /// Create a copy of RegularAccount
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? meta = null,Object? name = null,Object? balance = null,Object? schedules = null,Object? transactions = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? base = null,Object? name = null,Object? balance = null,Object? accountId = null,Object? schedules = null,Object? transactions = null,}) {
   return _then(_self.copyWith(
-meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as Meta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+base: null == base ? _self.base : base // ignore: cast_nullable_to_non_nullable
+as Base,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
-as Money,schedules: null == schedules ? _self.schedules : schedules // ignore: cast_nullable_to_non_nullable
+as Money,accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
+as int,schedules: null == schedules ? _self.schedules : schedules // ignore: cast_nullable_to_non_nullable
 as List<Schedule>,transactions: null == transactions ? _self.transactions : transactions // ignore: cast_nullable_to_non_nullable
 as List<Transaction>,
   ));
@@ -76,10 +77,10 @@ as List<Transaction>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$MetaCopyWith<$Res> get meta {
+$BaseCopyWith<$Res> get base {
   
-  return $MetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
+  return $BaseCopyWith<$Res>(_self.base, (value) {
+    return _then(_self.copyWith(base: value));
   });
 }/// Create a copy of RegularAccount
 /// with the given fields replaced by the non-null parameter values.
@@ -178,10 +179,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money balance,  List<Schedule> schedules,  List<Transaction> transactions)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Base base,  Name name,  Money balance,  int accountId,  List<Schedule> schedules,  List<Transaction> transactions)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RegularAccount() when $default != null:
-return $default(_that.meta,_that.name,_that.balance,_that.schedules,_that.transactions);case _:
+return $default(_that.base,_that.name,_that.balance,_that.accountId,_that.schedules,_that.transactions);case _:
   return orElse();
 
 }
@@ -199,10 +200,10 @@ return $default(_that.meta,_that.name,_that.balance,_that.schedules,_that.transa
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Meta meta,  Name name,  Money balance,  List<Schedule> schedules,  List<Transaction> transactions)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Base base,  Name name,  Money balance,  int accountId,  List<Schedule> schedules,  List<Transaction> transactions)  $default,) {final _that = this;
 switch (_that) {
 case _RegularAccount():
-return $default(_that.meta,_that.name,_that.balance,_that.schedules,_that.transactions);}
+return $default(_that.base,_that.name,_that.balance,_that.accountId,_that.schedules,_that.transactions);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -216,10 +217,10 @@ return $default(_that.meta,_that.name,_that.balance,_that.schedules,_that.transa
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Meta meta,  Name name,  Money balance,  List<Schedule> schedules,  List<Transaction> transactions)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Base base,  Name name,  Money balance,  int accountId,  List<Schedule> schedules,  List<Transaction> transactions)?  $default,) {final _that = this;
 switch (_that) {
 case _RegularAccount() when $default != null:
-return $default(_that.meta,_that.name,_that.balance,_that.schedules,_that.transactions);case _:
+return $default(_that.base,_that.name,_that.balance,_that.accountId,_that.schedules,_that.transactions);case _:
   return null;
 
 }
@@ -231,12 +232,13 @@ return $default(_that.meta,_that.name,_that.balance,_that.schedules,_that.transa
 
 
 class _RegularAccount extends RegularAccount {
-  const _RegularAccount({this.meta = Meta.empty, required this.name, required this.balance, final  List<Schedule> schedules = const [], final  List<Transaction> transactions = const []}): _schedules = schedules,_transactions = transactions,super._();
+  const _RegularAccount({this.base = Base.empty, required this.name, required this.balance, this.accountId = 0, final  List<Schedule> schedules = const [], final  List<Transaction> transactions = const []}): _schedules = schedules,_transactions = transactions,super._();
   
 
-@override@JsonKey() final  Meta meta;
+@override@JsonKey() final  Base base;
 @override final  Name name;
 @override final  Money balance;
+@override@JsonKey() final  int accountId;
  final  List<Schedule> _schedules;
 @override@JsonKey() List<Schedule> get schedules {
   if (_schedules is EqualUnmodifiableListView) return _schedules;
@@ -262,16 +264,16 @@ _$RegularAccountCopyWith<_RegularAccount> get copyWith => __$RegularAccountCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegularAccount&&(identical(other.meta, meta) || other.meta == meta)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&const DeepCollectionEquality().equals(other._schedules, _schedules)&&const DeepCollectionEquality().equals(other._transactions, _transactions));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RegularAccount&&(identical(other.base, base) || other.base == base)&&(identical(other.name, name) || other.name == name)&&(identical(other.balance, balance) || other.balance == balance)&&(identical(other.accountId, accountId) || other.accountId == accountId)&&const DeepCollectionEquality().equals(other._schedules, _schedules)&&const DeepCollectionEquality().equals(other._transactions, _transactions));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,meta,name,balance,const DeepCollectionEquality().hash(_schedules),const DeepCollectionEquality().hash(_transactions));
+int get hashCode => Object.hash(runtimeType,base,name,balance,accountId,const DeepCollectionEquality().hash(_schedules),const DeepCollectionEquality().hash(_transactions));
 
 @override
 String toString() {
-  return 'RegularAccount(meta: $meta, name: $name, balance: $balance, schedules: $schedules, transactions: $transactions)';
+  return 'RegularAccount(base: $base, name: $name, balance: $balance, accountId: $accountId, schedules: $schedules, transactions: $transactions)';
 }
 
 
@@ -282,11 +284,11 @@ abstract mixin class _$RegularAccountCopyWith<$Res> implements $RegularAccountCo
   factory _$RegularAccountCopyWith(_RegularAccount value, $Res Function(_RegularAccount) _then) = __$RegularAccountCopyWithImpl;
 @override @useResult
 $Res call({
- Meta meta, Name name, Money balance, List<Schedule> schedules, List<Transaction> transactions
+ Base base, Name name, Money balance, int accountId, List<Schedule> schedules, List<Transaction> transactions
 });
 
 
-@override $MetaCopyWith<$Res> get meta;@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get balance;
+@override $BaseCopyWith<$Res> get base;@override $NameCopyWith<$Res> get name;@override $MoneyCopyWith<$Res> get balance;
 
 }
 /// @nodoc
@@ -299,12 +301,13 @@ class __$RegularAccountCopyWithImpl<$Res>
 
 /// Create a copy of RegularAccount
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? meta = null,Object? name = null,Object? balance = null,Object? schedules = null,Object? transactions = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? base = null,Object? name = null,Object? balance = null,Object? accountId = null,Object? schedules = null,Object? transactions = null,}) {
   return _then(_RegularAccount(
-meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
-as Meta,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+base: null == base ? _self.base : base // ignore: cast_nullable_to_non_nullable
+as Base,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as Name,balance: null == balance ? _self.balance : balance // ignore: cast_nullable_to_non_nullable
-as Money,schedules: null == schedules ? _self._schedules : schedules // ignore: cast_nullable_to_non_nullable
+as Money,accountId: null == accountId ? _self.accountId : accountId // ignore: cast_nullable_to_non_nullable
+as int,schedules: null == schedules ? _self._schedules : schedules // ignore: cast_nullable_to_non_nullable
 as List<Schedule>,transactions: null == transactions ? _self._transactions : transactions // ignore: cast_nullable_to_non_nullable
 as List<Transaction>,
   ));
@@ -314,10 +317,10 @@ as List<Transaction>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$MetaCopyWith<$Res> get meta {
+$BaseCopyWith<$Res> get base {
   
-  return $MetaCopyWith<$Res>(_self.meta, (value) {
-    return _then(_self.copyWith(meta: value));
+  return $BaseCopyWith<$Res>(_self.base, (value) {
+    return _then(_self.copyWith(base: value));
   });
 }/// Create a copy of RegularAccount
 /// with the given fields replaced by the non-null parameter values.

@@ -1,6 +1,7 @@
-import '../../shared/repository.dart';
+import '../../shared/abstractions/order_by.dart';
+import '../../shared/contracts/repository.dart';
 import 'category.dart';
-import 'category_filter.dart';
+import 'category.query.dart';
 
-abstract interface class CategoryRepository
-    implements Repository<Category, CategoryFilter, CategorySort> {}
+abstract interface class ICategoryRepository
+    implements IRepository<Category, CategoryFilter, OrderBy<CategoryField>> {}

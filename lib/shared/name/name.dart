@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../result.dart';
+import '../abstractions/result.dart';
 import 'errors.dart';
 
 part 'name.freezed.dart';
