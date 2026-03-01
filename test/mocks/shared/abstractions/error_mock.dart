@@ -1,9 +1,12 @@
-import 'package:finances/shared/custom_error.dart';
+import 'package:finances/shared/abstractions/custom_error.dart';
 
 /// Represents a mock class implementation of the abstract [CustomError] class.
 class ErrorMock extends CustomError {
   /// Default unique instance.
-  static const ErrorMock defaultInstance = ErrorMock("ErrorMock#Code", "Error mock message");
+  static const ErrorMock defaultInstance = ErrorMock(
+    "ErrorMock#Code",
+    "Error mock message",
+  );
 
   const ErrorMock(super.code, super.message);
 }

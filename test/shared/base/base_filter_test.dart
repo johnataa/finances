@@ -1,12 +1,12 @@
-import 'package:finances/shared/filter.dart';
-import 'package:finances/shared/meta/meta_filter.dart';
+import 'package:finances/shared/abstractions/filter.dart';
+import 'package:finances/shared/base/base_filter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('MetaFilter', () {
+  group('BaseFilter', () {
     test('defaults to or logic', () {
       // Arrange & Act
-      const filter = MetaFilter.filter();
+      const filter = BaseFilter();
 
       // Assert
       expect(filter.logic, FilterLogic.or);
@@ -17,7 +17,7 @@ void main() {
       const int input = 1;
 
       // Act
-      const filter = MetaFilter.filter(id: .equals(input));
+      const filter = BaseFilter(id: .equals(input));
 
       // Assert
       expect(filter.id, isNotNull);
@@ -36,7 +36,7 @@ void main() {
       final DateTime input = DateTime.now();
 
       // Act
-      final filter = MetaFilter.filter(createdAt: .equals(input));
+      final filter = BaseFilter(createdAt: .equals(input));
 
       // Assert
       expect(filter.createdAt, isNotNull);
@@ -55,7 +55,7 @@ void main() {
       final DateTime input = DateTime.now();
 
       // Act
-      final filter = MetaFilter.filter(updatedAt: .equals(input));
+      final filter = BaseFilter(updatedAt: .equals(input));
 
       // Assert
       expect(filter.updatedAt, isNotNull);
@@ -74,49 +74,10 @@ void main() {
       const FilterLogic input = FilterLogic.and;
 
       // Act
-      const filter = MetaFilter.filter(logic: input);
+      const filter = BaseFilter(logic: input);
 
       // Assert
       expect(filter.logic, input);
-    });
-  });
-
-  group('MetaSort', () {
-    test('defaultSort is updatedAt desc', () {
-      // Assert
-      expect(MetaSort.defaultSort, const MetaSort.updatedAt(desc: true));
-    });
-
-    test('id sort defaults to asc', () {
-      // Act
-      const sort = MetaSort.id();
-
-      // Assert
-      expect(sort.desc, false);
-    });
-
-    test('createdAt sort defaults to asc', () {
-      // Act
-      const sort = MetaSort.createdAt();
-
-      // Assert
-      expect(sort.desc, false);
-    });
-
-    test('updatedAt sort defaults to asc', () {
-      // Act
-      const sort = MetaSort.updatedAt();
-
-      // Assert
-      expect(sort.desc, false);
-    });
-
-    test('id sort stores desc correctly', () {
-      // Act
-      const sort = MetaSort.id(desc: true);
-
-      // Assert
-      expect(sort.desc, true);
     });
   });
 }

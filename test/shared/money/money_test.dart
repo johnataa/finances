@@ -1,8 +1,8 @@
 import 'package:decimal/decimal.dart';
+import 'package:finances/shared/abstractions/result.dart';
 import 'package:finances/shared/money/currency.dart';
 import 'package:finances/shared/money/errors.dart';
 import 'package:finances/shared/money/money.dart';
-import 'package:finances/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_error_codes.dart';
@@ -21,14 +21,14 @@ void main() {
       );
     });
 
-    test('Money.fromInt should create from int', () {
-      final money = Money.fromInt(Currency.usd.id, 15);
+    test('Money.fromScaledInt should create from int', () {
+      final Money money = .fromScaledInt(Currency.usd.id, 1_500_000_000);
       expect(money.currency, Currency.usd);
       expect(money.amount, Decimal.fromInt(15));
     });
 
     test('Money.create should create from currency and string', () {
-      final money = Money.create(Currency.brl, '100');
+      final Money money = .create(Currency.brl, '100');
       expect(money.currency, Currency.brl);
       expect(money.amount, Decimal.fromInt(100));
     });
@@ -44,9 +44,9 @@ void main() {
   });
 
   group('Money Operations', () {
-    final m10 = Money.create(Currency.usd, "10");
-    final m5 = Money.create(Currency.usd, "5");
-    final m10brl = Money.create(Currency.brl, "10");
+    final Money m10 = .create(Currency.usd, "10");
+    final Money m5 = .create(Currency.usd, "5");
+    final Money m10brl = .create(Currency.brl, "10");
 
     test('Addition should correct sum', () {
       final result = m10 + m5;

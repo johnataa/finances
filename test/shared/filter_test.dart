@@ -1,4 +1,4 @@
-import 'package:finances/shared/filter.dart';
+import 'package:finances/shared/abstractions/filter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -126,54 +126,6 @@ void main() {
         equals: (_) => fail('Should be afterThan'),
         beforeThan: (_) => fail('Should be afterThan'),
         afterThan: (f) => expect(f.input, input),
-      );
-    });
-
-    test('.string wraps StringFilter correctly', () {
-      // Arrange
-      const stringFilter = StringFilter.equals('test');
-
-      // Act
-      const filter = Filter.string(stringFilter);
-
-      // Assert
-      expect(filter, isA<Filter>());
-      filter.map(
-        string: (f) => expect(f.prop, stringFilter),
-        int: (_) => fail('Should be string'),
-        dateTime: (_) => fail('Should be string'),
-      );
-    });
-
-    test('.int wraps IntFilter correctly', () {
-      // Arrange
-      const intFilter = IntFilter.equals(1);
-
-      // Act
-      const filter = Filter.int(intFilter);
-
-      // Assert
-      expect(filter, isA<Filter>());
-      filter.map(
-        string: (_) => fail('Should be int'),
-        int: (f) => expect(f.prop, intFilter),
-        dateTime: (_) => fail('Should be int'),
-      );
-    });
-
-    test('.dateTime wraps DateTimeFilter correctly', () {
-      // Arrange
-      final dateFilter = DateTimeFilter.equals(DateTime.now());
-
-      // Act
-      final filter = Filter.dateTime(dateFilter);
-
-      // Assert
-      expect(filter, isA<Filter>());
-      filter.map(
-        string: (_) => fail('Should be dateTime'),
-        int: (_) => fail('Should be dateTime'),
-        dateTime: (f) => expect(f.prop, dateFilter),
       );
     });
   });

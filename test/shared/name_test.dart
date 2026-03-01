@@ -1,6 +1,6 @@
+import 'package:finances/shared/abstractions/result.dart';
 import 'package:finances/shared/name/errors.dart';
 import 'package:finances/shared/name/name.dart';
-import 'package:finances/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_many.dart';
@@ -78,7 +78,7 @@ void main() {
 
   group("Name.create (throwing)", () {
     test("Should return Name when valid.", () {
-      final name = Name.create("Valid Name");
+      final Name name = .create('Valid Name');
       expect(name.value, "Valid Name");
     });
 

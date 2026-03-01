@@ -1,7 +1,7 @@
-import 'package:finances/shared/result.dart';
+import 'package:finances/shared/abstractions/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../mocks/error_mock.dart';
+import '../mocks/shared/abstractions/error_mock.dart';
 
 void main() {
   group("Result", () {

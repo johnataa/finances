@@ -1,7 +1,7 @@
+import 'package:finances/shared/abstractions/result.dart';
 import 'package:finances/shared/frequency/errors.dart';
 import 'package:finances/shared/frequency/frequency.dart';
 import 'package:finances/shared/frequency/frequency_unit.dart';
-import 'package:finances/shared/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../test_many.dart';
