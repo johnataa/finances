@@ -10,8 +10,8 @@ void main() {
   const minLength = Name.minLength;
   const maxLength = Name.maxLength;
 
-  group("Invalid name length", () {
-    test("Should be an invalid name when name length is less than $minLength.", () {
+  group("Name.tryCreate failure", () {
+    test("Should return failure when name length is less than $minLength", () {
       // Arrange
       int length = minLength - 1;
 
@@ -21,12 +21,12 @@ void main() {
       // Assert
       expect(result, isA<Failure<Name>>());
       result.map(
-        success: (_) => fail('Should be a failure'),
-        failure: (f) => expect(f.error, isA<InvalidNameLengthError>()),
+        success: (_) => fail('Should be failure'),
+        failure: (f) => expect(f.error, NameErrors.invalidNameLengthError),
       );
     });
 
-    test("Should be an invalid name when name length is more than $maxLength.", () {
+    test("Should return failure when name length is more than $maxLength", () {
       // Arrange
       int length = maxLength + 1;
 
@@ -36,16 +36,28 @@ void main() {
       // Assert
       expect(result, isA<Failure<Name>>());
       result.map(
-        success: (_) => fail('Should be a failure'),
-        failure: (f) => expect(f.error, isA<InvalidNameLengthError>()),
+        success: (_) => fail('Should be failure'),
+        failure: (f) => expect(f.error, NameErrors.invalidNameLengthError),
+      );
+    });
+
+    test("Should return failure when only whitespace is provided", () {
+      // Act
+      final result = Name.tryCreate("   ");
+
+      // Assert
+      expect(result, isA<Failure<Name>>());
+      result.map(
+        success: (_) => fail("Should be failure"),
+        failure: (f) => expect(f.error, NameErrors.emptyNameError),
       );
     });
   });
 
-  group("Valid name length", () {
+  group("Name.tryCreate success", () {
     testMany(
-      "Should be valid when name length is greater than or equal to $minLength.",
-      params: [minLength, minLength + 1],
+      "Should return success when length is within valid range",
+      params: [minLength, minLength + 1, maxLength - 1, maxLength],
       test: (length) {
         // Act
         final result = Name.tryCreate("A" * length);
@@ -53,24 +65,8 @@ void main() {
         // Assert
         expect(result, isA<Success<Name>>());
         result.map(
-          success: (s) => expect(s.value.value.length, greaterThanOrEqualTo(minLength)),
-          failure: (_) => fail('Should be a success'),
-        );
-      },
-    );
-
-    testMany(
-      "Should be valid when name length is lesser than or equal to $maxLength.",
-      params: [maxLength - 1, maxLength],
-      test: (length) {
-        // Act
-        final result = Name.tryCreate("A" * length);
-
-        // Assert
-        expect(result, isA<Success<Name>>());
-        result.map(
-          success: (s) => expect(s.value.value.length, lessThanOrEqualTo(maxLength)),
-          failure: (_) => fail('Should be a success'),
+          success: (s) => expect(s.value.value.length, length),
+          failure: (_) => fail('Should be success'),
         );
       },
     );
@@ -78,17 +74,21 @@ void main() {
 
   group("Name.create (throwing)", () {
     test("Should return Name when valid.", () {
+      // Act
       final Name name = .create('Valid Name');
+
+      // Assert
       expect(name.value, "Valid Name");
     });
 
     test("Should throw when invalid.", () {
-      expect(() => Name.create("   "), throwsA(isA<EmptyNameError>()));
+      // Act & Assert
+      expect(() => Name.create("   "), throwsA(NameErrors.emptyNameError));
     });
   });
 
   testErrorCodes({
-    InvalidNameLengthError(minLength, maxLength): "NameError#001",
-    EmptyNameError(): "NameError#002",
+    NameErrors.invalidNameLengthError: "NameError#001",
+    NameErrors.emptyNameError: "NameError#002",
   });
 }

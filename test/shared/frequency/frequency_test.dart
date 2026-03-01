@@ -24,7 +24,7 @@ void main() {
         result.map(
           success: (_) => fail('Should be a failure'),
           failure: (f) {
-            expect(f.error, isA<InvalidFrequencyValueError>());
+            expect(f.error, FrequencyErrors.invalidFrequencyValueError);
           },
         );
       },
@@ -55,8 +55,8 @@ void main() {
   group("Operator ==", () {
     test("Should be equal when value and unit are equal.", () {
       // Arrange
-      final f1 = Frequency.create(2, FrequencyUnit.month);
-      final f2 = Frequency.create(2, FrequencyUnit.month);
+      final Frequency f1 = .create(2, .month);
+      final Frequency f2 = .create(2, .month);
 
       // Act & Assert
       expect(f1 == f2, true);
@@ -64,8 +64,8 @@ void main() {
 
     test("Should not be equal when frequency units are different.", () {
       // Arrange
-      final f1 = Frequency.create(1, FrequencyUnit.day);
-      final f2 = Frequency.create(1, FrequencyUnit.week);
+      final Frequency f1 = .create(1, .day);
+      final Frequency f2 = .create(1, .week);
 
       // Act & Assert
       expect(f1 == f2, false);
@@ -141,18 +141,22 @@ void main() {
 
   group("Frequency.create (throwing)", () {
     test("Should return Frequency when valid.", () {
-      final frequency = Frequency.create(2, FrequencyUnit.month);
+      // Act
+      final Frequency frequency = .create(2, .month);
+
+      // Assert
       expect(frequency.value, 2);
       expect(frequency.unit, FrequencyUnit.month);
     });
 
     test("Should throw when invalid.", () {
-      expect(
-        () => Frequency.create(0, FrequencyUnit.day),
-        throwsA(isA<InvalidFrequencyValueError>()),
-      );
+      // Act
+      Frequency act() => Frequency.create(0, .day);
+
+      // Assert
+      expect(act, throwsA(FrequencyErrors.invalidFrequencyValueError));
     });
   });
 
-  testErrorCodes({InvalidFrequencyValueError(): "FrequencyError#001"});
+  testErrorCodes({FrequencyErrors.invalidFrequencyValueError: "FrequencyError#001"});
 }

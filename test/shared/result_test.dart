@@ -1,36 +1,37 @@
+import 'package:finances/shared/abstractions/custom_error.dart';
 import 'package:finances/shared/abstractions/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../mocks/shared/abstractions/error_mock.dart';
-
 void main() {
+  final CustomError errorMock = CustomError(code: "error#code", message: "error message");
+
   group("Result", () {
-    test("Should be successful when subject is not null and error is null", () {
+    test("Result.success should wrap value correctly", () {
       // Arrange
       DateTime subject = DateTime.now();
 
       // Act
-      Result<DateTime> result = Result.success(subject);
+      final Result<DateTime> result = .success(subject);
 
       // Assert
       expect(result, isA<Success<DateTime>>());
       result.map(
         success: (s) => expect(s.value, subject),
-        failure: (_) => fail('Should be a success'),
+        failure: (_) => fail('Should be success'),
       );
     });
 
-    test("Should be a failure when subject is null and error is not null", () {
+    test("Result.failure should wrap error correctly", () {
       // Arrange
-      const ErrorMock error = ErrorMock("error#code", "error message");
+      const CustomError error = CustomError(code: "error#code", message: "error message");
 
       // Act
-      Result<DateTime> result = Result.failure(error);
+      Result<DateTime> result = .failure(error);
 
       // Assert
       expect(result, isA<Failure<DateTime>>());
       result.map(
-        success: (_) => fail('Should be a failure'),
+        success: (_) => fail('Should be failure'),
         failure: (f) {
           expect(f.error, error);
           expect(f.error.code, "error#code");
@@ -40,27 +41,54 @@ void main() {
     });
 
     test("getOrNull should return value on success and null on failure", () {
-      final success = Result.success('ok');
-      const failure = Result.failure(ErrorMock('code', 'msg'));
+      // Arrange
+      final Result success = .success('ok');
+      final Result failure = .failure(errorMock);
 
+      // Act & Assert
       expect(success.getOrNull(), 'ok');
       expect(failure.getOrNull(), isNull);
     });
 
     test("getOrThrow should return value on success and throw on failure", () {
-      final success = Result.success('ok');
-      const failure = Result.failure(ErrorMock('code', 'msg'));
+      // Arrange
+      final Result success = .success('ok');
+      final Result failure = .failure(errorMock);
 
+      // Act & Assert
       expect(success.getOrThrow(), 'ok');
-      expect(() => failure.getOrThrow(), throwsA(isA<ErrorMock>()));
+      expect(() => failure.getOrThrow(), throwsA(errorMock));
     });
 
     test("getOrDefault should return value on success and default on failure", () {
-      final success = Result.success('ok');
-      const failure = Result.failure(ErrorMock('code', 'msg'));
+      // Arrange
+      final Result<String> success = .success('ok');
+      final Result<String> failure = .failure(errorMock);
 
+      // Act & Assert
       expect(success.getOrDefault('default'), 'ok');
       expect(failure.getOrDefault('default'), 'default');
+    });
+
+    test("map should execute correct callback", () {
+      // Arrange
+      final Result<int> success = .success(42);
+      final Result<int> failure = .failure(errorMock);
+
+      // Act
+      final successMapped = success.map(
+        success: (s) => s.value * 2,
+        failure: (f) => fail("Should not be failure"),
+      );
+
+      final failureMapped = failure.map(
+        success: (s) => fail("Should not be success"),
+        failure: (f) => f.error.code,
+      );
+
+      // Assert
+      expect(successMapped, 84);
+      expect(failureMapped, "error#code");
     });
   });
 }

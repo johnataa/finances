@@ -1,4 +1,5 @@
 import 'package:decimal/decimal.dart';
+import 'package:finances/shared/abstractions/custom_error.dart';
 import 'package:finances/shared/abstractions/result.dart';
 import 'package:finances/shared/money/currency.dart';
 import 'package:finances/shared/money/errors.dart';
@@ -8,9 +9,12 @@ import 'package:flutter_test/flutter_test.dart';
 import '../test_error_codes.dart';
 
 void main() {
-  group('Money Construction and Validation', () {
-    test('Should parse decimal string with decimal points', () {
-      final result = Money.tryCreate(Currency.usd, '10.50');
+  group('Money.tryCreate', () {
+    test('Should parse decimal string correctly', () {
+      // Act
+      final result = Money.tryCreate(.usd, '10.50');
+
+      // Assert
       expect(result, isA<Success<Money>>());
       result.map(
         success: (s) {
@@ -21,67 +25,125 @@ void main() {
       );
     });
 
-    test('Money.fromScaledInt should create from int', () {
+    test('Money.fromScaledInt Should create valid instance', () {
+      // Act
       final Money money = .fromScaledInt(Currency.usd.id, 1_500_000_000);
+
+      // Assert
       expect(money.currency, Currency.usd);
       expect(money.amount, Decimal.fromInt(15));
     });
 
-    test('Money.create should create from currency and string', () {
-      final Money money = .create(Currency.brl, '100');
+    test('Should create valid money instance', () {
+      // Act
+      final Money money = .create(.brl, '100');
+
+      // Assert
       expect(money.currency, Currency.brl);
       expect(money.amount, Decimal.fromInt(100));
     });
 
     test('Should return failure for invalid amount string', () {
-      final result = Money.tryCreate(Currency.usd, 'invalid');
+      // Act
+      final result = Money.tryCreate(.usd, 'invalid');
+
+      // Assert
       expect(result, isA<Failure<Money>>());
       result.map(
         success: (_) => fail('Should be failure'),
-        failure: (f) => expect(f.error, isA<InvalidMoneyFormatError>()),
+        failure: (f) => expect(f.error, MoneyErrors.invalidMoneyFormatError),
+      );
+    });
+
+    test('Should allow negative amount string', () {
+      // Act
+      final result = Money.tryCreate(.usd, '-10.50');
+
+      // Assert
+      expect(result, isA<Success<Money>>());
+      result.map(
+        success: (s) => expect(s.value.amount, Decimal.parse('-10.50')),
+        failure: (_) => fail('Should be success'),
       );
     });
   });
 
   group('Money Operations', () {
-    final Money m10 = .create(Currency.usd, "10");
-    final Money m5 = .create(Currency.usd, "5");
-    final Money m10brl = .create(Currency.brl, "10");
+    final Money m10 = .create(.usd, "10");
+    final Money m5 = .create(.usd, "5");
+    final Money m10brl = .create(.brl, "10");
 
-    test('Addition should correct sum', () {
+    test('Addition Should return correct sum', () {
+      // Act
       final result = m10 + m5;
+
+      // Assert
       expect(result.amount, Decimal.fromInt(15));
     });
 
-    test('Subtraction should correct diff', () {
+    test('Subtraction Should return correct difference', () {
+      // Act
       final result = m10 - m5;
+
+      // Assert
       expect(result.amount, Decimal.fromInt(5));
     });
 
-    test('Multiplication should correct product', () {
+    test('Multiplication Should return correct product', () {
+      // Act
       final result = m10 * m5;
+
+      // Assert
       expect(result.amount, Decimal.fromInt(50));
     });
 
-    test('Division should correct quotient', () {
+    test('Division Should return correct quotient', () {
+      // Act
       final result = m10 / m5;
+
+      // Assert
       expect(result.amount, Decimal.fromInt(2));
     });
 
-    test('Operators should throw InvalidOperationError for different currencies', () {
-      expect(() => m10 + m10brl, throwsA(isA<InvalidOperationError>()));
-      expect(() => m10 - m10brl, throwsA(isA<InvalidOperationError>()));
+    test('Operators Should throw InvalidOperationError for different currencies', () {
+      // Act & Assert
+      expect(() => m10 + m10brl, throwsA(isA<CustomError>()));
+      expect(() => m10 - m10brl, throwsA(isA<CustomError>()));
+    });
+
+    test('Addition with zero Should return same value', () {
+      // Arrange
+      final Money zero = .zero(.usd);
+
+      // Act
+      final Money result = m10 + zero;
+
+      // Assert
+      expect(result.amount, m10.amount);
+    });
+
+    test('Division by very small value Should handle precision', () {
+      // Arrange
+      final Money m1 = .one(.usd);
+      final Money tiny = .create(.usd, "0.00000001");
+
+      // Act
+      final result = m1 / tiny;
+
+      // Assert
+      expect(result.amount, Decimal.fromInt(100_000_000));
     });
   });
 
   group('Money Conversion', () {
-    test('convertTo should return new money with new currency and rate applied', () {
-      final m10usd = Money.create(Currency.usd, "10");
-      final converted = m10usd.convertTo(
-        currency: Currency.brl,
-        withFxRate: Decimal.fromInt(5),
-      );
+    test('Should return new money with new currency and rate applied', () {
+      // Arrange
+      final Money m10usd = .create(.usd, "10");
 
+      // Act
+      final converted = m10usd.convertTo(currency: .brl, withFxRate: .fromInt(5));
+
+      // Assert
       expect(converted.currency, Currency.brl);
       expect(converted.amount, Decimal.fromInt(50));
     });
@@ -89,34 +151,46 @@ void main() {
 
   group('Equality', () {
     test('Should be equal if currency and amount match', () {
-      final m1 = Money.create(Currency.usd, "10");
-      final m2 = Money.create(Currency.usd, "10");
+      // Arrange
+      final Money m1 = .create(.usd, "10");
+      final Money m2 = .create(.usd, "10");
+
+      // Act & Assert
       expect(m1, m2);
     });
 
     test('Should not be equal if different currency', () {
-      final m1 = Money.create(Currency.usd, "10");
-      final m2 = Money.create(Currency.brl, "10");
+      // Arrange
+      final Money m1 = .create(.usd, "10");
+      final Money m2 = .create(.brl, "10");
+
+      // Act & Assert
       expect(m1, isNot(m2));
     });
   });
 
   group('Static Construction', () {
-    test('Zero should return valid zero money', () {
-      final result = Money.zero(Currency.brl);
+    test('Zero Should return valid zero money', () {
+      // Act
+      final Money result = .zero(.brl);
+
+      // Assert
       expect(result.currency, Currency.brl);
       expect(result.amount, Decimal.zero);
     });
 
-    test('One should return valid money with amount one', () {
-      final result = Money.one(Currency.brl);
+    test('One Should return valid money with amount one', () {
+      // Act
+      final Money result = .one(.brl);
+
+      // Assert
       expect(result.currency, Currency.brl);
       expect(result.amount, Decimal.one);
     });
   });
 
   testErrorCodes({
-    InvalidMoneyFormatError(): "MoneyError#001",
-    InvalidOperationError(Currency.usd, Currency.brl): "MoneyError#002",
+    MoneyErrors.invalidMoneyFormatError: "MoneyError#001",
+    MoneyErrors.invalidOperationError(Currency.usd, Currency.brl): "MoneyError#002",
   });
 }
