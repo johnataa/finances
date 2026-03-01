@@ -1,108 +1,107 @@
-import 'package:finances/features/category/category.dart';
-import 'package:finances/features/category/category_filter.dart';
-import 'package:finances/infra/data/objectbox/boxes/category/category_box.dart';
-import 'package:finances/infra/data/objectbox/gen/objectbox.g.dart';
-import 'package:finances/shared/filter.dart';
-import 'package:finances/shared/meta/meta.dart';
-import 'package:finances/shared/meta/meta_filter.dart';
-import 'package:finances/shared/name/name.dart';
+import 'package:finances/shared/abstractions/order_by.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../../../mocks/store_mock.dart';
+import '../../../../../mocks/features/entity_mock.dart';
+import '../../../../../mocks/features/entity_mock.query.dart';
+import '../../../../../mocks/infra/data/objectbox/shared/entity_mock_box.dart';
+import '../../../../../mocks/infra/data/objectbox/shared/entity_mock_box.mapper.dart';
+import '../../../../../mocks/infra/data/objectbox/store_test_mock.dart';
+import '../../gen/objectbox.g.dart';
 
-/// Tests for BaseBox functionality using CategoryBox as a concrete implementation.
+/// Tests for BaseBox functionality using EntityBoxMock as a concrete implementation.
 /// These tests validate the shared logic that was moved to BaseBox.
 void main() {
   late Store store;
-  late CategoryBox box;
+  late EntityBoxMock box;
 
   setUp(() async {
-    store = await openInMemoryStore();
-    box = CategoryBox(store);
+    store = await openInMemoryTestStore();
+    box = EntityBoxMock(store, EntityBoxMapperMock());
   });
 
   tearDown(() {
     store.close();
   });
 
-  Category createCategory({int id = 0, String name = 'Test Category'}) => Category(
-    meta: Meta(id: id),
-    name: Name.create(name),
-    icon: 'icon',
-    color: 'color',
-  );
+  EntityMock createEntityMock({int id = 0, String sillyProp = 'Test Entity'}) =>
+      EntityMock(
+        base: .create(id: id),
+        sillyProp: sillyProp,
+      );
 
   group('BaseBox.persist', () {
     /// Verifies that new entities (id = 0) get createdAt set automatically.
     test('sets createdAt when id is 0 (new entity)', () async {
       // Arrange
-      final category = createCategory();
-      final beforePersist = DateTime.now();
+      final entity = createEntityMock();
+      final DateTime beforePersist = .now();
 
       // Act
-      final persisted = await box.persist(category);
+      final persisted = await box.persist(entity);
 
       // Assert
-      expect(persisted.meta.id, isNot(0));
-      expect(persisted.meta.createdAt, isNotNull);
+      expect(persisted, isNotNull);
+      expect(persisted?.base.id, isNot(0));
+      expect(persisted?.base.createdAt, isNotNull);
       expect(
-        persisted.meta.createdAt!.isAfter(beforePersist) ||
-            persisted.meta.createdAt!.isAtSameMomentAs(beforePersist),
-        isTrue,
+        persisted?.base.createdAt?.millisecondsSinceEpoch,
+        greaterThanOrEqualTo(beforePersist.millisecondsSinceEpoch),
       );
     });
 
     /// Verifies that existing entities (id != 0) get updatedAt set on update.
     test('sets updatedAt when id is not 0 (existing entity)', () async {
       // Arrange
-      final category = createCategory();
-      final persisted = await box.persist(category);
-      final beforeUpdate = DateTime.now();
+      final entity = createEntityMock();
+      final persisted = await box.persist(entity);
+      final DateTime beforeUpdate = .now();
 
       // Act
-      final updated = await box.persist(persisted);
+      final updated = await box.persist(persisted!);
 
       // Assert
-      expect(updated.meta.id, persisted.meta.id);
-      expect(updated.meta.updatedAt, isNotNull);
+      expect(updated, isNotNull);
+      expect(updated?.base.id, persisted.base.id);
+      expect(updated?.base.updatedAt, isNotNull);
       expect(
-        updated.meta.updatedAt!.isAfter(beforeUpdate) ||
-            updated.meta.updatedAt!.isAtSameMomentAs(beforeUpdate),
-        isTrue,
+        updated?.base.updatedAt?.millisecondsSinceEpoch,
+        greaterThanOrEqualTo(beforeUpdate.millisecondsSinceEpoch),
       );
     });
 
     /// Ensures createdAt is not overwritten on subsequent updates.
     test('preserves createdAt on update', () async {
       // Arrange
-      final category = createCategory();
-      final persisted = await box.persist(category);
-      final originalCreatedAt = persisted.meta.createdAt;
+      final entity = createEntityMock();
+      final persisted = await box.persist(entity);
+      expect(persisted, isNotNull);
+      final originalCreatedAt = persisted?.base.createdAt;
 
       // Act
-      final updated = await box.persist(persisted);
+      final updated = await box.persist(persisted!);
 
       // Assert
-      expect(updated.meta.createdAt, originalCreatedAt);
+      expect(updated, isNotNull);
+      expect(updated?.base.createdAt, originalCreatedAt);
     });
   });
 
   group('BaseBox.watch', () {
     test('emits list with entities immediately', () async {
       // Arrange
-      await box.persist(createCategory(name: 'Category One'));
-      await box.persist(createCategory(name: 'Category Two'));
+      await box.persist(createEntityMock(sillyProp: 'Entity One'));
+      await box.persist(createEntityMock(sillyProp: 'Entity Two'));
 
       // Act
       final stream = box.watch();
 
       // Assert
-      expect(stream, emits(predicate<List<Category>>((list) => list.length == 2)));
+      expect(stream, emits(predicate<List<EntityMock>>((list) => list.length == 2)));
     });
 
     test('emits updated list when entity is added', () async {
       // Arrange
-      await box.persist(createCategory(name: 'Initial Category'));
+      await box.persist(createEntityMock(sillyProp: 'Initial Entity'));
 
       // Act
       final stream = box.watch();
@@ -110,43 +109,43 @@ void main() {
       // Assert
       await expectLater(
         stream,
-        emits(predicate<List<Category>>((list) => list.length == 1)),
+        emits(predicate<List<EntityMock>>((list) => list.length == 1)),
       );
     });
 
     test('watch with filter only emits matching entities', () async {
       // Arrange
-      await box.persist(createCategory(name: 'Apple'));
-      await box.persist(createCategory(name: 'Banana'));
+      await box.persist(createEntityMock(sillyProp: 'Apple'));
+      await box.persist(createEntityMock(sillyProp: 'Banana'));
 
       // Act
-      final stream = box.watch(filter: CategoryFilter(name: .equals('Apple')));
+      final stream = box.watch(filter: .by(sillyProp: .equals('Apple')));
 
       // Assert
       expect(
         stream,
         emits(
-          predicate<List<Category>>(
-            (list) => list.length == 1 && list.first.name.value == 'Apple',
+          predicate<List<EntityMock>>(
+            (list) => list.length == 1 && list.first.sillyProp == 'Apple',
           ),
         ),
       );
     });
 
-    test('watch with sort emits entities in expected order', () async {
+    test('watch with order emits entities in expected order', () async {
       // Arrange
-      await box.persist(createCategory(name: 'Zebra'));
-      await box.persist(createCategory(name: 'Alpha'));
+      await box.persist(createEntityMock(sillyProp: 'Zebra'));
+      await box.persist(createEntityMock(sillyProp: 'Alpha'));
 
       // Act
-      final stream = box.watch(sort: const CategorySort.name());
+      final stream = box.watch(orderBy: EntityFieldMock.sillyProp.asc);
 
       // Assert
       expect(
         stream,
         emits(
-          predicate<List<Category>>(
-            (list) => list.length == 2 && list[0].name.value == 'Zebra',
+          predicate<List<EntityMock>>(
+            (list) => list.length == 2 && list[0].sillyProp == 'Alpha',
           ),
         ),
       );
@@ -175,9 +174,9 @@ void main() {
 
     test('returns all entities when no filter', () async {
       // Arrange
-      await box.persist(createCategory(name: 'Category Alpha'));
-      await box.persist(createCategory(name: 'Category Beta'));
-      await box.persist(createCategory(name: 'Category Gamma'));
+      await box.persist(createEntityMock(sillyProp: 'Entity Alpha'));
+      await box.persist(createEntityMock(sillyProp: 'Entity Beta'));
+      await box.persist(createEntityMock(sillyProp: 'Entity Gamma'));
 
       // Act
       final list = await box.getAll();
@@ -190,10 +189,11 @@ void main() {
   group('BaseBox.delete', () {
     test('removes entity and returns true', () async {
       // Arrange
-      final persisted = await box.persist(createCategory());
+      final persisted = await box.persist(createEntityMock());
+      expect(persisted, isNotNull);
 
       // Act
-      final result = await box.delete(persisted.meta.id);
+      final result = await box.delete(persisted!.base.id);
       final list = await box.getAll();
 
       // Assert
@@ -213,119 +213,119 @@ void main() {
   group('BaseBox.stringFilter', () {
     test('equals filter returns exact match', () async {
       // Arrange
-      await box.persist(createCategory(name: 'Exact Match'));
-      await box.persist(createCategory(name: 'Exact Match Extra'));
-      await box.persist(createCategory(name: 'Other Category'));
+      await box.persist(createEntityMock(sillyProp: 'Exact Match'));
+      await box.persist(createEntityMock(sillyProp: 'Exact Match Extra'));
+      await box.persist(createEntityMock(sillyProp: 'Other Entity'));
 
       // Act
-      final list = await box.getAll(filter: CategoryFilter(name: .equals('Exact Match')));
+      final list = await box.getAll(filter: .by(sillyProp: .equals('Exact Match')));
 
       // Assert
       expect(list.length, 1);
-      expect(list.first.name.value, 'Exact Match');
+      expect(list.first.sillyProp, 'Exact Match');
     });
 
     /// Contains filter uses case-insensitive matching.
     test('contains filter is case insensitive', () async {
       // Arrange
-      await box.persist(createCategory(name: 'APPLE Category'));
-      await box.persist(createCategory(name: 'apple category'));
-      await box.persist(createCategory(name: 'Apple Category'));
-      await box.persist(createCategory(name: 'Banana Category'));
+      await box.persist(createEntityMock(sillyProp: 'APPLE Entity'));
+      await box.persist(createEntityMock(sillyProp: 'apple entity'));
+      await box.persist(createEntityMock(sillyProp: 'Apple Entity'));
+      await box.persist(createEntityMock(sillyProp: 'Banana Entity'));
 
       // Act
-      final list = await box.getAll(filter: CategoryFilter(name: .contains('apple')));
+      final list = await box.getAll(filter: .by(sillyProp: .contains('apple')));
 
       // Assert
       expect(list.length, 3);
     });
   });
 
-  group('BaseBox.intFilter (via metaFilter.id)', () {
+  group('BaseBox.intFilter', () {
     test('equals filter returns exact id', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'Category One'));
-      await box.persist(createCategory(name: 'Category Two'));
-      await box.persist(createCategory(name: 'Category Three'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'Entity One'));
+      await box.persist(createEntityMock(sillyProp: 'Entity Two'));
+      await box.persist(createEntityMock(sillyProp: 'Entity Three'));
+      expect(e1, isNotNull);
 
       // Act
-      final list = await box.getAll(
-        filter: CategoryFilter(meta: MetaFilter.filter(id: .equals(c1.meta.id))),
-      );
+      final list = await box.getAll(filter: .by(id: .equals(e1?.base.id ?? 0)));
 
       // Assert
       expect(list.length, 1);
-      expect(list.first.meta.id, c1.meta.id);
+      expect(list.first.base.id, e1?.base.id);
     });
 
     test('greaterThan filter returns ids greater than value', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'Category One'));
-      final c2 = await box.persist(createCategory(name: 'Category Two'));
-      final c3 = await box.persist(createCategory(name: 'Category Three'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'Entity One'));
+      final e2 = await box.persist(createEntityMock(sillyProp: 'Entity Two'));
+      final e3 = await box.persist(createEntityMock(sillyProp: 'Entity Three'));
+      expect(e1, isNotNull);
+      expect(e2, isNotNull);
+      expect(e3, isNotNull);
 
       // Act
-      final list = await box.getAll(
-        filter: CategoryFilter(meta: MetaFilter.filter(id: .greaterThan(c1.meta.id))),
-      );
+      final list = await box.getAll(filter: .by(id: .greaterThan(e1?.base.id ?? 0)));
 
       // Assert
       expect(list.length, 2);
-      expect(list.map((c) => c.meta.id), containsAll([c2.meta.id, c3.meta.id]));
+      expect(list.map((e) => e.base.id), containsAll([e2?.base.id, e3?.base.id]));
     });
 
     test('lessThan filter returns ids less than value', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'Category One'));
-      final c2 = await box.persist(createCategory(name: 'Category Two'));
-      await box.persist(createCategory(name: 'Category Three'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'Entity One'));
+      final e2 = await box.persist(createEntityMock(sillyProp: 'Entity Two'));
+      await box.persist(createEntityMock(sillyProp: 'Entity Three'));
+      expect(e1, isNotNull);
+      expect(e2, isNotNull);
 
       // Act
-      final list = await box.getAll(
-        filter: CategoryFilter(meta: MetaFilter.filter(id: .lessThan(c2.meta.id))),
-      );
+      final list = await box.getAll(filter: .by(id: .lessThan(e2?.base.id ?? 0)));
 
       // Assert
       expect(list.length, 1);
-      expect(list.first.meta.id, c1.meta.id);
+      expect(list.first.base.id, e1?.base.id);
     });
   });
 
-  group('BaseBox.dateTimeFilter (via metaFilter)', () {
+  group('BaseBox.dateTimeFilter', () {
     test('equals filter returns exact createdAt time', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'Category One'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'Entity One'));
+      expect(e1, isNotNull);
+
       await Future.delayed(
         const Duration(milliseconds: 10),
       ); // Ensure distinct timestamps
-      await box.persist(createCategory(name: 'Category Two'));
-      await box.persist(createCategory(name: 'Category Three'));
+      await box.persist(createEntityMock(sillyProp: 'Entity Two'));
+      await box.persist(createEntityMock(sillyProp: 'Entity Three'));
 
       // Act
       final list = await box.getAll(
-        filter: CategoryFilter(
-          meta: MetaFilter.filter(createdAt: .equals(c1.meta.createdAt!)),
-        ),
+        filter: .by(createdAt: .equals(e1?.base.createdAt ?? .now())),
       );
 
       // Assert
       expect(list.length, 1);
-      expect(list.first.meta.id, c1.meta.id);
+      expect(list.first.base.id, e1?.base.id);
     });
 
     /// Uses delay to create measurable time differences between entities.
     test('afterThan filter returns entities with createdAt after given time', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'First Category'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'First Entity'));
+      expect(e1, isNotNull);
+
       await Future.delayed(const Duration(milliseconds: 10));
-      final afterC1 = c1.meta.createdAt!;
-      await box.persist(createCategory(name: 'Second Category'));
-      await box.persist(createCategory(name: 'Third Category'));
+      final afterE1 = e1?.base.createdAt ?? .now();
+      await box.persist(createEntityMock(sillyProp: 'Second Entity'));
+      await box.persist(createEntityMock(sillyProp: 'Third Entity'));
 
       // Act
-      final list = await box.getAll(
-        filter: CategoryFilter(meta: MetaFilter.filter(createdAt: .afterThan(afterC1))),
-      );
+      final list = await box.getAll(filter: .by(createdAt: .afterThan(afterE1)));
 
       // Assert
       expect(list.length, 2);
@@ -334,18 +334,14 @@ void main() {
     /// Uses delay to create measurable time differences between entities.
     test('beforeThan filter returns entities with createdAt before given time', () async {
       // Arrange
-      await box.persist(createCategory(name: 'First Category'));
-      await box.persist(createCategory(name: 'Second Category'));
+      await box.persist(createEntityMock(sillyProp: 'First Entity'));
+      await box.persist(createEntityMock(sillyProp: 'Second Entity'));
       await Future.delayed(const Duration(milliseconds: 10));
       final beforeThird = DateTime.now();
-      await box.persist(createCategory(name: 'Third Category'));
+      await box.persist(createEntityMock(sillyProp: 'Third Entity'));
 
       // Act
-      final list = await box.getAll(
-        filter: CategoryFilter(
-          meta: MetaFilter.filter(createdAt: .beforeThan(beforeThird)),
-        ),
-      );
+      final list = await box.getAll(filter: .by(createdAt: .beforeThan(beforeThird)));
 
       // Assert
       expect(list.length, 2);
@@ -356,187 +352,203 @@ void main() {
     /// Intersection mode requires ALL conditions to match (AND logic).
     test('intersection (AND) requires all conditions to match', () async {
       // Arrange
-      await box.persist(createCategory(name: 'Apple Category'));
-      await box.persist(createCategory(name: 'Banana Category'));
-      await box.persist(createCategory(name: 'Apricot Category'));
+      await box.persist(createEntityMock(sillyProp: 'Apple Entity'));
+      await box.persist(createEntityMock(sillyProp: 'Banana Entity'));
+      await box.persist(createEntityMock(sillyProp: 'Apricot Entity'));
       final all = await box.getAll();
-      final appleId = all.firstWhere((c) => c.name.value == 'Apple Category').meta.id;
+      final appleId = all.firstWhere((e) => e.sillyProp == 'Apple Entity').base.id;
 
       // Act
       final list = await box.getAll(
-        filter: CategoryFilter(
-          logic: FilterLogic.and,
-          name: .contains('apple'),
-          meta: MetaFilter.filter(id: .equals(appleId)),
-        ),
+        filter: .by(logic: .and, sillyProp: .contains('apple'), id: .equals(appleId)),
       );
 
       // Assert
       expect(list.length, 1);
-      expect(list.first.name.value, 'Apple Category');
+      expect(list.first.sillyProp, 'Apple Entity');
     });
 
-    /// Union mode requires ANY condition to match (OR logic) when used in MetaFilter.
+    /// Union mode requires ANY condition to match (OR logic).
     /// Uses delays to ensure distinct createdAt timestamps.
     test('union (OR) allows any condition to match', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'Apple Category'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'Apple Entity'));
       await Future.delayed(const Duration(milliseconds: 10));
-      final c2 = await box.persist(createCategory(name: 'Banana Category'));
+      final e2 = await box.persist(createEntityMock(sillyProp: 'Banana Entity'));
       await Future.delayed(const Duration(milliseconds: 10));
-      await box.persist(createCategory(name: 'Cherry Category'));
+      await box.persist(createEntityMock(sillyProp: 'Cherry Entity'));
+      expect(e1, isNotNull);
+      expect(e2, isNotNull);
 
       // Act
       final list = await box.getAll(
-        filter: CategoryFilter(
-          meta: MetaFilter.filter(
-            logic: FilterLogic.or,
-            id: .equals(c1.meta.id),
-            createdAt: .equals(c2.meta.createdAt!),
-          ),
+        filter: .by(
+          logic: .or,
+          id: .equals(e1?.base.id ?? 0),
+          createdAt: .equals(e2?.base.createdAt ?? .now()),
         ),
       );
 
       // Assert
       expect(list.length, 2);
-      expect(list.map((c) => c.meta.id), containsAll([c1.meta.id, c2.meta.id]));
+      expect(list.map((e) => e.base.id), containsAll([e1?.base.id, e2?.base.id]));
     });
   });
 
-  group('BaseBox.sortBy', () {
-    /// Note: CategorySort.name() is mapped to sort by ID in the current implementation.
-    test('sorts by id when using name sort (current implementation)', () async {
+  group('BaseBox.orderBy', () {
+    test('orders by sillyProp ascending', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'Zebra Category'));
-      final c2 = await box.persist(createCategory(name: 'Alpha Category'));
-      final c3 = await box.persist(createCategory(name: 'Middle Category'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'Zebra Entity'));
+      final e2 = await box.persist(createEntityMock(sillyProp: 'Alpha Entity'));
+      final e3 = await box.persist(createEntityMock(sillyProp: 'Middle Entity'));
+      expect(e1, isNotNull);
+      expect(e2, isNotNull);
+      expect(e3, isNotNull);
 
       // Act
-      final list = await box.getAll(sort: const CategorySort.name());
+      final list = await box.getAll(orderBy: EntityFieldMock.sillyProp.asc);
 
       // Assert
-      expect(list[0].meta.id, c1.meta.id);
-      expect(list[1].meta.id, c2.meta.id);
-      expect(list[2].meta.id, c3.meta.id);
+      expect(list[0].base.id, e2?.base.id);
+      expect(list[1].base.id, e3?.base.id);
+      expect(list[2].base.id, e1?.base.id);
     });
 
-    /// Note: CategorySort.name(desc: true) is mapped to sort by ID desc.
-    test('sorts by id desc when using name sort desc (current implementation)', () async {
+    test('orders by sillyProp descending', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'Alpha Category'));
-      final c2 = await box.persist(createCategory(name: 'Zebra Category'));
-      final c3 = await box.persist(createCategory(name: 'Middle Category'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'Alpha Entity'));
+      final e2 = await box.persist(createEntityMock(sillyProp: 'Zebra Entity'));
+      final e3 = await box.persist(createEntityMock(sillyProp: 'Middle Entity'));
+      expect(e1, isNotNull);
+      expect(e2, isNotNull);
+      expect(e3, isNotNull);
 
       // Act
-      final list = await box.getAll(sort: const CategorySort.name(desc: true));
+      final list = await box.getAll(orderBy: EntityFieldMock.sillyProp.desc);
 
       // Assert
-      expect(list[0].meta.id, c3.meta.id);
-      expect(list[1].meta.id, c2.meta.id);
-      expect(list[2].meta.id, c1.meta.id);
+      expect(list[0].base.id, e2?.base.id);
+      expect(list[1].base.id, e3?.base.id);
+      expect(list[2].base.id, e1?.base.id);
     });
   });
 
-  group('BaseBox.sortByMeta', () {
-    test('sorts by id ascending', () async {
+  group('BaseBox.orderByBaseFields', () {
+    test('orders by id ascending', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'First Category'));
-      final c2 = await box.persist(createCategory(name: 'Second Category'));
-      final c3 = await box.persist(createCategory(name: 'Third Category'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'First Entity'));
+      final e2 = await box.persist(createEntityMock(sillyProp: 'Second Entity'));
+      final e3 = await box.persist(createEntityMock(sillyProp: 'Third Entity'));
+      expect(e1, isNotNull);
+      expect(e2, isNotNull);
+      expect(e3, isNotNull);
 
       // Act
-      final list = await box.getAll(sort: .meta(.id()));
+      final list = await box.getAll(orderBy: EntityFieldMock.id.asc);
 
       // Assert
-      expect(list[0].meta.id, c1.meta.id);
-      expect(list[1].meta.id, c2.meta.id);
-      expect(list[2].meta.id, c3.meta.id);
+      expect(list[0].base.id, e1?.base.id);
+      expect(list[1].base.id, e2?.base.id);
+      expect(list[2].base.id, e3?.base.id);
     });
 
-    test('sorts by id descending', () async {
+    test('orders by id descending', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'First Category'));
-      final c2 = await box.persist(createCategory(name: 'Second Category'));
-      final c3 = await box.persist(createCategory(name: 'Third Category'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'First Entity'));
+      final e2 = await box.persist(createEntityMock(sillyProp: 'Second Entity'));
+      final e3 = await box.persist(createEntityMock(sillyProp: 'Third Entity'));
+      expect(e1, isNotNull);
+      expect(e2, isNotNull);
+      expect(e3, isNotNull);
 
       // Act
-      final list = await box.getAll(sort: .meta(.id(desc: true)));
+      final list = await box.getAll(orderBy: EntityFieldMock.id.desc);
 
       // Assert
-      expect(list[0].meta.id, c3.meta.id);
-      expect(list[1].meta.id, c2.meta.id);
-      expect(list[2].meta.id, c1.meta.id);
-    });
-
-    /// Uses delay to create measurable time differences between entities.
-    test('sorts by createdAt ascending', () async {
-      // Arrange
-      final c1 = await box.persist(createCategory(name: 'First Category'));
-      await Future.delayed(const Duration(milliseconds: 10));
-      final c2 = await box.persist(createCategory(name: 'Second Category'));
-      await Future.delayed(const Duration(milliseconds: 10));
-      final c3 = await box.persist(createCategory(name: 'Third Category'));
-
-      // Act
-      final list = await box.getAll(sort: .meta(.createdAt()));
-
-      // Assert
-      expect(list[0].meta.id, c1.meta.id);
-      expect(list[1].meta.id, c2.meta.id);
-      expect(list[2].meta.id, c3.meta.id);
+      expect(list[0].base.id, e3?.base.id);
+      expect(list[1].base.id, e2?.base.id);
+      expect(list[2].base.id, e1?.base.id);
     });
 
     /// Uses delay to create measurable time differences between entities.
-    test('sorts by createdAt descending', () async {
+    test('orders by createdAt ascending', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'First Category'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'First Entity'));
       await Future.delayed(const Duration(milliseconds: 10));
-      final c2 = await box.persist(createCategory(name: 'Second Category'));
+      final e2 = await box.persist(createEntityMock(sillyProp: 'Second Entity'));
       await Future.delayed(const Duration(milliseconds: 10));
-      final c3 = await box.persist(createCategory(name: 'Third Category'));
+      final e3 = await box.persist(createEntityMock(sillyProp: 'Third Entity'));
+      expect(e1, isNotNull);
+      expect(e2, isNotNull);
+      expect(e3, isNotNull);
 
       // Act
-      final list = await box.getAll(sort: .meta(.createdAt(desc: true)));
+      final list = await box.getAll(orderBy: EntityFieldMock.createdAt.asc);
 
       // Assert
-      expect(list[0].meta.id, c3.meta.id);
-      expect(list[1].meta.id, c2.meta.id);
-      expect(list[2].meta.id, c1.meta.id);
+      expect(list[0].base.id, e1?.base.id);
+      expect(list[1].base.id, e2?.base.id);
+      expect(list[2].base.id, e3?.base.id);
+    });
+
+    /// Uses delay to create measurable time differences between entities.
+    test('orders by createdAt descending', () async {
+      // Arrange
+      final e1 = await box.persist(createEntityMock(sillyProp: 'First Entity'));
+      await Future.delayed(const Duration(milliseconds: 10));
+      final e2 = await box.persist(createEntityMock(sillyProp: 'Second Entity'));
+      await Future.delayed(const Duration(milliseconds: 10));
+      final e3 = await box.persist(createEntityMock(sillyProp: 'Third Entity'));
+      expect(e1, isNotNull);
+      expect(e2, isNotNull);
+      expect(e3, isNotNull);
+
+      // Act
+      final list = await box.getAll(orderBy: EntityFieldMock.createdAt.desc);
+
+      // Assert
+      expect(list[0].base.id, e3?.base.id);
+      expect(list[1].base.id, e2?.base.id);
+      expect(list[2].base.id, e1?.base.id);
     });
 
     /// Updates entities in a specific order to set updatedAt values.
     /// Nulls come first in ascending order.
-    test('sorts by updatedAt ascending', () async {
+    test('orders by updatedAt ascending', () async {
       // Arrange
-      final c1 = await box.persist(createCategory(name: 'First Category'));
-      final c2 = await box.persist(createCategory(name: 'Second Category'));
-      final c3 = await box.persist(createCategory(name: 'Third Category'));
+      final e1 = await box.persist(createEntityMock(sillyProp: 'First Entity'));
+      final e2 = await box.persist(createEntityMock(sillyProp: 'Second Entity'));
+      final e3 = await box.persist(createEntityMock(sillyProp: 'Third Entity'));
+      expect(e1, isNotNull);
+      expect(e2, isNotNull);
+      expect(e3, isNotNull);
+
       await Future.delayed(const Duration(milliseconds: 10));
-      await box.persist(c2);
+      await box.persist(e2!);
       await Future.delayed(const Duration(milliseconds: 10));
-      await box.persist(c3);
+      await box.persist(e3!);
       await Future.delayed(const Duration(milliseconds: 10));
-      await box.persist(c1);
+      await box.persist(e1!);
 
       // Act
-      final list = await box.getAll(sort: .meta(.updatedAt()));
+      final list = await box.getAll(orderBy: EntityFieldMock.updatedAt.asc);
 
       // Assert
-      expect(list.last.meta.id, c1.meta.id);
+      expect(list.last.base.id, e1.base.id);
     });
   });
 
   group('BoxModelExtension.toEntities', () {
     test('converts list of models to list of entities', () async {
       // Arrange
-      await box.persist(createCategory(name: 'Category Alpha'));
-      await box.persist(createCategory(name: 'Category Beta'));
+      await box.persist(createEntityMock(sillyProp: 'Entity Alpha'));
+      await box.persist(createEntityMock(sillyProp: 'Entity Beta'));
 
       // Act
       final list = await box.getAll();
 
       // Assert
-      expect(list, isA<List<Category>>());
+      expect(list, isA<List<EntityMock>>());
       expect(list.length, 2);
     });
   });
