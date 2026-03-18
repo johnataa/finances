@@ -1,7 +1,7 @@
 import 'package:finances/infra/data/objectbox/shared/base_mapper.dart';
 import 'package:finances/infra/data/objectbox/shared/mapper.dart';
 
-import '../../../../features/entity_mock.dart';
+import '../../../features/entity_mock.dart';
 import 'entity_mock_box.model.dart';
 
 final class EntityBoxMapperMock implements IMapper<EntityMock, EntityBMMock> {

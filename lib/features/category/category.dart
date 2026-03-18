@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../core/entity.dart';
+import '../../core/interfaces/entity.dart';
 import '../shared/base/base.dart';
 import '../shared/name/name.dart';
 

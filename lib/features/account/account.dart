@@ -1,4 +1,4 @@
-import '../../core/entity.dart';
+import '../../core/interfaces/entity.dart';
 import '../schedule/schedule.dart';
 import '../shared/base/base.dart';
 import '../shared/money/money.dart';

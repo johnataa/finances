@@ -1,5 +1,5 @@
 import '../../core/abstractions/order_by.dart';
-import '../../core/repository.dart';
+import '../../core/interfaces/repository.dart';
 import 'schedule.dart';
 import 'schedule.query.dart';
 

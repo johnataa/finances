@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../../mocks/features/entity_mock.dart';
 import '../../../../../mocks/features/entity_mock.query.dart';
-import '../../../../../mocks/infra/data/objectbox/shared/entity_mock_box.dart';
-import '../../../../../mocks/infra/data/objectbox/shared/entity_mock_box.mapper.dart';
+import '../../../../../mocks/infra/data/objectbox/entity_mock_box.dart';
+import '../../../../../mocks/infra/data/objectbox/entity_mock_box.mapper.dart';
 import '../../../../../mocks/infra/data/objectbox/store_test_mock.dart';
 import '../../gen/objectbox.g.dart';
 

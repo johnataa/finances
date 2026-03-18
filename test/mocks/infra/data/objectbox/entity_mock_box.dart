@@ -3,9 +3,9 @@ import 'package:finances/infra/data/objectbox/shared/base_box.dart';
 import 'package:finances/infra/data/objectbox/shared/query_parser.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../../../infra/data/objectbox/gen/objectbox.g.dart';
-import '../../../../features/entity_mock.dart';
-import '../../../../features/entity_mock.query.dart';
+import '../../../../infra/data/objectbox/gen/objectbox.g.dart';
+import '../../../features/entity_mock.dart';
+import '../../../features/entity_mock.query.dart';
 import 'entity_mock_box.model.dart';
 
 final class EntityBoxMock
