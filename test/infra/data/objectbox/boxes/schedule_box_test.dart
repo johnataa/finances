@@ -1,15 +1,15 @@
+import 'package:finances/core/abstractions/order_by.dart';
 import 'package:finances/features/account/account.dart';
 import 'package:finances/features/account/regular/regular_account.dart';
 import 'package:finances/features/category/category.dart';
 import 'package:finances/features/schedule/schedule.dart';
 import 'package:finances/features/schedule/schedule.query.dart';
 import 'package:finances/features/schedule/schedule_type.dart';
+import 'package:finances/features/shared/frequency/frequency.dart';
+import 'package:finances/features/shared/money/money.dart';
 import 'package:finances/infra/data/objectbox/boxes/schedule_box.dart';
 import 'package:finances/infra/data/objectbox/boxes/schedule_box.mapper.dart';
 import 'package:finances/infra/data/objectbox/gen/objectbox.g.dart';
-import 'package:finances/shared/abstractions/order_by.dart';
-import 'package:finances/shared/frequency/frequency.dart';
-import 'package:finances/shared/money/money.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../mocks/infra/data/objectbox/store_mock.dart';

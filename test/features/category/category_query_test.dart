@@ -1,6 +1,6 @@
+import 'package:finances/core/abstractions/filter.dart';
+import 'package:finances/core/abstractions/order_by.dart';
 import 'package:finances/features/category/category.query.dart';
-import 'package:finances/shared/abstractions/filter.dart';
-import 'package:finances/shared/abstractions/order_by.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

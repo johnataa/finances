@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../abstractions/result.dart';
+import '../../../core/abstractions/result.dart';
 import 'errors.dart';
 import 'frequency_unit.dart';
 

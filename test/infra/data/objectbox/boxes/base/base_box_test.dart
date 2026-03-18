@@ -1,4 +1,4 @@
-import 'package:finances/shared/abstractions/order_by.dart';
+import 'package:finances/core/abstractions/order_by.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../../mocks/features/entity_mock.dart';

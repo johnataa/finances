@@ -16,11 +16,13 @@ abstract class Result<T> with _$Result<T> {
     Failure<T> _ => null,
     _ => null,
   };
+
   T getOrThrow() => switch (this) {
     Success<T> s => s.value,
     Failure<T> f => throw f.error,
     _ => throw Exception('Unknown result type'),
   };
+
   T getOrDefault(T defaultValue) => switch (this) {
     Success<T> s => s.value,
     Failure<T> _ => defaultValue,

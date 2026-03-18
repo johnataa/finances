@@ -1,7 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../abstractions/result.dart';
+import '../../../core/abstractions/result.dart';
 import 'currency.dart';
 import 'errors.dart';
 

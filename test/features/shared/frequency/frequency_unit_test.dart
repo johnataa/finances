@@ -1,4 +1,4 @@
-import 'package:finances/shared/frequency/frequency_unit.dart';
+import 'package:finances/features/shared/frequency/frequency_unit.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

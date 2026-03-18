@@ -1,9 +1,9 @@
+import 'package:finances/core/abstractions/order_by.dart';
 import 'package:finances/features/category/category.dart';
 import 'package:finances/features/category/category.query.dart';
 import 'package:finances/infra/data/objectbox/boxes/category_box.dart';
 import 'package:finances/infra/data/objectbox/boxes/category_box.mapper.dart';
 import 'package:finances/infra/data/objectbox/gen/objectbox.g.dart';
-import 'package:finances/shared/abstractions/order_by.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../mocks/infra/data/objectbox/store_mock.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart' hide Category;
 
+import '../../../../core/abstractions/order_by.dart';
 import '../../../../features/category/category.dart';
 import '../../../../features/category/category.query.dart';
 import '../../../../features/category/category.repository.dart';
-import '../../../../shared/abstractions/order_by.dart';
 import '../gen/objectbox.g.dart';
 import '../shared/base_box.dart';
 import '../shared/query_parser.dart';

@@ -1,5 +1,5 @@
-import '../../shared/abstractions/order_by.dart';
-import '../../shared/contracts/repository.dart';
+import '../../core/abstractions/order_by.dart';
+import '../../core/repository.dart';
 import 'account.dart';
 import 'account.query.dart';
 

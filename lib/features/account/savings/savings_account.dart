@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../shared/base/base.dart';
-import '../../../shared/money/money.dart';
-import '../../../shared/name/name.dart';
 import '../../schedule/schedule.dart';
+import '../../shared/base/base.dart';
+import '../../shared/money/money.dart';
+import '../../shared/name/name.dart';
 import '../../transaction/transaction.dart';
 import '../account.dart';
 import 'savings_goal.dart';

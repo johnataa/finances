@@ -1,12 +1,12 @@
 import 'package:decimal/decimal.dart';
-import 'package:finances/shared/abstractions/custom_error.dart';
-import 'package:finances/shared/abstractions/result.dart';
-import 'package:finances/shared/money/currency.dart';
-import 'package:finances/shared/money/errors.dart';
-import 'package:finances/shared/money/money.dart';
+import 'package:finances/core/abstractions/custom_error.dart';
+import 'package:finances/core/abstractions/result.dart';
+import 'package:finances/features/shared/money/currency.dart';
+import 'package:finances/features/shared/money/errors.dart';
+import 'package:finances/features/shared/money/money.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../test_error_codes.dart';
+import '../../../core/abstractions/test_error_codes.dart';
 
 void main() {
   group('Money.tryCreate', () {

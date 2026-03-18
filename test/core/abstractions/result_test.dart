@@ -1,5 +1,5 @@
-import 'package:finances/shared/abstractions/custom_error.dart';
-import 'package:finances/shared/abstractions/result.dart';
+import 'package:finances/core/abstractions/custom_error.dart';
+import 'package:finances/core/abstractions/result.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

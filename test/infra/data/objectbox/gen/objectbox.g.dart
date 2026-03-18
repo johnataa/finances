@@ -133,9 +133,22 @@ obx_int.ModelDefinition getObjectBoxModel() {
       objectFromFB: (obx.Store store, ByteData fbData) {
         final buffer = fb.BufferContext(fbData);
         final rootOffset = buffer.derefObject(0);
-        final createdAtValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 6);
-        final updatedAtValue = const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 8);
-        final idParam = const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+        final createdAtValue = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          6,
+        );
+        final updatedAtValue = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          8,
+        );
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
         final createdAtParam = createdAtValue == null
             ? null
             : DateTime.fromMillisecondsSinceEpoch(createdAtValue);
@@ -163,14 +176,22 @@ obx_int.ModelDefinition getObjectBoxModel() {
 /// [EntityBMMock] entity fields to define ObjectBox queries.
 class EntityBMMock_ {
   /// See [EntityBMMock.id].
-  static final id = obx.QueryIntegerProperty<EntityBMMock>(_entities[0].properties[0]);
+  static final id = obx.QueryIntegerProperty<EntityBMMock>(
+    _entities[0].properties[0],
+  );
 
   /// See [EntityBMMock.createdAt].
-  static final createdAt = obx.QueryDateProperty<EntityBMMock>(_entities[0].properties[1]);
+  static final createdAt = obx.QueryDateProperty<EntityBMMock>(
+    _entities[0].properties[1],
+  );
 
   /// See [EntityBMMock.updatedAt].
-  static final updatedAt = obx.QueryDateProperty<EntityBMMock>(_entities[0].properties[2]);
+  static final updatedAt = obx.QueryDateProperty<EntityBMMock>(
+    _entities[0].properties[2],
+  );
 
   /// See [EntityBMMock.sillyProp].
-  static final sillyProp = obx.QueryStringProperty<EntityBMMock>(_entities[0].properties[3]);
+  static final sillyProp = obx.QueryStringProperty<EntityBMMock>(
+    _entities[0].properties[3],
+  );
 }

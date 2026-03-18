@@ -1,6 +1,6 @@
+import 'package:finances/core/abstractions/order_by.dart';
 import 'package:finances/infra/data/objectbox/shared/base_box.dart';
 import 'package:finances/infra/data/objectbox/shared/query_parser.dart';
-import 'package:finances/shared/abstractions/order_by.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../../../infra/data/objectbox/gen/objectbox.g.dart';

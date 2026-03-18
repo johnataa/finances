@@ -1,5 +1,5 @@
-import 'package:finances/shared/base/base.dart';
-import 'package:finances/shared/contracts/entity.dart';
+import 'package:finances/core/entity.dart';
+import 'package:finances/features/shared/base/base.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'entity_mock.freezed.dart';

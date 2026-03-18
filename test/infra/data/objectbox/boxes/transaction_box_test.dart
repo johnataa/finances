@@ -1,10 +1,10 @@
 import 'package:decimal/decimal.dart';
+import 'package:finances/features/shared/money/currency.dart';
 import 'package:finances/features/transaction/transaction.dart';
 import 'package:finances/features/transaction/transaction_status.dart';
 import 'package:finances/features/transaction/transaction_type.dart';
 import 'package:finances/infra/data/objectbox/boxes/transaction_box.mapper.dart';
 import 'package:finances/infra/data/objectbox/boxes/transaction_box.model.dart';
-import 'package:finances/shared/money/currency.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

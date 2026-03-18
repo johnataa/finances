@@ -1,5 +1,5 @@
+import 'package:finances/features/shared/base/base.dart';
 import 'package:finances/infra/data/objectbox/shared/box_model.dart';
-import 'package:finances/shared/base/base.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()

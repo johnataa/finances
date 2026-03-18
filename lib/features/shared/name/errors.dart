@@ -1,4 +1,4 @@
-import '../abstractions/custom_error.dart';
+import '../../../core/abstractions/custom_error.dart';
 import 'name.dart';
 
 final class NameErrors {

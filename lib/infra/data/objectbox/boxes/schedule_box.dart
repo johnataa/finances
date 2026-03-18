@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 
+import '../../../../core/abstractions/order_by.dart';
 import '../../../../features/schedule/schedule.dart';
 import '../../../../features/schedule/schedule.query.dart';
 import '../../../../features/schedule/schedule.repository.dart';
-import '../../../../shared/abstractions/order_by.dart';
 import '../gen/objectbox.g.dart';
 import '../shared/base_box.dart';
 import '../shared/query_parser.dart';

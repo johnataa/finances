@@ -1,3 +1,4 @@
+import 'package:finances/core/abstractions/order_by.dart';
 import 'package:finances/features/account/account.query.dart';
 import 'package:finances/features/account/regular/regular_account.dart';
 import 'package:finances/features/account/savings/savings_account.dart';
@@ -6,7 +7,6 @@ import 'package:finances/infra/data/objectbox/boxes/account_box.dart';
 import 'package:finances/infra/data/objectbox/boxes/account_box.mapper.dart';
 import 'package:finances/infra/data/objectbox/boxes/schedule_box.mapper.dart';
 import 'package:finances/infra/data/objectbox/gen/objectbox.g.dart';
-import 'package:finances/shared/abstractions/order_by.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../mocks/infra/data/objectbox/store_mock.dart';

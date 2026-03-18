@@ -1,4 +1,4 @@
-import 'package:finances/shared/money/currency.dart';
+import 'package:finances/features/shared/money/currency.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

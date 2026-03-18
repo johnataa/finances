@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 
+import '../../../../core/abstractions/order_by.dart';
 import '../../../../features/account/account.dart';
 import '../../../../features/account/account.query.dart';
 import '../../../../features/account/account.repository.dart';
-import '../../../../shared/abstractions/order_by.dart';
 import '../gen/objectbox.g.dart';
 import '../shared/base_box.dart';
 import '../shared/query_parser.dart';

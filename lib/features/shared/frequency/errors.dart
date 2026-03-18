@@ -1,4 +1,4 @@
-import '../abstractions/custom_error.dart';
+import '../../../core/abstractions/custom_error.dart';
 
 final class FrequencyErrors {
   static const String _codePrefix = "FrequencyError";

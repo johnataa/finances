@@ -1,7 +1,7 @@
-import '../../../../shared/abstractions/filter.dart';
-import '../../../../shared/abstractions/order_by.dart';
-import '../../../../shared/money/money.dart';
-import '../../../../shared/money/money.query.dart';
+import '../../../../core/abstractions/filter.dart';
+import '../../../../core/abstractions/order_by.dart';
+import '../../../../features/shared/money/money.dart';
+import '../../../../features/shared/money/money.query.dart';
 import '../gen/objectbox.g.dart';
 import 'box_model.dart';
 

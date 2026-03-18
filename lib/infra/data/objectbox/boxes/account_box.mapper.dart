@@ -1,7 +1,7 @@
 import '../../../../features/account/account.dart';
 import '../../../../features/account/regular/regular_account.dart';
 import '../../../../features/account/savings/savings_account.dart';
-import '../../../../shared/money/money.dart';
+import '../../../../features/shared/money/money.dart';
 import '../shared/base_mapper.dart';
 import '../shared/mapper.dart';
 import 'account_box.model.dart';
