@@ -1,6 +1,6 @@
 import '../../core/abstractions/filter.dart';
 import '../../core/abstractions/order_by.dart';
-import '../shared/base/base_filter.dart';
+import '../../core/base/base_filter.dart';
 
 class CategoryFilter extends BaseFilter {
   final StringFilter? name;

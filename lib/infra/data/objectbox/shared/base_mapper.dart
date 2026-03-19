@@ -1,4 +1,4 @@
-import '../../../../features/shared/base/base.dart';
+import '../../../../core/base/base.dart';
 import 'box_model.dart';
 
 final class BaseMapper {

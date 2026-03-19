@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../../../core/abstractions/filter.dart';
+import '../abstractions/filter.dart';
 
 class BaseFilter {
   final FilterLogic logic;

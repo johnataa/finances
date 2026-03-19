@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../core/base/base.dart';
 import '../../core/interfaces/entity.dart';
-import '../shared/base/base.dart';
-import '../shared/money/money.dart';
-import '../shared/name/name.dart';
+import '../../core/money/money.dart';
+import '../../core/name/name.dart';
 import 'transaction_status.dart';
 import 'transaction_type.dart';
 

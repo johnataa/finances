@@ -1,8 +1,8 @@
+import '../../core/base/base.dart';
 import '../../core/interfaces/entity.dart';
+import '../../core/money/money.dart';
+import '../../core/name/name.dart';
 import '../schedule/schedule.dart';
-import '../shared/base/base.dart';
-import '../shared/money/money.dart';
-import '../shared/name/name.dart';
 import '../transaction/transaction.dart';
 
 abstract class Account implements IEntity {

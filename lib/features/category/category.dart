@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../core/base/base.dart';
 import '../../core/interfaces/entity.dart';
-import '../shared/base/base.dart';
-import '../shared/name/name.dart';
+import '../../core/name/name.dart';
 
 part 'category.freezed.dart';
 

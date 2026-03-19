@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
-void main() {
+import 'app/app_provider.dart';
+import 'features/category/category.repository.dart';
+import 'features/category/cubit/category_cubit.dart';
+import 'features/category/ui/category_screen.dart';
+import 'infra/di.dart';
+
+final GetIt sl = GetIt.instance;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await sl.configureInfraDependencies();
+
+  // BLoCs
+  sl.registerFactory(() => CategoryCubit(sl<ICategoryRepository>()));
+
   runApp(const MyApp());
 }
 
@@ -8,47 +23,11 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-    title: 'Flutter Demo',
-    theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-    home: const MyHomePage(title: 'Flutter Demo Home Page'),
-  );
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      title: Text(widget.title),
-    ),
-    body: Center(
-      child: Column(
-        mainAxisAlignment: .center,
-        children: [Text('$_counter', style: Theme.of(context).textTheme.headlineMedium)],
-      ),
-    ),
-    floatingActionButton: FloatingActionButton(
-      onPressed: _incrementCounter,
-      tooltip: 'Increment',
-      child: const Icon(Icons.add),
+  Widget build(BuildContext context) => AppProvider(
+    child: MaterialApp(
+      title: 'Finances',
+      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+      home: const CategoryScreen(),
     ),
   );
 }

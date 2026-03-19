@@ -1,4 +1,4 @@
-import '../../../core/abstractions/custom_error.dart';
+import '../abstractions/custom_error.dart';
 import 'currency.dart';
 
 final class MoneyErrors {

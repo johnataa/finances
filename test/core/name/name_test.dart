@@ -1,10 +1,10 @@
 import 'package:finances/core/abstractions/result.dart';
-import 'package:finances/features/shared/name/errors.dart';
-import 'package:finances/features/shared/name/name.dart';
+import 'package:finances/core/name/errors.dart';
+import 'package:finances/core/name/name.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../../core/abstractions/test_error_codes.dart';
-import '../../../test_many.dart';
+import '../../test_many.dart';
+import '../abstractions/test_error_codes.dart';
 
 void main() {
   const minLength = Name.minLength;

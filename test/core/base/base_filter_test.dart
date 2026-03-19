@@ -1,5 +1,5 @@
 import 'package:finances/core/abstractions/filter.dart';
-import 'package:finances/features/shared/base/base_filter.dart';
+import 'package:finances/core/base/base_filter.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
