@@ -90,6 +90,7 @@ void main() {
       // Act
       final results = await box.getAll(
         filter: TransactionFilter.by(
+          logic: FilterLogic.and,
           accountId: IntFilter.equals(1),
           categoryId: IntFilter.equals(1),
         ),
@@ -143,15 +144,15 @@ void main() {
     });
 
     test('filters by id', () async {
-      final t1 = await box.persist(createTransaction(name: 'T1'));
-      await box.persist(createTransaction(name: 'T2'));
+      final t1 = await box.persist(createTransaction(name: 'Transaction 1'));
+      await box.persist(createTransaction(name: 'Transaction 2'));
 
       final results = await box.getAll(
         filter: TransactionFilter.by(id: IntFilter.equals(t1!.base.id)),
       );
 
       expect(results.length, 1);
-      expect(results.first.name.value, 'T1');
+      expect(results.first.name.value, 'Transaction 1');
     });
 
     test('filters by scheduleId', () async {
@@ -183,7 +184,7 @@ void main() {
     });
 
     test('filters by updatedAt', () async {
-      final t1 = await box.persist(createTransaction(name: 'T1'));
+      final t1 = await box.persist(createTransaction(name: 'Transaction 1'));
       final now = DateTime.now();
       await Future.delayed(const Duration(milliseconds: 10));
 
@@ -232,8 +233,8 @@ void main() {
     });
 
     test('orders by status descending', () async {
-      await box.persist(createTransaction(name: 'P', status: TransactionStatus.pending));
-      await box.persist(createTransaction(name: 'C', status: TransactionStatus.confirmed));
+      await box.persist(createTransaction(name: 'Pending', status: TransactionStatus.pending));
+      await box.persist(createTransaction(name: 'Confirmed', status: TransactionStatus.confirmed));
 
       // Confirmed id = 1, Pending id = 0 (assuming based on usual enum order)
       final results = await box.getAll(orderBy: TransactionField.status.desc);
