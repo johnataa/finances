@@ -8,31 +8,28 @@ import 'package:finances/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mocktail/mocktail.dart';
 
-class MockAccountRepository extends Mock implements IAccountRepository {}
-class MockCategoryRepository extends Mock implements ICategoryRepository {}
-class MockScheduleRepository extends Mock implements IScheduleRepository {}
-class MockTransactionRepository extends Mock implements ITransactionRepository {}
-class MockSettingsRepository extends Mock implements ISettingsRepository {}
-class MockStore extends Mock implements Store {}
+import 'mocks/infra/data/objectbox/boxes.dart';
+import 'mocks/infra/data/objectbox/store_mock.dart';
 
 void main() {
   final sl = GetIt.instance;
 
   setUp(() {
     sl.reset();
-    
+
     // Arrange: Register all necessary mocks for the App to start
-    sl.registerSingleton<Store>(MockStore());
-    sl.registerSingleton<IAccountRepository>(MockAccountRepository());
-    sl.registerSingleton<ICategoryRepository>(MockCategoryRepository());
-    sl.registerSingleton<IScheduleRepository>(MockScheduleRepository());
-    sl.registerSingleton<ITransactionRepository>(MockTransactionRepository());
-    sl.registerSingleton<ISettingsRepository>(MockSettingsRepository());
+    sl.registerSingleton<Store>(StoreMock());
+    sl.registerSingleton<IAccountRepository>(AccountBoxMock());
+    sl.registerSingleton<ICategoryRepository>(CategoryBoxMock());
+    sl.registerSingleton<IScheduleRepository>(ScheduleBoxMock());
+    sl.registerSingleton<ITransactionRepository>(TransactionBoxMock());
+    sl.registerSingleton<ISettingsRepository>(SettingsBoxMock());
   });
 
-  testWidgets('App smoke test - verifies initial screen and navigation', (WidgetTester tester) async {
+  testWidgets('App smoke test - verifies initial screen and navigation', (
+    WidgetTester tester,
+  ) async {
     // Arrange
     await tester.pumpWidget(const FinanceApp());
     await tester.pump(); // Allow providers and cubits to initialize
