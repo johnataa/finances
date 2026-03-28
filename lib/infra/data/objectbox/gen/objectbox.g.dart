@@ -17,6 +17,7 @@ import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 import '../../../../infra/data/objectbox/boxes/account_box.model.dart';
 import '../../../../infra/data/objectbox/boxes/category_box.model.dart';
 import '../../../../infra/data/objectbox/boxes/schedule_box.model.dart';
+import '../../../../infra/data/objectbox/boxes/settings_box.model.dart';
 import '../../../../infra/data/objectbox/boxes/transaction_box.model.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
@@ -403,6 +404,46 @@ final _entities = <obx_int.ModelEntity>[
     relations: <obx_int.ModelRelation>[],
     backlinks: <obx_int.ModelBacklink>[],
   ),
+  obx_int.ModelEntity(
+    id: const obx_int.IdUid(9, 2696208951923067066),
+    name: 'SettingsBM',
+    lastPropertyId: const obx_int.IdUid(5, 3170761470423954235),
+    flags: 0,
+    properties: <obx_int.ModelProperty>[
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(1, 5488460469165244755),
+        name: 'id',
+        type: 6,
+        flags: 129,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(2, 1055335138371409786),
+        name: 'updatedAt',
+        type: 10,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(3, 4242078031116732339),
+        name: 'theme',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(4, 3717848925624888592),
+        name: 'exchangeApi',
+        type: 6,
+        flags: 0,
+      ),
+      obx_int.ModelProperty(
+        id: const obx_int.IdUid(5, 3170761470423954235),
+        name: 'exchangeApiKey',
+        type: 9,
+        flags: 0,
+      ),
+    ],
+    relations: <obx_int.ModelRelation>[],
+    backlinks: <obx_int.ModelBacklink>[],
+  ),
 ];
 
 /// Shortcut for [obx.Store.new] that passes [getObjectBoxModel] and for Flutter
@@ -448,7 +489,7 @@ obx_int.ModelDefinition getObjectBoxModel() {
     // Typically, this is done with `dart run build_runner build`.
     generatorVersion: obx_int.GeneratorVersion.v2025_12_16,
     entities: _entities,
-    lastEntityId: const obx_int.IdUid(8, 4535552962201957170),
+    lastEntityId: const obx_int.IdUid(9, 2696208951923067066),
     lastIndexId: const obx_int.IdUid(11, 8345275422722803583),
     lastRelationId: const obx_int.IdUid(0, 0),
     lastSequenceId: const obx_int.IdUid(0, 0),
@@ -1021,6 +1062,69 @@ obx_int.ModelDefinition getObjectBoxModel() {
         return object;
       },
     ),
+    SettingsBM: obx_int.EntityDefinition<SettingsBM>(
+      model: _entities[6],
+      toOneRelations: (SettingsBM object) => [],
+      toManyRelations: (SettingsBM object) => {},
+      getId: (SettingsBM object) => object.id,
+      setId: (SettingsBM object, int id) {
+        object.id = id;
+      },
+      objectToFB: (SettingsBM object, fb.Builder fbb) {
+        final exchangeApiKeyOffset = object.exchangeApiKey == null
+            ? null
+            : fbb.writeString(object.exchangeApiKey!);
+        fbb.startTable(6);
+        fbb.addInt64(0, object.id);
+        fbb.addInt64(1, object.updatedAt?.millisecondsSinceEpoch);
+        fbb.addInt64(2, object.theme);
+        fbb.addInt64(3, object.exchangeApi);
+        fbb.addOffset(4, exchangeApiKeyOffset);
+        fbb.finish(fbb.endTable());
+        return object.id;
+      },
+      objectFromFB: (obx.Store store, ByteData fbData) {
+        final buffer = fb.BufferContext(fbData);
+        final rootOffset = buffer.derefObject(0);
+        final updatedAtValue = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          6,
+        );
+        final idParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          4,
+          0,
+        );
+        final updatedAtParam = updatedAtValue == null
+            ? null
+            : DateTime.fromMillisecondsSinceEpoch(updatedAtValue);
+        final themeParam = const fb.Int64Reader().vTableGet(
+          buffer,
+          rootOffset,
+          8,
+          0,
+        );
+        final exchangeApiParam = const fb.Int64Reader().vTableGetNullable(
+          buffer,
+          rootOffset,
+          10,
+        );
+        final exchangeApiKeyParam = const fb.StringReader(
+          asciiOptimization: true,
+        ).vTableGetNullable(buffer, rootOffset, 12);
+        final object = SettingsBM(
+          id: idParam,
+          updatedAt: updatedAtParam,
+          theme: themeParam,
+          exchangeApi: exchangeApiParam,
+          exchangeApiKey: exchangeApiKeyParam,
+        );
+
+        return object;
+      },
+    ),
   };
 
   return obx_int.ModelDefinition(model, bindings);
@@ -1287,5 +1391,33 @@ class TransactionBM_ {
   /// See [TransactionBM.schedule].
   static final schedule = obx.QueryRelationToOne<TransactionBM, ScheduleBM>(
     _entities[5].properties[12],
+  );
+}
+
+/// [SettingsBM] entity fields to define ObjectBox queries.
+class SettingsBM_ {
+  /// See [SettingsBM.id].
+  static final id = obx.QueryIntegerProperty<SettingsBM>(
+    _entities[6].properties[0],
+  );
+
+  /// See [SettingsBM.updatedAt].
+  static final updatedAt = obx.QueryDateProperty<SettingsBM>(
+    _entities[6].properties[1],
+  );
+
+  /// See [SettingsBM.theme].
+  static final theme = obx.QueryIntegerProperty<SettingsBM>(
+    _entities[6].properties[2],
+  );
+
+  /// See [SettingsBM.exchangeApi].
+  static final exchangeApi = obx.QueryIntegerProperty<SettingsBM>(
+    _entities[6].properties[3],
+  );
+
+  /// See [SettingsBM.exchangeApiKey].
+  static final exchangeApiKey = obx.QueryStringProperty<SettingsBM>(
+    _entities[6].properties[4],
   );
 }
