@@ -732,61 +732,30 @@ as int,
 /// @nodoc
 mixin _$DateTimeFilter {
 
- DateTime get input;
-/// Create a copy of DateTimeFilter
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$DateTimeFilterCopyWith<DateTimeFilter> get copyWith => _$DateTimeFilterCopyWithImpl<DateTimeFilter>(this as DateTimeFilter, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DateTimeFilter&&(identical(other.input, input) || other.input == input));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DateTimeFilter);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,input);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'DateTimeFilter(input: $input)';
+  return 'DateTimeFilter()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $DateTimeFilterCopyWith<$Res>  {
-  factory $DateTimeFilterCopyWith(DateTimeFilter value, $Res Function(DateTimeFilter) _then) = _$DateTimeFilterCopyWithImpl;
-@useResult
-$Res call({
- DateTime input
-});
-
-
-
-
-}
-/// @nodoc
-class _$DateTimeFilterCopyWithImpl<$Res>
-    implements $DateTimeFilterCopyWith<$Res> {
-  _$DateTimeFilterCopyWithImpl(this._self, this._then);
-
-  final DateTimeFilter _self;
-  final $Res Function(DateTimeFilter) _then;
-
-/// Create a copy of DateTimeFilter
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? input = null,}) {
-  return _then(_self.copyWith(
-input: null == input ? _self.input : input // ignore: cast_nullable_to_non_nullable
-as DateTime,
-  ));
-}
-
+class $DateTimeFilterCopyWith<$Res>  {
+$DateTimeFilterCopyWith(DateTimeFilter _, $Res Function(DateTimeFilter) __);
 }
 
 
@@ -804,13 +773,14 @@ extension DateTimeFilterPatterns on DateTimeFilter {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( DateTimeEquals value)?  equals,TResult Function( DateTimeBeforeThan value)?  beforeThan,TResult Function( DateTimeAfterThan value)?  afterThan,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( DateTimeEquals value)?  equals,TResult Function( DateTimeBeforeThan value)?  beforeThan,TResult Function( DateTimeAfterThan value)?  afterThan,TResult Function( DateTimeBetween value)?  between,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case DateTimeEquals() when equals != null:
 return equals(_that);case DateTimeBeforeThan() when beforeThan != null:
 return beforeThan(_that);case DateTimeAfterThan() when afterThan != null:
-return afterThan(_that);case _:
+return afterThan(_that);case DateTimeBetween() when between != null:
+return between(_that);case _:
   return orElse();
 
 }
@@ -828,13 +798,14 @@ return afterThan(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( DateTimeEquals value)  equals,required TResult Function( DateTimeBeforeThan value)  beforeThan,required TResult Function( DateTimeAfterThan value)  afterThan,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( DateTimeEquals value)  equals,required TResult Function( DateTimeBeforeThan value)  beforeThan,required TResult Function( DateTimeAfterThan value)  afterThan,required TResult Function( DateTimeBetween value)  between,}){
 final _that = this;
 switch (_that) {
 case DateTimeEquals():
 return equals(_that);case DateTimeBeforeThan():
 return beforeThan(_that);case DateTimeAfterThan():
-return afterThan(_that);}
+return afterThan(_that);case DateTimeBetween():
+return between(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -848,13 +819,14 @@ return afterThan(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( DateTimeEquals value)?  equals,TResult? Function( DateTimeBeforeThan value)?  beforeThan,TResult? Function( DateTimeAfterThan value)?  afterThan,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( DateTimeEquals value)?  equals,TResult? Function( DateTimeBeforeThan value)?  beforeThan,TResult? Function( DateTimeAfterThan value)?  afterThan,TResult? Function( DateTimeBetween value)?  between,}){
 final _that = this;
 switch (_that) {
 case DateTimeEquals() when equals != null:
 return equals(_that);case DateTimeBeforeThan() when beforeThan != null:
 return beforeThan(_that);case DateTimeAfterThan() when afterThan != null:
-return afterThan(_that);case _:
+return afterThan(_that);case DateTimeBetween() when between != null:
+return between(_that);case _:
   return null;
 
 }
@@ -871,12 +843,13 @@ return afterThan(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( DateTime input)?  equals,TResult Function( DateTime input)?  beforeThan,TResult Function( DateTime input)?  afterThan,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( DateTime input)?  equals,TResult Function( DateTime input)?  beforeThan,TResult Function( DateTime input)?  afterThan,TResult Function( DateTime start,  DateTime end)?  between,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case DateTimeEquals() when equals != null:
 return equals(_that.input);case DateTimeBeforeThan() when beforeThan != null:
 return beforeThan(_that.input);case DateTimeAfterThan() when afterThan != null:
-return afterThan(_that.input);case _:
+return afterThan(_that.input);case DateTimeBetween() when between != null:
+return between(_that.start,_that.end);case _:
   return orElse();
 
 }
@@ -894,12 +867,13 @@ return afterThan(_that.input);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( DateTime input)  equals,required TResult Function( DateTime input)  beforeThan,required TResult Function( DateTime input)  afterThan,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( DateTime input)  equals,required TResult Function( DateTime input)  beforeThan,required TResult Function( DateTime input)  afterThan,required TResult Function( DateTime start,  DateTime end)  between,}) {final _that = this;
 switch (_that) {
 case DateTimeEquals():
 return equals(_that.input);case DateTimeBeforeThan():
 return beforeThan(_that.input);case DateTimeAfterThan():
-return afterThan(_that.input);}
+return afterThan(_that.input);case DateTimeBetween():
+return between(_that.start,_that.end);}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -913,12 +887,13 @@ return afterThan(_that.input);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( DateTime input)?  equals,TResult? Function( DateTime input)?  beforeThan,TResult? Function( DateTime input)?  afterThan,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( DateTime input)?  equals,TResult? Function( DateTime input)?  beforeThan,TResult? Function( DateTime input)?  afterThan,TResult? Function( DateTime start,  DateTime end)?  between,}) {final _that = this;
 switch (_that) {
 case DateTimeEquals() when equals != null:
 return equals(_that.input);case DateTimeBeforeThan() when beforeThan != null:
 return beforeThan(_that.input);case DateTimeAfterThan() when afterThan != null:
-return afterThan(_that.input);case _:
+return afterThan(_that.input);case DateTimeBetween() when between != null:
+return between(_that.start,_that.end);case _:
   return null;
 
 }
@@ -933,11 +908,11 @@ class DateTimeEquals implements DateTimeFilter {
   const DateTimeEquals(this.input);
   
 
-@override final  DateTime input;
+ final  DateTime input;
 
 /// Create a copy of DateTimeFilter
 /// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
+@JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $DateTimeEqualsCopyWith<DateTimeEquals> get copyWith => _$DateTimeEqualsCopyWithImpl<DateTimeEquals>(this, _$identity);
 
@@ -963,7 +938,7 @@ String toString() {
 /// @nodoc
 abstract mixin class $DateTimeEqualsCopyWith<$Res> implements $DateTimeFilterCopyWith<$Res> {
   factory $DateTimeEqualsCopyWith(DateTimeEquals value, $Res Function(DateTimeEquals) _then) = _$DateTimeEqualsCopyWithImpl;
-@override @useResult
+@useResult
 $Res call({
  DateTime input
 });
@@ -982,7 +957,7 @@ class _$DateTimeEqualsCopyWithImpl<$Res>
 
 /// Create a copy of DateTimeFilter
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? input = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? input = null,}) {
   return _then(DateTimeEquals(
 null == input ? _self.input : input // ignore: cast_nullable_to_non_nullable
 as DateTime,
@@ -999,11 +974,11 @@ class DateTimeBeforeThan implements DateTimeFilter {
   const DateTimeBeforeThan(this.input);
   
 
-@override final  DateTime input;
+ final  DateTime input;
 
 /// Create a copy of DateTimeFilter
 /// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
+@JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $DateTimeBeforeThanCopyWith<DateTimeBeforeThan> get copyWith => _$DateTimeBeforeThanCopyWithImpl<DateTimeBeforeThan>(this, _$identity);
 
@@ -1029,7 +1004,7 @@ String toString() {
 /// @nodoc
 abstract mixin class $DateTimeBeforeThanCopyWith<$Res> implements $DateTimeFilterCopyWith<$Res> {
   factory $DateTimeBeforeThanCopyWith(DateTimeBeforeThan value, $Res Function(DateTimeBeforeThan) _then) = _$DateTimeBeforeThanCopyWithImpl;
-@override @useResult
+@useResult
 $Res call({
  DateTime input
 });
@@ -1048,7 +1023,7 @@ class _$DateTimeBeforeThanCopyWithImpl<$Res>
 
 /// Create a copy of DateTimeFilter
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? input = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? input = null,}) {
   return _then(DateTimeBeforeThan(
 null == input ? _self.input : input // ignore: cast_nullable_to_non_nullable
 as DateTime,
@@ -1065,11 +1040,11 @@ class DateTimeAfterThan implements DateTimeFilter {
   const DateTimeAfterThan(this.input);
   
 
-@override final  DateTime input;
+ final  DateTime input;
 
 /// Create a copy of DateTimeFilter
 /// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
+@JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $DateTimeAfterThanCopyWith<DateTimeAfterThan> get copyWith => _$DateTimeAfterThanCopyWithImpl<DateTimeAfterThan>(this, _$identity);
 
@@ -1095,7 +1070,7 @@ String toString() {
 /// @nodoc
 abstract mixin class $DateTimeAfterThanCopyWith<$Res> implements $DateTimeFilterCopyWith<$Res> {
   factory $DateTimeAfterThanCopyWith(DateTimeAfterThan value, $Res Function(DateTimeAfterThan) _then) = _$DateTimeAfterThanCopyWithImpl;
-@override @useResult
+@useResult
 $Res call({
  DateTime input
 });
@@ -1114,9 +1089,77 @@ class _$DateTimeAfterThanCopyWithImpl<$Res>
 
 /// Create a copy of DateTimeFilter
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? input = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? input = null,}) {
   return _then(DateTimeAfterThan(
 null == input ? _self.input : input // ignore: cast_nullable_to_non_nullable
+as DateTime,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class DateTimeBetween implements DateTimeFilter {
+  const DateTimeBetween(this.start, this.end);
+  
+
+ final  DateTime start;
+ final  DateTime end;
+
+/// Create a copy of DateTimeFilter
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DateTimeBetweenCopyWith<DateTimeBetween> get copyWith => _$DateTimeBetweenCopyWithImpl<DateTimeBetween>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DateTimeBetween&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,start,end);
+
+@override
+String toString() {
+  return 'DateTimeFilter.between(start: $start, end: $end)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DateTimeBetweenCopyWith<$Res> implements $DateTimeFilterCopyWith<$Res> {
+  factory $DateTimeBetweenCopyWith(DateTimeBetween value, $Res Function(DateTimeBetween) _then) = _$DateTimeBetweenCopyWithImpl;
+@useResult
+$Res call({
+ DateTime start, DateTime end
+});
+
+
+
+
+}
+/// @nodoc
+class _$DateTimeBetweenCopyWithImpl<$Res>
+    implements $DateTimeBetweenCopyWith<$Res> {
+  _$DateTimeBetweenCopyWithImpl(this._self, this._then);
+
+  final DateTimeBetween _self;
+  final $Res Function(DateTimeBetween) _then;
+
+/// Create a copy of DateTimeFilter
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? start = null,Object? end = null,}) {
+  return _then(DateTimeBetween(
+null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
+as DateTime,null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
 as DateTime,
   ));
 }

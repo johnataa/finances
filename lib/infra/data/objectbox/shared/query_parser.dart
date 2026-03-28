@@ -61,6 +61,7 @@ extension DateTimeFilterExtension on DateTimeFilter? {
         DateTimeEquals dte => prop.equalsDate(dte.input),
         DateTimeBeforeThan dtb => prop.lessThanDate(dtb.input),
         DateTimeAfterThan dta => prop.greaterThanDate(dta.input),
+        DateTimeBetween dtbew => prop.betweenDate(dtbew.start, dtbew.end),
         _ => null,
       };
 }

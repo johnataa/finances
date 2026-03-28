@@ -22,4 +22,5 @@ sealed class DateTimeFilter with _$DateTimeFilter {
   const factory DateTimeFilter.equals(DateTime input) = DateTimeEquals;
   const factory DateTimeFilter.beforeThan(DateTime input) = DateTimeBeforeThan;
   const factory DateTimeFilter.afterThan(DateTime input) = DateTimeAfterThan;
+  const factory DateTimeFilter.between(DateTime start, DateTime end) = DateTimeBetween;
 }

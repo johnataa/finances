@@ -91,6 +91,7 @@ void main() {
         equals: (f) => expect(f.input, input),
         beforeThan: (_) => fail('Should be equals'),
         afterThan: (_) => fail('Should be equals'),
+        between: (_) => fail('Should be equals'),
       );
     });
 
@@ -107,6 +108,7 @@ void main() {
         equals: (_) => fail('Should be beforeThan'),
         beforeThan: (f) => expect(f.input, input),
         afterThan: (_) => fail('Should be beforeThan'),
+        between: (_) => fail('Should be beforeThan'),
       );
     });
 
@@ -123,6 +125,7 @@ void main() {
         equals: (_) => fail('Should be afterThan'),
         beforeThan: (_) => fail('Should be afterThan'),
         afterThan: (f) => expect(f.input, input),
+        between: (_) => fail('Should be afterThan'),
       );
     });
   });

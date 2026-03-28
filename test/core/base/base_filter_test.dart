@@ -41,6 +41,7 @@ void main() {
           equals: (f) => f.input,
           beforeThan: (_) => null,
           afterThan: (_) => null,
+          between: (_) => null,
         ),
         input,
       );
@@ -60,6 +61,7 @@ void main() {
           equals: (f) => f.input,
           beforeThan: (_) => null,
           afterThan: (_) => null,
+          between: (_) => null,
         ),
         input,
       );
