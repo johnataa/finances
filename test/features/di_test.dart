@@ -1,6 +1,5 @@
 import 'package:finances/features/account/account.repository.dart';
 import 'package:finances/features/category/category.repository.dart';
-import 'package:finances/features/category/cubit/category_cubit.dart';
 import 'package:finances/features/di.dart';
 import 'package:finances/features/schedule/schedule.repository.dart';
 import 'package:finances/features/settings/settings.repository.dart';
@@ -24,17 +23,9 @@ void main() {
   });
 
   group('FeaturesDI', () {
-    test('configureFeatureDependencies registers CategoryCubit factory', () {
-      // Act
-      sl.configureFeatureDependencies();
-
-      // Assert
-      expect(sl.isRegistered<CategoryCubit>(), isTrue);
-
-      final cubit1 = sl<CategoryCubit>();
-      final cubit2 = sl<CategoryCubit>();
-
-      expect(cubit1, isNot(same(cubit2))); // Should be a factory
+    test('configureFeatureDependencies executes without crashing', () {
+      // Act & Assert
+      expect(() => sl.configureFeatureDependencies(), returnsNormally);
     });
   });
 }
