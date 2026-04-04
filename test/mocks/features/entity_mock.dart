@@ -1,4 +1,4 @@
-import 'package:finances/core/base/base.dart';
+import 'package:finances/core/domain/base/base.dart';
 import 'package:finances/core/interfaces/entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

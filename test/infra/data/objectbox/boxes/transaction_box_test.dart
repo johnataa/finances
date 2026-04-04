@@ -1,5 +1,5 @@
 import 'package:decimal/decimal.dart';
-import 'package:finances/core/money/currency.dart';
+import 'package:finances/core/domain/money/currency.dart';
 import 'package:finances/features/transaction/transaction.dart';
 import 'package:finances/features/transaction/transaction_status.dart';
 import 'package:finances/features/transaction/transaction_type.dart';

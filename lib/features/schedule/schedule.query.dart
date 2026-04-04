@@ -1,7 +1,7 @@
 import '../../core/abstractions/filter.dart';
 import '../../core/abstractions/order_by.dart';
-import '../../core/base/base_filter.dart';
-import '../../core/money/money.query.dart';
+import '../../core/domain/base/base_filter.dart';
+import '../../core/domain/money/money.query.dart';
 
 class ScheduleFilter extends BaseFilter {
   final StringFilter? name;

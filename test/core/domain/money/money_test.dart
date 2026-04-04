@@ -1,12 +1,12 @@
 import 'package:decimal/decimal.dart';
 import 'package:finances/core/abstractions/custom_error.dart';
 import 'package:finances/core/abstractions/result.dart';
-import 'package:finances/core/money/currency.dart';
-import 'package:finances/core/money/errors.dart';
-import 'package:finances/core/money/money.dart';
+import 'package:finances/core/domain/money/currency.dart';
+import 'package:finances/core/domain/money/errors.dart';
+import 'package:finances/core/domain/money/money.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../abstractions/test_error_codes.dart';
+import '../../abstractions/test_error_codes.dart';
 
 void main() {
   group('Money.tryCreate', () {
@@ -132,20 +132,6 @@ void main() {
 
       // Assert
       expect(result.amount, Decimal.fromInt(100_000_000));
-    });
-  });
-
-  group('Money Conversion', () {
-    test('Should return new money with new currency and rate applied', () {
-      // Arrange
-      final Money m10usd = .create(.usd, "10");
-
-      // Act
-      final converted = m10usd.convertTo(currency: .brl, withFxRate: .fromInt(5));
-
-      // Assert
-      expect(converted.currency, Currency.brl);
-      expect(converted.amount, Decimal.fromInt(50));
     });
   });
 

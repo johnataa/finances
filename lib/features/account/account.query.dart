@@ -1,6 +1,6 @@
 import '../../core/abstractions/filter.dart';
 import '../../core/abstractions/order_by.dart';
-import '../../core/base/base_filter.dart';
+import '../../core/domain/base/base_filter.dart';
 
 class AccountFilter extends BaseFilter {
   final StringFilter? name;

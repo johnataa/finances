@@ -1,9 +1,9 @@
 import 'package:finances/core/abstractions/filter.dart';
 import 'package:finances/core/abstractions/order_by.dart';
-import 'package:finances/core/money/currency.dart';
-import 'package:finances/core/money/money.dart';
-import 'package:finances/core/money/money.query.dart';
-import 'package:finances/core/name/name.dart';
+import 'package:finances/core/domain/money/currency.dart';
+import 'package:finances/core/domain/money/money.dart';
+import 'package:finances/core/domain/money/money.query.dart';
+import 'package:finances/core/domain/name/name.dart';
 import 'package:finances/features/transaction/transaction.dart';
 import 'package:finances/features/transaction/transaction.query.dart';
 import 'package:finances/features/transaction/transaction_status.dart';

@@ -1,4 +1,4 @@
-import 'package:finances/core/base/base.dart';
+import 'package:finances/core/domain/base/base.dart';
 import 'package:finances/infra/data/objectbox/shared/box_model.dart';
 import 'package:objectbox/objectbox.dart';
 

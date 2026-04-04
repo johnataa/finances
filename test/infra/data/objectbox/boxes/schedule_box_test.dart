@@ -1,6 +1,6 @@
 import 'package:finances/core/abstractions/order_by.dart';
-import 'package:finances/core/frequency/frequency.dart';
-import 'package:finances/core/money/money.dart';
+import 'package:finances/core/domain/frequency/frequency.dart';
+import 'package:finances/core/domain/money/money.dart';
 import 'package:finances/features/account/account.dart';
 import 'package:finances/features/account/regular/regular_account.dart';
 import 'package:finances/features/category/category.dart';

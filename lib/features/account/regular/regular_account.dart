@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../core/base/base.dart';
-import '../../../core/money/money.dart';
-import '../../../core/name/name.dart';
+import '../../../core/domain/base/base.dart';
+import '../../../core/domain/money/money.dart';
+import '../../../core/domain/name/name.dart';
 import '../../schedule/schedule.dart';
 import '../../transaction/transaction.dart';
 import '../account.dart';

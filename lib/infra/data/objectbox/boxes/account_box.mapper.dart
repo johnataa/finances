@@ -1,4 +1,4 @@
-import '../../../../core/money/money.dart';
+import '../../../../core/domain/money/money.dart';
 import '../../../../features/account/account.dart';
 import '../../../../features/account/regular/regular_account.dart';
 import '../../../../features/account/savings/savings_account.dart';

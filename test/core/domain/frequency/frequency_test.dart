@@ -1,11 +1,11 @@
 import 'package:finances/core/abstractions/result.dart';
-import 'package:finances/core/frequency/errors.dart';
-import 'package:finances/core/frequency/frequency.dart';
-import 'package:finances/core/frequency/frequency_unit.dart';
+import 'package:finances/core/domain/frequency/errors.dart';
+import 'package:finances/core/domain/frequency/frequency.dart';
+import 'package:finances/core/domain/frequency/frequency_unit.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../test_many.dart';
-import '../abstractions/test_error_codes.dart';
+import '../../../test_many.dart';
+import '../../abstractions/test_error_codes.dart';
 
 void main() {
   group("Invalid frequency values", () {

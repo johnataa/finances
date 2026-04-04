@@ -1,7 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../abstractions/result.dart';
+import '../../abstractions/result.dart';
 import 'currency.dart';
 import 'errors.dart';
 
@@ -56,10 +56,6 @@ sealed class Money with _$Money {
     _ensureValidOperation(other);
     return ._create(currency, (amount / other.amount).toDecimal(scaleOnInfinitePrecision: 15));
   }
-
-  /// Converts the [value] into another [Money] object with the new given [currency].
-  Money convertTo({required Currency currency, required Decimal withFxRate}) =>
-      ._create(currency, amount * withFxRate);
 
   @override
   String toString({int withPrecision = 2}) =>
