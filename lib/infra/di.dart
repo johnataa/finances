@@ -1,11 +1,14 @@
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart' as http;
 import 'package:objectbox/objectbox.dart';
 
+import '../core/interfaces/exchange_rate_provider.dart';
 import '../features/account/account.repository.dart';
 import '../features/category/category.repository.dart';
 import '../features/schedule/schedule.repository.dart';
 import '../features/settings/settings.repository.dart';
 import '../features/transaction/transaction.repository.dart';
+import 'adapters/exchange_rate_provider_delegate.dart';
 import 'data/objectbox/boxes/account_box.dart';
 import 'data/objectbox/boxes/account_box.mapper.dart';
 import 'data/objectbox/boxes/category_box.dart';
@@ -42,6 +45,15 @@ extension InfraDI on GetIt {
       () => TransactionBox(get<Store>(), get<TransactionBoxMapper>()),
     );
     registerLazySingleton<ISettingsRepository>(() => SettingsBox(get<Store>()));
+
+    // Third-party API Adapters
+    registerLazySingleton<http.Client>(() => http.Client());
+    registerLazySingleton<IExchangeRateProvider>(
+      () => ExchangeRateProviderDelegate(
+        settingsRepository: get<ISettingsRepository>(),
+        httpClient: get<http.Client>(),
+      ),
+    );
 
     // Ensures all async singletons (like Store) are ready before proceeding
     await allReady();
